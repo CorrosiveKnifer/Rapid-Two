@@ -9,10 +9,11 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     [Header("Values")]
-    public float fCameraSpeed = 0.3f;
+    public float fCameraMoveSpeed = 0.3f;
+    public float fCameraZoomSpeed = 0.3f;
 
     [Header("Attachements")]
-    public GameObject m_Camera;
+    public Camera m_Camera;
 
 
     // Start is called before the first frame update
@@ -27,6 +28,9 @@ public class CameraControl : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        transform.position += (transform.right * x + transform.forward * z) * fCameraSpeed;
+        transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed;
+
+        m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, 15);
+        
     }
 }
