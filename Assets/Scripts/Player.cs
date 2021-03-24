@@ -6,7 +6,7 @@ using UnityEngine;
 /// William de Beer
 /// </summary>
 
-public class CameraControl : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Values")]
     public float fCameraMoveSpeed = 0.3f;
