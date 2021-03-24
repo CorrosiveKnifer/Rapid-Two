@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
 {
     private float bulletdamage = 0;
     private float BulletHealth = 10;
+    public GameObject target;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,12 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (target != null)
+        {
+            Vector3 direction = target.transform.position - transform.position;
+
+            GetComponent<Rigidbody>().velocity = direction.normalized * 8.0f;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
