@@ -16,6 +16,7 @@ public class CameraControl : MonoBehaviour
     public Camera m_Camera;
     public GameObject m_Marker;
 
+    public GameObject m_TempTurret;
 
     // Start is called before the first frame update
     void Start()
@@ -52,9 +53,9 @@ public class CameraControl : MonoBehaviour
             m_Marker.transform.position = closestHit.point;
 
             TurretPlot plot = closestHit.collider.gameObject.GetComponentInChildren<TurretPlot>();
-            if (plot != null)
+            if (plot != null && Input.GetMouseButtonDown(0))
             {
-                plot.SpawnTurret();
+                plot.SpawnTurret(m_TempTurret);
             }
         }
     }
