@@ -8,7 +8,7 @@ public class MinionScript : MonoBehaviour
     public Renderer selectedCircle;
 
     private NavMeshAgent agent;
-
+    public float bloodCount = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +19,17 @@ public class MinionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Vector2 enemyPos = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
+            Vector2 myPos = new Vector2(transform.position.x, transform.position.z);
+            if(Vector2.Distance(enemyPos, myPos) < 3.0f && enemy.GetComponent<EnemyScript>().IsDead)
+            {
+                bloodCount += 5.0f;
+                Destroy(enemy);
+            }
+        }
+
         if(IsAgentFinished())
         {
             agent.isStopped = true;
@@ -38,6 +49,7 @@ public class MinionScript : MonoBehaviour
     {
         selectedCircle.enabled = selected;
     }
+
     private bool IsAgentFinished(float offset = 1.0f)
     {
         Vector2 destinationPos = new Vector2(agent.destination.x, agent.destination.z);

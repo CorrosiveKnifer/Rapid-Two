@@ -23,5 +23,11 @@ public class EndGoalScript : MonoBehaviour
             GameManager.instance.lives -= 1;
             Destroy(other.gameObject);
         }
+        if (other.tag == "Minion")
+        {
+            MinionScript minion = other.GetComponent<MinionScript>();
+            GameManager.instance.blood += minion.bloodCount;
+            minion.bloodCount = 0;
+        }
     }
 }

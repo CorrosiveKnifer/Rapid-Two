@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Michael Jordan
@@ -45,7 +46,8 @@ public class GameManager : MonoBehaviour
 
     public int waveSize;
     public int lives = 100;
-
+    public float blood;
+    public Text BloodDisplay;
     private void Start()
     {
         Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
@@ -56,7 +58,10 @@ public class GameManager : MonoBehaviour
     {
         GameTime += Time.deltaTime;
 
-        if(WorldSpawners.Length > 0)
+        if(BloodDisplay != null)
+            BloodDisplay.text = $"Blood: {Mathf.FloorToInt(blood)}";
+
+        if (WorldSpawners.Length > 0)
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
             {

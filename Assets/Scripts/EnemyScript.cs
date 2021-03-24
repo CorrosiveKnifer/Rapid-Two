@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 /// <summary>
 /// Michael Jordan
 /// </summary>
@@ -16,7 +15,7 @@ public class EnemyScript : MonoBehaviour
 
     public float health = 100.0f;
 
-    private bool IsDead = false;
+    public bool IsDead = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +30,7 @@ public class EnemyScript : MonoBehaviour
     {
         if(myPath != null && agent != null)
         {
-            if(IsDead)
+            if (IsDead)
             {
                 Destroy(agent);
                 Destroy(gameObject, 5.0f);
@@ -47,6 +46,18 @@ public class EnemyScript : MonoBehaviour
                     return;
 
                 agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
+            }
+            else
+            {
+                GameObject minion = GameObject.FindGameObjectWithTag("Minion");
+                if (Vector3.Distance(minion.transform.position, transform.position) < 5.0f)
+                {
+                    agent.SetDestination(minion.transform.position);
+                }
+                else
+                {
+                    agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
+                }
             }
         }
 
