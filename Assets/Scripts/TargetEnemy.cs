@@ -24,7 +24,7 @@ public class TargetEnemy : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         float tempRadius = towerRadius;
-
+        target = null;
         //checking each enemy
         foreach (GameObject enemy in enemies)
         {
@@ -47,6 +47,14 @@ public class TargetEnemy : MonoBehaviour
 
        
 
+    }
+    public bool IsInRange()
+    {
+        if (target != null)
+        {
+            return true;
+        }
+        return false;
     }
 
 

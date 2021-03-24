@@ -5,8 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Rachael work
 /// </summary>
-public class FireBall : MonoBehaviour
+public class TowerScript : MonoBehaviour
 {
+    
     public GameObject ammo;
     public float bulletSpeed = 1.0f;
     public float coolDown = 10.0f;
@@ -15,11 +16,20 @@ public class FireBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        towerCoolDown = coolDown;
+        
+        towerCoolDown = 0;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (GetComponent<TargetEnemy>().IsInRange())
+        {
+            TowerActivated();
+        }
+    }
+
+    public void TowerActivated()
     {
         //a countdown on when to attack
         if (towerCoolDown >= coolDown)
@@ -35,5 +45,8 @@ public class FireBall : MonoBehaviour
     {
         GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<BulletScript>().SetDamage(1.0f);
     }
+
+
 }
