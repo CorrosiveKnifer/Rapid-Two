@@ -636,6 +636,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
+      propertyPath: BloodDisplay
+      value: 
+      objectReference: {fileID: 961649310}
+    - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
+        type: 3}
       propertyPath: WorldSpawners.Array.size
       value: 2
       objectReference: {fileID: 0}
