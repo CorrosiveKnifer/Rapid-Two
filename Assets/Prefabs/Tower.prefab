@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 3186788406704293234, guid: 690dbbb0c2fcabc47ada4e59106f8f9e, type: 3}
-  bulletSpeed: 6
+  bulletDamage: 25
+  bulletSpeed: 10
   coolDown: 3.5
