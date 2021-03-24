@@ -14,7 +14,7 @@ public class TargetEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        target = null;
     }
 
     // Update is called once per frame
@@ -23,23 +23,31 @@ public class TargetEnemy : MonoBehaviour
         //finding all enemies constantly
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+        float tempRadius = towerRadius;
+
         //checking each enemy
         foreach (GameObject enemy in enemies)
         {
             //calculate distance
             float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
             //if its in tower range
-            if (enemydist < towerRadius)
+            if (enemydist < tempRadius)
             {
-                //tower targets that enemy
+                //marking this as the closet enemy
+                tempRadius = enemydist;
                 target = enemy.transform;
-                Debug.Log("withinRange");
-                transform.LookAt(target);
-                
+
             }
 
         }
+        if(target != null)
+        {
+            transform.LookAt(target);
+        }
+
+       
+
     }
 
- 
+
 }
