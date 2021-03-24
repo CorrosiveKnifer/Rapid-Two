@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6023947029055908500}
   - component: {fileID: 6023947029055908501}
   - component: {fileID: 6023947029055908586}
-  - component: {fileID: 6023947029055908587}
   - component: {fileID: 6023947029055908584}
+  - component: {fileID: 6023947029055908587}
   m_Layer: 0
   m_Name: End Goal
   m_TagString: Untagged
@@ -82,6 +82,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6023947029055908584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023947029055908585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16db99bd07d041646999a34d9b2cb005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &6023947029055908587
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -95,18 +107,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6023947029055908584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6023947029055908585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16db99bd07d041646999a34d9b2cb005, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6023947029166803212
 PrefabInstance:
   m_ObjectHideFlags: 0
