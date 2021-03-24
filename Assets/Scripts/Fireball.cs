@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Fireball : MonoBehaviour
 {
-    float m_fSpeed = 1.0f;
+    float m_fSpeed = 0.3f;
 
     // Start is called before the first frame update
     void Start()
