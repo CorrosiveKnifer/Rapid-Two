@@ -11,17 +11,24 @@ public class TargetEnemy : MonoBehaviour
 
     public float towerRadius = 3.0f;
     private Transform target;
+
+    public GameObject indicator;
     // Start is called before the first frame update
     void Start()
     {
         target = null;
+
+        //creating the indicator range
+        GameObject indicatorClone = (GameObject)Instantiate(indicator, transform.position, transform.rotation);
+        indicatorClone.transform.localScale *= (towerRadius*2);
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * towerRadius;
-        Debug.DrawRay(transform.position, forward, Color.green);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Debug.DrawRay(transform.position, forward* towerRadius, Color.green);
 
         //finding all enemies constantly
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
