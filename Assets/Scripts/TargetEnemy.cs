@@ -10,9 +10,12 @@ public class TargetEnemy : MonoBehaviour
     public GameObject[] enemies;
 
     public float towerRadius = 3.0f;
-    private Transform target;
+    public GameObject target;
 
     public GameObject indicator;
+
+    bool isFirst = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +35,35 @@ public class TargetEnemy : MonoBehaviour
 
         //finding all enemies constantly
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //target = null;
 
+        //if the enemy is close
+        //TargetCloset();
+
+        //if enemy is first
+        TargetFirst();
+
+        if (target != null)
+        {
+            transform.LookAt(target.transform);
+        }
+
+       
+
+    }
+    
+    public bool IsInRange()
+    {
+        if (target != null)
+        {
+            return true;
+        }
+        return false;
+    }
+    private void TargetCloset()
+    {
+        //target = null;
         float tempRadius = towerRadius;
-        target = null;
         //checking each enemy
         foreach (GameObject enemy in enemies)
         {
@@ -45,26 +74,71 @@ public class TargetEnemy : MonoBehaviour
             {
                 //marking this as the closet enemy
                 tempRadius = enemydist;
-                target = enemy.transform;
+                target = enemy;
 
             }
 
         }
-        if(target != null)
-        {
-            transform.LookAt(target);
-        }
-
-       
-
     }
-    public bool IsInRange()
+    private void TargetFirst()
     {
-        if (target != null)
+
+        target = null;
+        //checking each enemy
+        foreach (GameObject enemy in enemies)
+            {
+                //calculate distance
+                float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
+                //if its in tower range
+                if (enemydist < towerRadius)
+                {
+                    //marking this as the closet enemy
+                    
+                    target = enemy;
+                    break;
+
+                }
+
+            }
+        
+        
+    }
+    private void TargetTesting()
+    {
+        if (!isFirst)
         {
-            return true;
+            float tempRadius = towerRadius;
+            //checking each enemy
+            foreach (GameObject enemy in enemies)
+            {
+                //calculate distance
+                float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
+                //if its in tower range
+                if (enemydist < tempRadius)
+                {
+                    //marking this as the closet enemy
+                    tempRadius = enemydist;
+                    target = enemy;
+                    isFirst = true;
+
+                }
+
+            }
         }
-        return false;
+        else
+        {
+            //calculate distance
+            float enemydist = Vector3.Distance(target.transform.position, transform.position);
+            //if its in tower range
+            if (enemydist >= towerRadius)
+            {
+                //marking this as the first enemy
+
+                target = null;
+                isFirst = false;
+
+            }
+        }
     }
 
 
