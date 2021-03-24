@@ -16,6 +16,9 @@ public class EnemyScript : MonoBehaviour
     public float health = 100.0f;
 
     public bool IsDead = false;
+
+    public RuntimeAnimatorController controller;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,8 @@ public class EnemyScript : MonoBehaviour
             if (IsDead)
             {
                 Destroy(agent);
+                gameObject.AddComponent<Animator>();
+                GetComponent<Animator>().runtimeAnimatorController = controller;
                 Destroy(gameObject, 5.0f);
             }
 
@@ -58,8 +63,6 @@ public class EnemyScript : MonoBehaviour
                 agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
             }
         }
-
-        GetComponent<Animator>().SetBool("IsDead", IsDead);
     }
 
     private bool IsAgentFinished(float offset = 1.0f)
