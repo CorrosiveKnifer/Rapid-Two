@@ -23,6 +23,10 @@ public class MinionScript : MonoBehaviour
         {
             agent.isStopped = true;
         }
+        else
+        {
+            agent.isStopped = false;
+        }
     }
 
     public void SetTargetLocation(Vector3 positon)

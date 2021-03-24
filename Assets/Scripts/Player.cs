@@ -6,7 +6,7 @@ using UnityEngine;
 /// William de Beer
 /// </summary>
 
-public class CameraControl : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Values")]
     public float fCameraMoveSpeed = 0.3f;
@@ -64,14 +64,17 @@ public class CameraControl : MonoBehaviour
         if(minion != null && Input.GetMouseButtonDown(0))
         {
             m_selected = hit.collider.gameObject;
+            m_selected.GetComponent<MinionScript>().SetSelected(true);
             return;
         }
 
-        if (m_selected = null)
+        if (m_selected != null)
         {
             if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
             {
                 m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
+                Debug.Log(hit.point);
+                return;
             }
         }
 
@@ -84,6 +87,10 @@ public class CameraControl : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (m_selected != null)
+            {
+                m_selected.GetComponent<MinionScript>().SetSelected(false);
+            }
             m_selected = null;
             return;
         }
