@@ -47,17 +47,15 @@ public class EnemyScript : MonoBehaviour
 
                 agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
             }
+
+            GameObject minion = GameObject.FindGameObjectWithTag("Minion");
+            if (Vector3.Distance(minion.transform.position, transform.position) < 5.0f)
+            {
+                agent.SetDestination(minion.transform.position);
+            }
             else
             {
-                GameObject minion = GameObject.FindGameObjectWithTag("Minion");
-                if (Vector3.Distance(minion.transform.position, transform.position) < 5.0f)
-                {
-                    agent.SetDestination(minion.transform.position);
-                }
-                else
-                {
-                    agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
-                }
+                agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
             }
         }
 
