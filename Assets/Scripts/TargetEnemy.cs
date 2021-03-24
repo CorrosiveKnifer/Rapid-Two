@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Rachael work on editing
+/// Rachael work 
 /// </summary>
 public class TargetEnemy : MonoBehaviour
 {

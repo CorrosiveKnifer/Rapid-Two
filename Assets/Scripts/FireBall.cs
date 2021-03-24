@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rachael work
+/// </summary>
 public class FireBall : MonoBehaviour
 {
     public GameObject ammo;
@@ -18,13 +21,16 @@ public class FireBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //a countdown on when to attack
         if (towerCoolDown >= coolDown)
         {
+            //attack and reset counter
             towerCoolDown = 0;
             Fire();
         }
         towerCoolDown += 0.01f;
     }
+    //function to spawn bullet
     void Fire()
     {
         GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
