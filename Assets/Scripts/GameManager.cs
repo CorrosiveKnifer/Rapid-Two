@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     #region Singleton
 
-    public GameManager instance = null;
+    public static GameManager instance = null;
 
     private void Awake()
     {
