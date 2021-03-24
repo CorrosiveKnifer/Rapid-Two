@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public SpawnerScript[] WorldSpawners;
 
     public int waveSize;
+    public int lives = 100;
 
     private void Start()
     {
