@@ -9,6 +9,7 @@ public class TowerScript : MonoBehaviour
 {
     
     public GameObject ammo;
+    public float bulletDamage = 1.0f; 
     public float bulletSpeed = 1.0f;
     public float coolDown = 10.0f;
     private float towerCoolDown;
@@ -45,7 +46,7 @@ public class TowerScript : MonoBehaviour
     {
         GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
         bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-        bulletClone.GetComponent<BulletScript>().SetDamage(1.0f);
+        bulletClone.GetComponent<BulletScript>().SetDamage(bulletDamage);
     }
 
 

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  towerRadius: 3
+  towerRadius: 8
 --- !u!114 &3088434373008096961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 3186788406704293234, guid: 690dbbb0c2fcabc47ada4e59106f8f9e, type: 3}
-  bulletSpeed: 1
-  coolDown: 10
+  bulletSpeed: 6
+  coolDown: 3.5
