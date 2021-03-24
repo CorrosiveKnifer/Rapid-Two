@@ -28,16 +28,19 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentIndex == -1)
+        if(myPath != null)
         {
-            agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
-        }
-        else if(IsAgentFinished(2.0f))
-        {
-            if (myPath.waypointCount - 1 == currentIndex)
-                return;
+            if (currentIndex == -1)
+            {
+                agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
+            }
+            else if (IsAgentFinished(2.0f))
+            {
+                if (myPath.waypointCount - 1 == currentIndex)
+                    return;
 
-            agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
+                agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
+            }
         }
     }
 
