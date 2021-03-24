@@ -39,9 +39,31 @@ public class GameManager : MonoBehaviour
 
     public double GameTime = 0.0;
 
+    public GameObject BasicEnemy;
+
+    public SpawnerScript[] WorldSpawners;
+
+    public int waveSize;
+
+    private void Start()
+    {
+        Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
+    }
+
     // Update is called once per frame
     void Update()
     {
         GameTime += Time.deltaTime;
+
+        if(WorldSpawners.Length > 0)
+        {
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
+            {
+                foreach (var spawner in WorldSpawners)
+                {
+                    spawner.SpawnGameObject(BasicEnemy);
+                }
+            }
+        }
     }
 }
