@@ -14,7 +14,7 @@ public class EnemyScript : MonoBehaviour
     private NavMeshAgent agent;
     public int currentIndex = -1;
 
-    public float health;
+    public float health = 100.0f;
 
     // Start is called before the first frame update
     void Start()
