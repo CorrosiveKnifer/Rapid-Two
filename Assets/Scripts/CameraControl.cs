@@ -11,6 +11,7 @@ public class CameraControl : MonoBehaviour
     [Header("Values")]
     public float fCameraMoveSpeed = 0.3f;
     public float fCameraZoomSpeed = 0.3f;
+    public float fCameraMaxZoom = 15.0f;
 
     [Header("Attachements")]
     public Camera m_Camera;
@@ -31,9 +32,9 @@ public class CameraControl : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / 15;
+        transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
 
-        m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, 15);
+        m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, fCameraMaxZoom);
 
         RaycastHit[] hits;
 
@@ -66,19 +67,24 @@ public class CameraControl : MonoBehaviour
             return;
         }
 
-        if(Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
+        if (m_selected = null)
         {
-            m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            m_selected = null;
+            if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
+            {
+                m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
+            }
         }
 
         TurretPlot plot = hit.collider.gameObject.GetComponentInChildren<TurretPlot>();
         if (plot != null && Input.GetMouseButtonDown(0))
         {
             plot.SpawnTurret(m_TempTurret);
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_selected = null;
             return;
         }
     }
