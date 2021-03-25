@@ -90,7 +90,7 @@ public class TargetEnemy : MonoBehaviour
                 //calculate distance
                 float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
                 //if its in tower range
-                if (enemydist < towerRadius && !enemy.GetComponent<EnemyScript>().IsDead)
+                if (enemydist < towerRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
                 {
                     //marking this as the closet enemy
                     

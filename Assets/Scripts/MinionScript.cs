@@ -23,7 +23,7 @@ public class MinionScript : MonoBehaviour
         {
             Vector2 enemyPos = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
             Vector2 myPos = new Vector2(transform.position.x, transform.position.z);
-            if(Vector2.Distance(enemyPos, myPos) < 3.0f && enemy.GetComponent<EnemyScript>().IsDead)
+            if(Vector2.Distance(enemyPos, myPos) < 3.0f && enemy.GetComponentInParent<EnemyScript>().IsDead)
             {
                 bloodCount += 5.0f;
                 Destroy(enemy);

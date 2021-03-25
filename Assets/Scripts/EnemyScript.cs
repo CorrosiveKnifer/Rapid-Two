@@ -20,12 +20,14 @@ public class EnemyScript : MonoBehaviour
 
     public bool IsDead = false;
 
-    public RuntimeAnimatorController controller;
+    private Animator controller;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        controller = GetComponentInChildren<Animator>();
+
         if (myPath == null)
             Debug.LogError("Enemy Does not have a path.");
 
@@ -42,7 +44,7 @@ public class EnemyScript : MonoBehaviour
                 Destroy(agent);
                 gameObject.AddComponent<Animator>();
                 gameObject.layer = 13;
-                GetComponent<Animator>().runtimeAnimatorController = controller;
+                controller.SetBool("IsDead", IsDead);
                 Destroy(gameObject, 5.0f);
             }
             StateBasedUpdate();
