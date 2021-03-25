@@ -40,7 +40,10 @@ public class GameManager : MonoBehaviour
     public GameObject Tower1;
     public GameObject Tower2;
     public GameObject Tower3;
+    public GameObject Tower4;
     public GameObject Minion;
+
+    public Slider ManaBar;
 
     public GameObject SelectFrame;
 
@@ -83,11 +86,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
     }
 
     public void MoveFrame(RectTransform _transform)
     {
         SelectFrame.GetComponent<RectTransform>().position = _transform.position;
+    }
+
+    public void SetMana(float _mana)
+    {
+        ManaBar.value = _mana;
     }
 }

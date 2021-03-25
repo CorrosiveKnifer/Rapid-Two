@@ -10,14 +10,19 @@ using UnityEngine.UI;
 enum Spell
 {
     Fireball,
+
+    FireTower,
     None
 }
+
 
 public class Player : MonoBehaviour
 {
     Spell m_SelectedSpell;
     public Color m_ColourDim;
     public LayerMask m_SelectableMask;
+
+   
 
     [Header("Cursors")]
     public Texture2D m_CursorOn;
@@ -29,7 +34,16 @@ public class Player : MonoBehaviour
     float m_fFireballCoolDown = 2.0f;
     float m_fFireballTimeLeft = 0.0f;
 
+    [Header("Mana")]
+
+    public float fManaMaximum = 100.0f;
+    public float fManaPool = 0.0f;
+    public float fManaRegen = 5.0f;
+
+    public float fFireballCost = 30.0f;
+
     [Header("Values")]
+
     public float fCameraMoveSpeed = 0.3f;
     public float fCameraZoomSpeed = 0.3f;
     public float fCameraMaxZoom = 15.0f;
@@ -51,6 +65,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Mana update
+        fManaPool += Time.deltaTime * fManaRegen;
+        if (fManaPool > fManaMaximum)
+        {
+            fManaPool = fManaMaximum;
+        }
+
+        GameManager.instance.SetMana(fManaPool);
+
         // Fireball cooldown
         if (m_fFireballTimeLeft > 0.0f)
         {
@@ -76,7 +99,7 @@ public class Player : MonoBehaviour
         // Camera zoom
         m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, fCameraMaxZoom);
 
-        SpellSelect();
+        AbilitySelect();
 
         RaycastHit[] hits;
 
@@ -109,6 +132,13 @@ public class Player : MonoBehaviour
             HandleRayCastHit(closestHit);
         }
 
+
+
+    }
+
+    public float GetMana()
+    {
+        return fManaPool;
     }
 
     private void HandleRayCastHit(RaycastHit hit)
@@ -139,25 +169,6 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.F)) // Select minion with keypress
-            {
-                if (m_selected != null)
-                {
-                    if (m_selected.tag == "Minion")
-                    {
-                        DeselectObject();
-                        m_selected = null;
-                        GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                    }
-                }
-                else
-                {
-                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-                    GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
-                    m_selected = m_Minion;
-                    m_selected.GetComponent<MinionScript>().SetSelected(true);
-                }
-            }
 
             // Select tower
             TowerScript tower = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
@@ -225,7 +236,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SpellSelect()
+    private void AbilitySelect()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -239,6 +250,43 @@ public class Player : MonoBehaviour
             }
             DeselectObject();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if (m_SelectedSpell != Spell.FireTower)
+            {
+                m_SelectedSpell = Spell.FireTower;
+            }
+            else
+            {
+                m_SelectedSpell = Spell.None;
+            }
+            DeselectObject();
+        }
+
+
+
+        if (Input.GetKeyDown(KeyCode.F)) // Select minion with keypress
+        {
+            if (m_selected != null)
+            {
+                if (m_selected.tag == "Minion")
+                {
+                    DeselectObject();
+                    m_selected = null;
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                }
+            }
+            else
+            {
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
+                m_selected = m_Minion;
+                m_selected.GetComponent<MinionScript>().SetSelected(true);
+            }
+        }
+
+
+
     }
 
     private void CursorSelect()
@@ -248,6 +296,10 @@ public class Player : MonoBehaviour
             case Spell.Fireball:
                 GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
                 GameManager.instance.MoveFrame(GameManager.instance.Spell1.GetComponent<RectTransform>());
+                break;
+            case Spell.FireTower:
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Tower1.GetComponent<RectTransform>());
                 break;
         }
     }
@@ -271,10 +323,11 @@ public class Player : MonoBehaviour
         switch (m_SelectedSpell)
         {
             case Spell.Fireball:
-                if (m_fFireballTimeLeft == 0.0f)
+                if (m_fFireballTimeLeft == 0.0f && fFireballCost <= fManaPool)
                 {
                     Instantiate(m_Fireball, _targetPos + Vector3.up * 20.0f, Quaternion.identity);
                     m_fFireballTimeLeft = m_fFireballCoolDown;
+                    fManaPool -= fFireballCost;
                 }
                 break;
         }
