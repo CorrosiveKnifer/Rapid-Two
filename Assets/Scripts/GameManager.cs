@@ -33,6 +33,17 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [Header("Hotbar")]
+    public GameObject Spell1;
+    public GameObject Spell2;
+    public GameObject Spell3;
+    public GameObject Tower1;
+    public GameObject Tower2;
+    public GameObject Tower3;
+    public GameObject Minion;
+
+    public GameObject SelectFrame;
+
     //Volume Settings
     public static float MasterVolume { get; set; } = 1.0f;
     public static float SoundEffectVolume { get; set; } = 1.0f;
@@ -71,5 +82,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+
+    }
+
+    public void MoveFrame(RectTransform _transform)
+    {
+        SelectFrame.GetComponent<RectTransform>().position = _transform.position;
     }
 }

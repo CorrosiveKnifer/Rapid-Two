@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// William de Beer, Michael Jordan
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     public Camera m_Camera;
     public GameObject m_Marker;
 
+    public GameObject m_Minion;
     public GameObject m_TempTurret;
     private GameObject m_selected;
 
@@ -68,19 +70,22 @@ public class Player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
+        // Move player
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
 
+        // Camera zoom
         m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, fCameraMaxZoom);
 
         SpellSelect();
 
         RaycastHit[] hits;
 
+        // Raycast
         Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(ray.origin, ray.direction * 50.0f, Color.red, 0.5f);
         hits = Physics.RaycastAll(ray.origin, ray.direction, 50.0f);
 
-        if (hits.Length != 0)
+        if (hits.Length != 0) // Check if raycast detects any objects
         {
             RaycastHit closestHit = hits[0];
 
@@ -92,6 +97,7 @@ public class Player : MonoBehaviour
 
             if (m_SelectedSpell != Spell.None)
             {
+                // Activate spell blast marker
                 m_Marker.SetActive(true);
                 m_Marker.transform.position = closestHit.point;
             }
@@ -107,7 +113,7 @@ public class Player : MonoBehaviour
 
     private void HandleRayCastHit(RaycastHit hit)
     { 
-        if (hit.collider.gameObject.layer == 9)
+        if (hit.collider.gameObject.layer == 9) // Check if object is selectable
         {
             // Set cursor to hovering
             Cursor.SetCursor(m_CursorOn, new Vector2(16, 16), CursorMode.Auto);
@@ -118,16 +124,39 @@ public class Player : MonoBehaviour
             Cursor.SetCursor(m_CursorOff, new Vector2(16, 16), CursorMode.Auto);
         }
 
-        if (m_SelectedSpell == Spell.None)
+        if (m_SelectedSpell == Spell.None) // Check if spell is selected
         {
             // Select minion
             MinionScript minion = hit.collider.gameObject.GetComponentInChildren<MinionScript>();
-            if (minion != null && Input.GetMouseButtonDown(0))
+            if ((minion != null && Input.GetMouseButtonDown(0))) // Select minion with click
             {
                 DeselectObject();
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
                 m_selected = hit.collider.gameObject;
+                m_Minion = m_selected;
                 m_selected.GetComponent<MinionScript>().SetSelected(true);
                 return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F)) // Select minion with keypress
+            {
+                if (m_selected != null)
+                {
+                    if (m_selected.tag == "Minion")
+                    {
+                        DeselectObject();
+                        m_selected = null;
+                        GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                    }
+                }
+                else
+                {
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                    GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
+                    m_selected = m_Minion;
+                    m_selected.GetComponent<MinionScript>().SetSelected(true);
+                }
             }
 
             // Select tower
@@ -144,7 +173,7 @@ public class Player : MonoBehaviour
 
             if (m_selected != null)
             {
-                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
+                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion") // Create target location for minion
                 {
                     m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
@@ -153,7 +182,7 @@ public class Player : MonoBehaviour
             }
 
             TurretPlot plot = hit.collider.gameObject.GetComponentInChildren<TurretPlot>();
-            if (plot != null && Input.GetMouseButtonDown(0))
+            if (plot != null && Input.GetMouseButtonDown(0)) // Select turret plot
             {
                 DeselectObject();
                 plot.SpawnTurret(m_TempTurret);
@@ -164,6 +193,22 @@ public class Player : MonoBehaviour
                 }
                 return;
             }
+
+            if (m_selected != null)
+            {
+                if (m_selected.tag == "Minion") // Check if minion is currently selected and move frame to minion on hotbar
+                {
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                }
+                else
+                {
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                }
+            }
+            else
+            {
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            }
         }
         else
         {
@@ -171,7 +216,7 @@ public class Player : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Cast spell
         {
             SpellCast(hit.point);
 
@@ -201,7 +246,8 @@ public class Player : MonoBehaviour
         switch (m_SelectedSpell)
         {
             case Spell.Fireball:
-
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Spell1.GetComponent<RectTransform>());
                 break;
         }
     }
