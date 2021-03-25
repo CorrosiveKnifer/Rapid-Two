@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 181216908}
   - component: {fileID: 181216907}
   - component: {fileID: 181216906}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 1641198798}
   - component: {fileID: 1641198797}
   - component: {fileID: 1641198796}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1157,8 +1157,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3378470177752997509, guid: e953cdde584f9514f9f691beb9b5b245,
         type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378470177752997509, guid: e953cdde584f9514f9f691beb9b5b245,
+        type: 3}
       propertyPath: m_TagString
       value: Minion
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050827081141088710, guid: e953cdde584f9514f9f691beb9b5b245,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367911472825757884, guid: e953cdde584f9514f9f691beb9b5b245,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5659477597830181071, guid: e953cdde584f9514f9f691beb9b5b245, type: 3}
@@ -1170,27 +1185,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6996531975368388649, guid: d9f453708ca53cf40bac499703af9241,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6996531975368388649, guid: d9f453708ca53cf40bac499703af9241,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6996531975368388649, guid: d9f453708ca53cf40bac499703af9241,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6996531975368388654, guid: d9f453708ca53cf40bac499703af9241,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 355995ff44c5e33438518d73bc7e6557,
-        type: 3}
     - target: {fileID: 6996531975935791752, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
       propertyPath: m_RootOrder
@@ -1246,12 +1240,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
-        type: 3}
-      propertyPath: m_Fireball
-      value: 
-      objectReference: {fileID: 6602204647791965198, guid: 465290f0ab0e09749b41e93dd5e5d6b2,
-        type: 3}
     - target: {fileID: 6996531975935791755, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
       propertyPath: m_Name
@@ -1270,6 +1258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TurretPlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494290597945271843, guid: 5de82a75647db6447a109a73c3e87132,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7494290597945271844, guid: 5de82a75647db6447a109a73c3e87132,
         type: 3}
@@ -1325,6 +1318,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7494290598730514517, guid: 5de82a75647db6447a109a73c3e87132,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5de82a75647db6447a109a73c3e87132, type: 3}

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 6996531975368388648}
   m_LocalRotation: {x: -0.7071068, y: 0.000000029802319, z: 0.000000029802319, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 6996531975935791752}
   m_RootOrder: 1
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 763d6a900ac884e489582992f0962b7b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 355995ff44c5e33438518d73bc7e6557, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -242,6 +242,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ColourDim: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+  m_SelectableMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_CursorOn: {fileID: 2800000, guid: 40607c6f8591aaa419eb0689952c81ae, type: 3}
+  m_CursorOff: {fileID: 2800000, guid: 8812d0d4eaa705f47bc45d019d520bea, type: 3}
   m_Fireball: {fileID: 6602204647791965198, guid: 465290f0ab0e09749b41e93dd5e5d6b2,
     type: 3}
   fCameraMoveSpeed: 0.3
