@@ -15,8 +15,13 @@ enum Spell
 public class Player : MonoBehaviour
 {
     Spell m_SelectedSpell;
+    public Color m_ColourDim;
+
     [Header("Spells")]
     public GameObject m_Fireball;
+
+    float m_fFireballCoolDown = 2.0f;
+    float m_fFireballTimeLeft = 0.0f;
 
     [Header("Values")]
     public float fCameraMoveSpeed = 0.3f;
@@ -33,12 +38,28 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_SelectedSpell = Spell.None;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Fireball cooldown
+        if (m_fFireballTimeLeft > 0.0f)
+        {
+            m_fFireballTimeLeft -= Time.deltaTime;
+            if (m_fFireballTimeLeft < 0.0f)
+            {
+                m_fFireballTimeLeft = 0.0f;
+            }
+            m_Marker.GetComponent<SpriteRenderer>().color = m_ColourDim;
+        }
+        else
+        {
+            m_Marker.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -82,32 +103,33 @@ public class Player : MonoBehaviour
     private void HandleRayCastHit(RaycastHit hit)
     {
 
-
-        MinionScript minion = hit.collider.gameObject.GetComponentInChildren<MinionScript>();
-        if(minion != null && Input.GetMouseButtonDown(0))
+        if (m_SelectedSpell == Spell.None)
         {
-            m_selected = hit.collider.gameObject;
-            m_selected.GetComponent<MinionScript>().SetSelected(true);
-            return;
-        }
-
-        if (m_selected != null)
-        {
-            if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
+            MinionScript minion = hit.collider.gameObject.GetComponentInChildren<MinionScript>();
+            if (minion != null && Input.GetMouseButtonDown(0))
             {
-                m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
-                Debug.Log(hit.point);
+                m_selected = hit.collider.gameObject;
+                m_selected.GetComponent<MinionScript>().SetSelected(true);
+                return;
+            }
+
+            if (m_selected != null)
+            {
+                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion")
+                {
+                    m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
+                    Debug.Log(hit.point);
+                    return;
+                }
+            }
+
+            TurretPlot plot = hit.collider.gameObject.GetComponentInChildren<TurretPlot>();
+            if (plot != null && Input.GetMouseButtonDown(0))
+            {
+                plot.SpawnTurret(m_TempTurret);
                 return;
             }
         }
-
-        TurretPlot plot = hit.collider.gameObject.GetComponentInChildren<TurretPlot>();
-        if (plot != null && Input.GetMouseButtonDown(0))
-        {
-            plot.SpawnTurret(m_TempTurret);
-            return;
-        }
-
 
 
         if (Input.GetMouseButtonDown(0))
@@ -135,6 +157,7 @@ public class Player : MonoBehaviour
             {
                 m_SelectedSpell = Spell.None;
             }
+            m_selected = null;
         }
     }
 
@@ -143,9 +166,12 @@ public class Player : MonoBehaviour
         switch (m_SelectedSpell)
         {
             case Spell.Fireball:
-                Instantiate(m_Fireball, _targetPos + Vector3.up * 20.0f, Quaternion.identity);
+                if (m_fFireballTimeLeft == 0.0f)
+                {
+                    Instantiate(m_Fireball, _targetPos + Vector3.up * 20.0f, Quaternion.identity);
+                    m_fFireballTimeLeft = m_fFireballCoolDown;
+                }
                 break;
-
         }
     }
 }

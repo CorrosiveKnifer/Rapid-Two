@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Fireball : MonoBehaviour
 {
-    float m_fSpeed = 1.0f;
+    float m_fSpeed = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class Fireball : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, enemies[i].transform.position) < 5.0f)
             {
-                enemies[i].GetComponent<EnemyScript>().DealDamageToEnemy(80);
+                enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(80);
             }
         }
 

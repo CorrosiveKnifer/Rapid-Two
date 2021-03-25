@@ -31,7 +31,7 @@ public class BulletScript : MonoBehaviour
         //checking when the bullet hits a enemy
         if(other.tag == "Enemy")
         {
-            BulletHealth = other.GetComponent<EnemyScript>().DealDamageToEnemy(bulletdamage);
+            BulletHealth = other.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletdamage);
             //if it does hit
             if(BulletHealth == 0)
             {
