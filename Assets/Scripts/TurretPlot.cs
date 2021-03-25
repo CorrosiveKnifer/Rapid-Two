@@ -9,7 +9,7 @@ public class TurretPlot : MonoBehaviour
 {
     bool m_bHasTurret = false;
     public Transform m_SpawnLoc;
-    GameObject m_AttachedTurret;
+    public GameObject m_AttachedTurret;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +32,10 @@ public class TurretPlot : MonoBehaviour
             m_bHasTurret = true;
             Debug.Log("Spawned Turret");
         }
-        else
-        {
-            Destroy(m_AttachedTurret);
-            m_bHasTurret = false;
-        }
+        //else
+        //{
+        //    Destroy(m_AttachedTurret);
+        //    m_bHasTurret = false;
+        //}
     }
 }
