@@ -265,4 +265,9 @@ MonoBehaviour:
   currentState: 0
   currentIndex: -1
   health: 100
+  HuntRange: 5
+  AttackRange: 1.5
+  BloodAmount: 5
   IsDead: 0
+  BloodPrefab: {fileID: 4479456426645096089, guid: 34a8eacc338b5c9498a17cff2a2c2e94,
+    type: 3}

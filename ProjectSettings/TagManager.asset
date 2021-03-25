@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Tower
   - TowerPlot
+  - Blood
   layers:
   - Default
   - TransparentFX
