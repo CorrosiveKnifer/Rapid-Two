@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 828588048543436430}
   - component: {fileID: 3321487865062360174}
   - component: {fileID: 1785397217565933072}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Minion
   m_TagString: Minion
   m_Icon: {fileID: 0}
@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCircle: {fileID: 4252776904035944668}
+  bloodCount: 0
 --- !u!1 &4050827081141088710
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +144,7 @@ GameObject:
   - component: {fileID: 3795339116495184075}
   - component: {fileID: 7173451733451082158}
   - component: {fileID: 4252776904035944668}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Select Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +223,7 @@ GameObject:
   - component: {fileID: 972231394167262103}
   - component: {fileID: 1954234112173765213}
   - component: {fileID: 5577733932213511036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

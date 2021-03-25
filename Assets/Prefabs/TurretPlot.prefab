@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7494290597945271841}
   - component: {fileID: 7494290597945271840}
   - component: {fileID: 71974502238037634}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TurretPlot
-  m_TagString: Untagged
+  m_TagString: TowerPlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpawnLoc: {fileID: 7494290598730514506}
+  m_AttachedTurret: {fileID: 0}
 --- !u!208 &71974502238037634
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7494290598730514506}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnLoc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
