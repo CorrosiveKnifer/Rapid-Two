@@ -30,22 +30,25 @@ public class TargetEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(transform.position, forward* towerRadius, Color.green);
+        
 
         //finding all enemies constantly
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         //target = null;
 
         //if the enemy is close
-        //TargetCloset();
+        TargetCloset();
 
         //if enemy is first
-        TargetFirst();
+        //TargetFirst();
 
+        //MAKING the tower turn towards the player
         if (target != null)
         {
-            transform.LookAt(target.transform);
+            Vector3 direction = target.transform.position - transform.position;
+            Vector3 forward = transform.TransformDirection(direction);
+            Debug.DrawRay(transform.position, forward, Color.green);
+            //transform.LookAt(target.transform);
         }
 
        
@@ -62,7 +65,7 @@ public class TargetEnemy : MonoBehaviour
     }
     private void TargetCloset()
     {
-        //target = null;
+        target = null;
         float tempRadius = towerRadius;
         //checking each enemy
         foreach (GameObject enemy in enemies)
@@ -70,11 +73,44 @@ public class TargetEnemy : MonoBehaviour
             //calculate distance
             float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
             //if its in tower range
-            if (enemydist < tempRadius && !enemy.GetComponent<EnemyScript>().IsDead)
+            if (enemydist < tempRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
             {
                 //marking this as the closet enemy
                 tempRadius = enemydist;
                 target = enemy;
+
+            }
+
+        }
+    }
+    private void TargetLast()
+    {
+        //target = null;
+        //float tempRadius = towerRadius;
+        float farestEnemy = 0.0f;
+        //checking each enemy
+        foreach (GameObject enemy in enemies)
+        {
+            //calculate distance
+            float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
+            //if its in tower range
+            if (enemydist < towerRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
+            {
+                //marking this as the furtherest enemy
+                //marking the first enemy as the farest so far
+                if(farestEnemy ==0)
+                {
+                    farestEnemy = enemydist;
+                }
+                //checking if there is another
+                else
+                {
+                    if(farestEnemy <= enemydist)
+                    {
+                        target = enemy;
+                    }
+                }
+                
 
             }
 
@@ -103,7 +139,10 @@ public class TargetEnemy : MonoBehaviour
         
         
     }
-    private void TargetTesting()
+
+    //i was attempting test a function where it picks the closest one and 
+    //targets them until they leave, then picks the next closest thing
+    private void TargetSpecial()
     {
         if (!isFirst)
         {
@@ -113,8 +152,8 @@ public class TargetEnemy : MonoBehaviour
             {
                 //calculate distance
                 float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
-                //if its in tower range
-                if (enemydist < tempRadius)
+                //if its in tower range and the enemy isnt dead
+                if (enemydist < tempRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
                 {
                     //marking this as the closet enemy
                     tempRadius = enemydist;
@@ -129,12 +168,12 @@ public class TargetEnemy : MonoBehaviour
         {
             //calculate distance
             float enemydist = Vector3.Distance(target.transform.position, transform.position);
-            //if its in tower range
+            //if its iout of tower range
             if (enemydist >= towerRadius)
             {
                 //marking this as the first enemy
 
-                target = null;
+                //target = null;
                 isFirst = false;
 
             }
