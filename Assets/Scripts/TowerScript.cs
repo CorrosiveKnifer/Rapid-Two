@@ -18,7 +18,7 @@ public class TowerScript : MonoBehaviour
     void Start()
     {
         
-        towerCoolDown = 0;
+        towerCoolDown = coolDown;
     }
 
     // Update is called once per frame

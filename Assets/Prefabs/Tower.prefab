@@ -127,4 +127,4 @@ MonoBehaviour:
   ammo: {fileID: 6001952910460258932, guid: b007d6bf2732c114e9b6a42d0e685bee, type: 3}
   bulletDamage: 25
   bulletSpeed: 20
-  coolDown: 3.5
+  coolDown: 2
