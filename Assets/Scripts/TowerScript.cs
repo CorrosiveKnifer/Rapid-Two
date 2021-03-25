@@ -85,7 +85,7 @@ public class TowerScript : MonoBehaviour
             Vector3 direction = target.transform.position - transform.position;
             Vector3 forward = transform.TransformDirection(direction);
             Debug.DrawRay(transform.position, forward, Color.green);
-            //transform.LookAt(target.transform);
+            transform.LookAt(target.transform);
         }
     }
 
