@@ -21,18 +21,26 @@ public class TowerScript : MonoBehaviour
     public GameObject indicator;
     bool isFirst = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public GameObject m_Indicator;
+
+    // Called before start
+    private void Awake()
     {
-        
         towerCoolDown = coolDown;
 
         //part of targetiing script
         target = null;
 
         //creating the indicator range
-        GameObject indicatorClone = (GameObject)Instantiate(indicator, transform.position, transform.rotation);
-        indicatorClone.transform.localScale *= (towerRadius * 2);
+        m_Indicator = (GameObject)Instantiate(indicator, transform.position, transform.rotation);
+        m_Indicator.transform.localScale *= (towerRadius * 2);
+        m_Indicator.GetComponent<Renderer>().enabled = false;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -43,6 +51,11 @@ public class TowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+    }
+
+    public void SetSelected(bool selected)
+    {
+        m_Indicator.GetComponent<Renderer>().enabled = selected;
     }
 
     public void TowerActivated()
