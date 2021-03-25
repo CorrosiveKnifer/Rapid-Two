@@ -73,7 +73,7 @@ public class TargetEnemy : MonoBehaviour
             //calculate distance
             float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
             //if its in tower range
-            if (enemydist < tempRadius && !enemy.GetComponent<EnemyScript>().IsDead)
+            if (enemydist < tempRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
             {
                 //marking this as the closet enemy
                 tempRadius = enemydist;
@@ -94,7 +94,7 @@ public class TargetEnemy : MonoBehaviour
             //calculate distance
             float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
             //if its in tower range
-            if (enemydist < towerRadius && !enemy.GetComponent<EnemyScript>().IsDead)
+            if (enemydist < towerRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
             {
                 //marking this as the furtherest enemy
                 //marking the first enemy as the farest so far
@@ -153,7 +153,7 @@ public class TargetEnemy : MonoBehaviour
                 //calculate distance
                 float enemydist = Vector3.Distance(enemy.transform.position, transform.position);
                 //if its in tower range and the enemy isnt dead
-                if (enemydist < tempRadius && !enemy.GetComponent<EnemyScript>().IsDead)
+                if (enemydist < tempRadius && !enemy.GetComponentInParent<EnemyScript>().IsDead)
                 {
                     //marking this as the closet enemy
                     tempRadius = enemydist;
