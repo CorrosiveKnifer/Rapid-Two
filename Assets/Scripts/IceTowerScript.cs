@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rachael work
+/// </summary>
 public class IceTowerScript : MonoBehaviour
 {
     //main tower variables

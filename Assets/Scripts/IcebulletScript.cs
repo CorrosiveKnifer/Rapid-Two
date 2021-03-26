@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Rachael work
+/// </summary>
 public class IcebulletScript : MonoBehaviour
 {
     private float bulletdamage = 0;
