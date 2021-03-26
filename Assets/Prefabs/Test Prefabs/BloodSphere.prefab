@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7536217152806340206}
   - component: {fileID: 3816177465019425917}
   - component: {fileID: 2465514294352768814}
-  - component: {fileID: 7873098965143075662}
   m_Layer: 0
   m_Name: BloodSphere
   m_TagString: Untagged
@@ -80,16 +79,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7873098965143075662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8765508156341493017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d451218edd4a82440ab3651403cff148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
