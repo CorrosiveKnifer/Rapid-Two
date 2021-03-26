@@ -21,6 +21,7 @@ public class EnemyScript : MonoBehaviour
     public float HuntRange = 5.0f;
     public float AttackRange = 1.5f;
     public float BloodAmount = 5.0f;
+    public float MovementSpeedMod = 1.0f;
 
     public bool IsDead = false;
     public GameObject BloodPrefab;
@@ -177,13 +178,13 @@ public class EnemyScript : MonoBehaviour
             case AIState.IDLE:
                 break;
             case AIState.MOVING:
-                agent.speed = 3.5f;
+                agent.speed = 3.5f * MovementSpeedMod;
                 break;
             case AIState.HUNTING:
-                agent.speed = 4.0f;
+                agent.speed = 4.0f * MovementSpeedMod;
                 break;
             case AIState.ATTACKING:
-                agent.speed = 1.5f;
+                agent.speed = 1.5f * MovementSpeedMod;
                 break;
             default:
                 break;
