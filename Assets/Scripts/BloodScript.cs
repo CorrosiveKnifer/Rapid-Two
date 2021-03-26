@@ -11,80 +11,87 @@ public class BloodScript : MonoBehaviour
     public GameObject bloodSpherePrefab;
     public bool IsConsumed = false;
 
-    private GameObject myConsumer;
+    private float maxBlood;
 
-    private float delay;
-    private float targetSize;
+    private bool IsDestroyed;
     private List<GameObject> myBloodProj;
     // Start is called before the first frame update
     void Start()
     {
         myBloodProj = new List<GameObject>();
+        maxBlood = bloodCount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (delay > 0)
-            delay -= Time.deltaTime;
+        //Set the scale of the blood to be relective of how much blood there is.
+        float targetSize = 1.0f * (bloodCount / maxBlood);
+        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.0f, 1.0f, 1.0f) * targetSize, 0.15f);
 
-        if(IsConsumed && delay <= 0)
+        if(!IsDestroyed && bloodCount <= 0)
         {
-            if(bloodCount > 0)
-            {
-                delay = 0.5f;
-                GameObject blood = GameObject.Instantiate(bloodSpherePrefab, transform);
-                StartCoroutine(SendBloodProjTo(myConsumer, 1.0f));
-                targetSize = 1.0f * bloodCount / 5.0f;
-            }
-
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.0f, 1.0f, 1.0f) * targetSize, 0.15f);
-            if (transform.localScale.y <= 0.05)
-            {
-                Destroy(gameObject, 0.5f);
-            }
+            IsDestroyed = true;
+            Destroy(gameObject, 1.5f);
         }
     }
+
     private void OnDestroy()
     {
-        if (myConsumer != null)
-            myConsumer.GetComponent<MinionScript>().bloodCount += myBloodProj.ToArray().Length;
-
+        //For each blood projectile, 
         foreach (var blood in myBloodProj)
         {
+            //clense the game world of them
             Destroy(blood);
         }
     }
-    public void Consume(GameObject consumer)
+
+    //External access to the coroutine to start harvesting a single blob of blood.
+    public void Consume(HarvesterScript harvester, float HarvestAmount)
     {
-        IsConsumed = true;
-        myConsumer = consumer;
+        
+        StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
     }
 
-    private IEnumerator SendBloodProjTo(GameObject Consumer, float bloodTransferAmount)
+    private IEnumerator SendBloodProjToHarvester(HarvesterScript consumer, float bloodTransferAmount)
     {
+        //Create the blob of blood
         GameObject blood = GameObject.Instantiate(bloodSpherePrefab, transform.position, Quaternion.identity);
-        myBloodProj.Add(blood);
-        bloodCount -= bloodTransferAmount;
+        blood.transform.localScale = blood.transform.localScale * bloodTransferAmount;
 
-        Vector3 inital = blood.transform.position;
-
+        //Set up the inital variables
         float t = 0.0f;
         float dt = 0.05f;
         float dt2 = 0.01f;
+        Vector3 inital = blood.transform.position;
+        float bloodContents = Mathf.Min(bloodTransferAmount, bloodCount);
 
-        while(blood.transform.position != Consumer.transform.position)
+        //Reduce this blood pool of the amount the blob is carrying.
+        bloodCount = Mathf.Clamp(bloodCount - bloodTransferAmount, 0, maxBlood);
+
+        //Add to a list for clean up
+        myBloodProj.Add(blood);
+
+        //In sync with frames, lerp the position of the blob to the consumer
+        while(blood.transform.position != consumer.transform.position)
         {
-            blood.transform.position = Vector3.Lerp(inital, Consumer.transform.position, t);
+            blood.transform.position = Vector3.Lerp(inital, consumer.transform.position, t);
             t += dt * Time.deltaTime;
             dt += dt2;
 
             yield return new WaitForEndOfFrame();
         }
 
-        Consumer.GetComponent<MinionScript>().bloodCount += bloodTransferAmount;
+        //Blob has arrived andso we give them the blood contents.
+        consumer.bloodHold += bloodContents;
+
+        //No need to remember for clean up
         myBloodProj.Remove(blood);
+
+        //Clean up ourselfs
         Destroy(blood);
+
+        //Done
         yield return null;
     }
 }
