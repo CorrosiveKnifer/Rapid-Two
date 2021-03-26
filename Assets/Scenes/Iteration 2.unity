@@ -5818,11 +5818,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab087cfe0458c544a9cef9a232fc3045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedCircle: {fileID: 0}
+  selectedCircle: {fileID: 1744121357}
   bloodCount: 0
   maximumBlood: 100
   minimumSpeed: 1
   maximumSpeed: 7
+  speedMod: 1
+  bloodHold: 0
+  DetectRadius: 10
+  HarvestRadius: 2
+  HarvestDelay: 0.5
+  HarvestAmount: 1
 --- !u!1001 &621602276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18461,6 +18467,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7519196487069395195, guid: fe3fe3aa0df3ede4c86e325d69190859,
     type: 3}
   m_PrefabInstance: {fileID: 1216981294}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1744121357 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4252776904035944668, guid: e953cdde584f9514f9f691beb9b5b245,
+    type: 3}
+  m_PrefabInstance: {fileID: 181056435}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1751832132
 PrefabInstance:
