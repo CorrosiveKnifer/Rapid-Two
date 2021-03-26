@@ -43,3 +43,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ea781531d74804e842de4748e12ea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spell1: {fileID: 0}
+  Spell2: {fileID: 0}
+  Spell3: {fileID: 0}
+  Tower1: {fileID: 0}
+  Tower2: {fileID: 0}
+  Tower3: {fileID: 0}
+  Tower4: {fileID: 0}
+  Minion: {fileID: 0}
+  ManaBar: {fileID: 0}
+  MinionBloodBar: {fileID: 0}
+  SelectFrame: {fileID: 0}
+  GameTime: 0
+  BasicEnemy: {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f,
+    type: 3}
+  WorldSpawners: []
+  waveSize: 0
+  lives: 100
+  blood: 0
+  BloodDisplay: {fileID: 0}
