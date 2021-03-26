@@ -57,11 +57,11 @@ public class Player : MonoBehaviour
             {
                 m_fFireballTimeLeft = 0.0f;
             }
-            m_Marker.GetComponent<SpriteRenderer>().color = m_ColourDim;
+            m_Marker.GetComponentInChildren<SpriteRenderer>().color = m_ColourDim;
         }
         else
         {
-            m_Marker.GetComponent<SpriteRenderer>().color = Color.white;
+            m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
 
         // Player movement
@@ -138,6 +138,7 @@ public class Player : MonoBehaviour
                 m_selected = hit.collider.gameObject;
                 // Set turret range indicator to true.
                 Debug.Log("Set turret range indicator on.");
+                m_selected.GetComponent<TowerScript>().SetSelected(true);
                 return;
             }
 
@@ -155,12 +156,14 @@ public class Player : MonoBehaviour
             if (plot != null && Input.GetMouseButtonDown(0))
             {
                 DeselectObject();
-                m_selected = plot.m_AttachedTurret;
                 plot.SpawnTurret(m_TempTurret);
+                if (plot.m_AttachedTurret != null)
+                {
+                    m_selected = plot.m_AttachedTurret;
+                    m_selected.GetComponent<TowerScript>().SetSelected(true);
+                }
                 return;
             }
-
-
         }
         else
         {
@@ -211,7 +214,8 @@ public class Player : MonoBehaviour
                 m_selected.GetComponent<MinionScript>().SetSelected(false);
 
             if (m_selected.tag == "Tower")
-                Debug.Log("Set turret range indicator off."); // Set range indicator to false.
+                m_selected.GetComponent<TowerScript>().SetSelected(false);
+
 
         }
         m_selected = null;
