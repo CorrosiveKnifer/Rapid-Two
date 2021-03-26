@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 3221273677021450324}
   - component: {fileID: 3221273677021450323}
   - component: {fileID: 3221273677021450322}
+  - component: {fileID: 3672275495392530834}
   m_Layer: 31
   m_Name: WallCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &3221273677021450324
 Transform:
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &3672275495392530834
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3221273677021450321}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7565609724367211428, guid: 705d1fde48cc32044b7b098f61078424, type: 3}
 --- !u!1 &4295757256568613459
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,12 +105,13 @@ GameObject:
   - component: {fileID: 458476560717465175}
   - component: {fileID: 7809575375285110272}
   - component: {fileID: 3030348083716052078}
+  - component: {fileID: 6928966381692925365}
   m_Layer: 31
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 3
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &458476560717465175
 Transform:
@@ -158,6 +174,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6928966381692925365
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4295757256568613459}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -478882678752539408, guid: 705d1fde48cc32044b7b098f61078424, type: 3}
 --- !u!1 &4683235472040889194
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,12 +232,13 @@ GameObject:
   - component: {fileID: 8164344864381023740}
   - component: {fileID: 1425057659177095303}
   - component: {fileID: 1891514765862784201}
+  - component: {fileID: 8622966229086904695}
   m_Layer: 31
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8164344864381023740
 Transform:
@@ -270,3 +301,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8622966229086904695
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846210874888561130}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8733429697405204941, guid: 705d1fde48cc32044b7b098f61078424, type: 3}

@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 4610357227351713617}
   - component: {fileID: 4610357227351713616}
   - component: {fileID: 4610357227351713619}
+  - component: {fileID: 1993161044876075230}
   m_Layer: 31
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4610357227351713617
 Transform:
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1993161044876075230
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610357227351713618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8733429697405204941, guid: 705d1fde48cc32044b7b098f61078424, type: 3}
 --- !u!1 &4610357227488255113
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,12 +105,13 @@ GameObject:
   - component: {fileID: 4610357227488255116}
   - component: {fileID: 4610357227488255119}
   - component: {fileID: 4610357227488255118}
+  - component: {fileID: 7340290957633717540}
   m_Layer: 31
   m_Name: WallCorner (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4610357227488255116
 Transform:
@@ -158,6 +174,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7340290957633717540
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610357227488255113}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7565609724367211428, guid: 705d1fde48cc32044b7b098f61078424, type: 3}
 --- !u!1 &4610357227757544753
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,12 +199,13 @@ GameObject:
   - component: {fileID: 4610357227757544756}
   - component: {fileID: 4610357227757544759}
   - component: {fileID: 4610357227757544758}
+  - component: {fileID: 4513736499097750241}
   m_Layer: 31
   m_Name: WallCorner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4610357227757544756
 Transform:
@@ -237,6 +268,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4513736499097750241
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4610357227757544753}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7565609724367211428, guid: 705d1fde48cc32044b7b098f61078424, type: 3}
 --- !u!1 &5508091821828143636
 GameObject:
   m_ObjectHideFlags: 0
