@@ -23,9 +23,9 @@ public class IceFlooring : MonoBehaviour
         //checking when the bullet hits a enemy
         if (other.tag == "Enemy")
         {
-            other.GetComponentInParent<EnemyScript>().MovementSpeedMod = 0.1f;
+            other.GetComponentInParent<EnemyScript>().SetMovementMod(0.5f);
             //Slowing down the enemies
-            Debug.Log(other.GetComponentInParent<EnemyScript>().MovementSpeedMod);
+            //Debug.Log(other.GetComponentInParent<EnemyScript>().MovementSpeedMod);
             Debug.Log("Slow down");
         }
     }
@@ -36,8 +36,8 @@ public class IceFlooring : MonoBehaviour
         {
             //putting the enemies speed back
             Debug.Log("Speed Back");
-            other.GetComponentInParent<EnemyScript>().MovementSpeedMod = 1.0f;
-            Debug.Log(other.GetComponentInParent<EnemyScript>().MovementSpeedMod);
+            other.GetComponentInParent<EnemyScript>().SetMovementMod(1.0f);
+           // Debug.Log(other.GetComponentInParent<EnemyScript>().MovementSpeedMod);
         }
     }
 }
