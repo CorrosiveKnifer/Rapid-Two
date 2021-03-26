@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     public GameObject Minion;
 
     public Slider ManaBar;
+    public Slider MinionBloodBar;
 
     public GameObject SelectFrame;
 
@@ -93,8 +94,17 @@ public class GameManager : MonoBehaviour
         SelectFrame.GetComponent<RectTransform>().position = _transform.position;
     }
 
+    public void EnableFrame(bool _visible)
+    {
+        SelectFrame.GetComponent<Image>().enabled = _visible;
+    }
+
     public void SetMana(float _mana)
     {
         ManaBar.value = _mana;
+    }
+    public void SetMinionBlood(float _blood)
+    {
+        MinionBloodBar.value = _blood;
     }
 }
