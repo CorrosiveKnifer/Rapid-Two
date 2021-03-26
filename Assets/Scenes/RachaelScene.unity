@@ -1274,6 +1274,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
+        type: 3}
+      propertyPath: m_TempTurret
+      value: 
+      objectReference: {fileID: 6940892701847570152, guid: 7cb75cd8178991842bfaac5f5456e9ba,
+        type: 3}
     - target: {fileID: 6996531975935791755, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
       propertyPath: m_Name
