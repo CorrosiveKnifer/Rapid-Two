@@ -9,6 +9,13 @@ public class MinionScript : MonoBehaviour
 
     private NavMeshAgent agent;
     public float bloodCount = 0.0f;
+
+    [Header("Minion Settings")]
+    public float maximumBlood = 100.0f;
+    public float minimumSpeed = 1.0f;
+    public float maximumSpeed = 7.0f;
+
+    private float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,14 +26,18 @@ public class MinionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        //speed is inversly proportional to the blood count
+        speed = Mathf.Clamp((1.0f - bloodCount/maximumBlood) * maximumSpeed, minimumSpeed, maximumSpeed);
+
+        agent.speed = speed;
+
+        foreach (var blood in GameObject.FindGameObjectsWithTag("Blood"))
         {
-            Vector2 enemyPos = new Vector2(enemy.transform.position.x, enemy.transform.position.z);
+            Vector2 bloodPos = new Vector2(blood.transform.position.x, blood.transform.position.z);
             Vector2 myPos = new Vector2(transform.position.x, transform.position.z);
-            if(Vector2.Distance(enemyPos, myPos) < 3.0f && enemy.GetComponentInParent<EnemyScript>().IsDead)
+            if(Vector2.Distance(bloodPos, myPos) < 3.0f && !blood.GetComponent<BloodScript>().IsConsumed)
             {
-                bloodCount += 5.0f;
-                Destroy(enemy);
+                blood.GetComponent<BloodScript>().Consume(gameObject);
             }
         }
 

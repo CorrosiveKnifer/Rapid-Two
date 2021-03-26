@@ -9,17 +9,22 @@ using UnityEngine.AI;
 public class EnemyScript : MonoBehaviour
 {
     public TrailScript myPath;
-    public enum AIState { IDLE, MOVING, HUNTING };
+    public enum AIState { IDLE, MOVING, HUNTING, ATTACKING };
 
     public AIState currentState = AIState.IDLE;
 
     private NavMeshAgent agent;
     public int currentIndex = -1;
 
+    [Header("Enemy Settings")]
     public float health = 100.0f;
+    public float HuntRange = 5.0f;
+    public float AttackRange = 1.5f;
+    public float BloodAmount = 5.0f;
+    public float MovementSpeedMod = 1.0f;
 
     public bool IsDead = false;
-
+    public GameObject BloodPrefab;
     private Animator controller;
 
     // Start is called before the first frame update
@@ -40,15 +45,23 @@ public class EnemyScript : MonoBehaviour
         {
             if (IsDead)
             {
+                RaycastHit hit;
+                if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, 3.0f))
+                {
+                    GameObject blood = GameObject.Instantiate(BloodPrefab, hit.point + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.identity);
+                    blood.GetComponent<BloodScript>().bloodCount = BloodAmount;
+                }
+
                 TransitionTo(AIState.IDLE);
                 Destroy(agent);
-                gameObject.AddComponent<Animator>();
-                gameObject.layer = 13;
                 controller.SetBool("IsDead", IsDead);
-                Destroy(gameObject, 5.0f);
+                Destroy(gameObject, 2.0f);
             }
             StateBasedUpdate();
         }
+
+        if (controller != null)
+            controller.SetBool("IsAttacking", currentState == AIState.ATTACKING && !IsDead);
     }
 
     private void StateBasedUpdate()
@@ -82,12 +95,40 @@ public class EnemyScript : MonoBehaviour
             case AIState.HUNTING:
                 {
                     GameObject minion = GameObject.FindGameObjectWithTag("Minion");
-                    if (Vector3.Distance(minion.transform.position, transform.position) < 5.0f)
+                    float distance = Vector3.Distance(minion.transform.position, transform.position);
+                    if (distance < AttackRange)
+                    {
+                        TransitionTo(AIState.ATTACKING);
+                    }
+                    if (distance < HuntRange)
                     {
                         agent.SetDestination(minion.transform.position);
                     }
                     else
                     {
+                        agent.SetDestination(myPath.GetClosestWaypointTo(transform.position, out currentIndex).position);
+                        TransitionTo(AIState.MOVING);
+                    }
+                    break;
+                }
+            case AIState.ATTACKING:
+                {
+                    GameObject minion = GameObject.FindGameObjectWithTag("Minion");
+                    float distance = Vector3.Distance(minion.transform.position, transform.position);
+                    if (distance < AttackRange)
+                    {
+                        agent.isStopped = true;
+                        TransitionTo(AIState.ATTACKING);
+                    }
+                    else if(distance < HuntRange)
+                    {
+                        agent.isStopped = false;
+                        agent.SetDestination(minion.transform.position);
+                        TransitionTo(AIState.HUNTING);
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
                         agent.SetDestination(myPath.GetClosestWaypointTo(transform.position, out currentIndex).position);
                         TransitionTo(AIState.MOVING);
                     }
@@ -137,10 +178,13 @@ public class EnemyScript : MonoBehaviour
             case AIState.IDLE:
                 break;
             case AIState.MOVING:
-                agent.speed = 3.5f;
+                agent.speed = 3.5f * MovementSpeedMod;
                 break;
             case AIState.HUNTING:
-                agent.speed = 4.0f;
+                agent.speed = 4.0f * MovementSpeedMod;
+                break;
+            case AIState.ATTACKING:
+                agent.speed = 1.5f * MovementSpeedMod;
                 break;
             default:
                 break;

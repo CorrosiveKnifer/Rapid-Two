@@ -25,8 +25,7 @@ public class TrailScript : MonoBehaviour
 
     public Transform GetWaypointLocation(int index)
     {
-        if (index > waypoints.Length)
-            index = waypoints.Length - 1;
+        index = Mathf.Clamp(index, 0, waypoints.Length - 1);
 
         return waypoints[index].transform;
     }
