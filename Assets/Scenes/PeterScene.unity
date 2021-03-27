@@ -300,6 +300,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e565ab8c5b8aa224d835b8530f5e69d7, type: 2}
+    - target: {fileID: -86660355763864230, guid: 4b69c5de793ee274ea8579bfdd7c5f35,
+        type: 3}
+      propertyPath: m_Name
+      value: vest
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4b69c5de793ee274ea8579bfdd7c5f35,
         type: 3}
       propertyPath: m_Name
@@ -359,7 +364,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fc0e93490ab72214c99f5b5e0f1dadd6, type: 2}
+      objectReference: {fileID: 2100000, guid: d1ed221513047334d8783f58c6a79773, type: 2}
     - target: {fileID: 8843841459950393060, guid: 4b69c5de793ee274ea8579bfdd7c5f35,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
