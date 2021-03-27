@@ -1,14 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 /// <summary>
 /// Rachael work
 /// </summary>
-public class LaserTowerScript : MonoBehaviour
+/// 
+public class BombTowerScript : MonoBehaviour
 {
     //main tower variables
     public GameObject ammo;
     public float bulletDamage = 1.0f;
+    public float bulletSpeed = 1.0f;
+    public float coolDown = 10.0f;
+    private float towerCoolDown;
 
     //variables for the target enemy
     public GameObject[] enemies;
@@ -16,12 +21,13 @@ public class LaserTowerScript : MonoBehaviour
     public GameObject target;
     public GameObject indicator;
     bool isFirst = false;
-    public LineRenderer ray;
+
     public GameObject m_Indicator;
 
     // Called before start
     private void Awake()
     {
+        towerCoolDown = coolDown;
 
         //part of targetiing script
         target = null;
@@ -30,8 +36,6 @@ public class LaserTowerScript : MonoBehaviour
         m_Indicator = (GameObject)Instantiate(indicator, transform.position, transform.rotation);
         m_Indicator.transform.localScale *= (towerRadius * 2);
         m_Indicator.GetComponent<Renderer>().enabled = false;
-        ray.transform.localScale = new Vector3(1.0f, 1.0f, towerRadius);
-        ray.GetComponent<Renderer>().enabled = false;
     }
 
     // Start is called before the first frame update
@@ -57,13 +61,23 @@ public class LaserTowerScript : MonoBehaviour
 
     public void TowerActivated()
     {
-        Fire();
+        //a countdown on when to attack
+        if (towerCoolDown >= coolDown)
+        {
+            //attack and reset counter
+            towerCoolDown = 0;
+            Fire();
+        }
+        towerCoolDown += 0.01f;
     }
     //function to spawn bullet
     void Fire()
     {
-        //since it knows where the target is, it will just shoot the constant beam
-        target.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletDamage);
+        GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
+        //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
+        bulletClone.GetComponent<BombScript>().SetDamage(bulletDamage);
+        bulletClone.GetComponent<BombScript>().target = target;
+
     }
 
     //function which activates the targeting of enemies for the tower created
@@ -84,11 +98,8 @@ public class LaserTowerScript : MonoBehaviour
         {
             //Vector3 direction = target.transform.position - transform.position;
 
-            Vector3 direction = target.transform.position - transform.position;
-            float enemydist = Vector3.Distance(target.transform.position, transform.position);
-            Debug.DrawRay(transform.position, direction.normalized * towerRadius, Color.blue);
-
-            ray.transform.localScale = new Vector3(1.0f, 1.0f, enemydist);
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
+            Debug.DrawRay(transform.position, forward * towerRadius, Color.green);
             transform.LookAt(target.transform);
         }
     }
@@ -97,10 +108,8 @@ public class LaserTowerScript : MonoBehaviour
     {
         if (target != null)
         {
-            ray.GetComponent<Renderer>().enabled = true;
             return true;
         }
-        ray.GetComponent<Renderer>().enabled = false;
         return false;
     }
     private void TargetCloset()
