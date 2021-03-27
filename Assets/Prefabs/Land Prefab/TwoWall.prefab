@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6868133554042905392}
   m_Layer: 31
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 873494754481701231}
   m_Layer: 31
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 192362204358332497}
   m_Layer: 0
   m_Name: TwoWall
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
