@@ -1162,7 +1162,7 @@ MonoBehaviour:
   BasicEnemy: {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f,
     type: 3}
   WorldSpawners: []
-  waveSize: 0
+  waveSize: 20
   lives: 100
   blood: 0
   BloodDisplay: {fileID: 0}

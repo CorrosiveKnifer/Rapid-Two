@@ -13,6 +13,7 @@ public class TowerScript : MonoBehaviour
     public float bulletSpeed = 1.0f;
     public float coolDown = 10.0f;
     private float towerCoolDown;
+    public int cost = 10;
 
     //variables for the target enemy
     public GameObject[] enemies;

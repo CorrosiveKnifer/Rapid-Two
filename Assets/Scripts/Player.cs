@@ -10,7 +10,7 @@ using UnityEngine.UI;
 enum Spell
 {
     Fireball,
-    SpellA,
+    FrostRing,
     SpellB,
     None
 }
@@ -31,10 +31,12 @@ public class Player : MonoBehaviour
     public GameObject m_Fireball;
     float m_fFireballCoolDown = 2.0f;
     float m_fFireballTimeLeft = 0.0f;
+    public Sprite m_FireCircle;
 
     public GameObject m_FrostRing;
-    float m_fFrostRingCoolDown = 2.0f;
+    float m_fFrostRingCoolDown = 10.0f;
     float m_fFrostRingTimeLeft = 0.0f;
+    public Sprite m_FrostCircle;
 
     public GameObject m_SpellB;
     float m_fSpellBCoolDown = 2.0f;
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
 
     [Header("Mana Cost")]
     public float fFireballCost = 30.0f;
+    public float fFrostFieldCost = 50.0f;
 
     [Header("Values")]
     public float fCameraMoveSpeed = 0.3f;
@@ -73,7 +76,8 @@ public class Player : MonoBehaviour
     public Camera m_Camera;
     public GameObject m_Marker;
 
-    public GameObject m_Minion;
+    public GameObject m_Harvester;
+    public GameObject m_Demon;
     private GameObject m_selected;
 
     // Start is called before the first frame update
@@ -86,19 +90,8 @@ public class Player : MonoBehaviour
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
         GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void CoolDowns()
     {
-        // Mana update
-        fManaPool += Time.deltaTime * fManaRegen;
-        if (fManaPool > fManaMaximum)
-        {
-            fManaPool = fManaMaximum;
-        }
-
-        GameManager.instance.SetMana(fManaPool);
-
         // Fireball cooldown
         if (m_fFireballTimeLeft > 0.0f)
         {
@@ -127,6 +120,50 @@ public class Player : MonoBehaviour
         {
             m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
+
+        switch (m_SelectedSpell)
+        {
+            case Spell.Fireball:
+                m_Marker.GetComponentInChildren<SpriteRenderer>().sprite = m_FireCircle;
+                if (m_fFireballTimeLeft > 0.0f)
+                {
+                    m_Marker.GetComponentInChildren<SpriteRenderer>().color = m_ColourDim;
+                }
+                else
+                {
+                    m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                }
+                    break;
+            case Spell.FrostRing:
+                m_Marker.GetComponentInChildren<SpriteRenderer>().sprite = m_FrostCircle;
+                if (m_fFrostRingTimeLeft > 0.0f)
+                {
+                    m_Marker.GetComponentInChildren<SpriteRenderer>().color = m_ColourDim;
+                }
+                else
+                {
+                    m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                }
+                break;
+            case Spell.SpellB:
+                break;
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Mana update
+        fManaPool += Time.deltaTime * fManaRegen;
+        if (fManaPool > fManaMaximum)
+        {
+            fManaPool = fManaMaximum;
+        }
+
+        GameManager.instance.SetMana(fManaPool);
+
+        CoolDowns();
 
         // Player movement
         float x = Input.GetAxis("Horizontal");
@@ -195,6 +232,7 @@ public class Player : MonoBehaviour
 
     }
 
+    
     private void HandleRayCastHit(RaycastHit hit)
     { 
         if (hit.collider.gameObject.layer == 9) // Check if object is selectable
@@ -211,8 +249,8 @@ public class Player : MonoBehaviour
         if (m_SelectedSpell == Spell.None) // Check if spell is selected
         {
             // Select minion
-            MinionScript minion = hit.collider.gameObject.GetComponentInChildren<MinionScript>();
-            if ((minion != null && Input.GetMouseButtonDown(0))) // Select minion with click
+            HarvesterScript harvester = hit.collider.gameObject.GetComponentInChildren<HarvesterScript>();
+            if ((harvester != null && Input.GetMouseButtonDown(0))) // Select minion with click
             {
                 MinionSelect();
                 return;
@@ -221,11 +259,29 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion") // Create target location for minion
                 {
-                    m_selected.GetComponent<MinionScript>().SetTargetLocation(hit.point);
+                    m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
                     return;
                 }
             }
+
+
+            // Select Demon
+            //DemonScript demon = hit.collider.gameObject.GetComponentInChildren<HarvesterScript>();
+            //if ((demon != null && Input.GetMouseButtonDown(0))) // Select minion with click
+            //{
+            //    DemonSelect();
+            //    return;
+            //}
+            //if (m_selected != null)
+            //{
+            //    if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
+            //    {
+            //        m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
+            //        Debug.Log(hit.point);
+            //        return;
+            //    }
+            //}
 
             // Select tower
             TowerScript tower = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
@@ -267,27 +323,87 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
             GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
-            m_selected = m_Minion;
-            m_selected.GetComponent<MinionScript>().SetSelected(true);
+            m_selected = m_Harvester;
+            m_selected.GetComponent<HarvesterScript>().SetSelected(true);
+        }
+    }
+
+    private void DemonSelect()
+    {
+        m_SelectedSpell = Spell.None;
+        if (m_selected != null)
+        {
+            if (m_selected.tag == "Demon")
+            {
+                DeselectObject();
+                m_selected = null;
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            }
+        }
+        else
+        {
+            GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+            GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+            m_selected = m_Demon;
+            m_selected.GetComponent<HarvesterScript>().SetSelected(true);
         }
     }
     private void TowerSelect(RaycastHit hit)
     {
         DeselectObject();
         m_selected = hit.collider.gameObject;
-        m_selected.GetComponent<TowerScript>().SetSelected(true);
+        m_selected.GetComponent<TowerScript>()?.SetSelected(true);
+        m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
+        m_selected.GetComponent<IceTowerScript>()?.SetSelected(true);
+        m_selected.GetComponent<LaserTowerScript>()?.SetSelected(true);
     }
     private void PlotSelect(TurretPlot plot)
     {
         DeselectObject();
         if (m_SelectedTower != null)
         {
+            if (m_SelectedTower == m_BasicTower && m_iBasicTowerCost > GameManager.instance.blood)
+            {
+                return;
+            }
+            else
+            {
+                GameManager.instance.blood -= m_iBasicTowerCost;
+            }
+            if (m_SelectedTower == m_FireTower && m_iFireTowerCost > GameManager.instance.blood)
+            {
+                return;
+            }
+            else
+            {
+                GameManager.instance.blood -= m_iFireTowerCost;
+            }
+            if (m_SelectedTower == m_FrostTower && m_iFrostTowerCost > GameManager.instance.blood)
+            {
+                return;
+            }
+            else
+            {
+                GameManager.instance.blood -= m_iFrostTowerCost;
+            }
+            if (m_SelectedTower == m_LaserTower && m_iLaserTowerCost > GameManager.instance.blood)
+            {
+                return;
+            }
+            else
+            {
+                GameManager.instance.blood -= m_iLaserTowerCost;
+            }
+
             plot.SpawnTurret(m_SelectedTower);
         }
         if (plot.m_AttachedTurret != null)
         {
             m_selected = plot.m_AttachedTurret;
-            m_selected.GetComponent<TowerScript>().SetSelected(true);
+            m_selected.GetComponent<TowerScript>()?.SetSelected(true);
+            m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
+            m_selected.GetComponent<IceTowerScript>()?.SetSelected(true);
+            m_selected.GetComponent<LaserTowerScript>()?.SetSelected(true);
         }
     }
     private void AbilitySelect()
@@ -298,6 +414,19 @@ public class Player : MonoBehaviour
             {
                 m_SelectedTower = null;
                 m_SelectedSpell = Spell.Fireball;
+            }
+            else
+            {
+                m_SelectedSpell = Spell.None;
+            }
+            DeselectObject();
+        }
+        if (Input.GetKeyDown(KeyCode.E)) // Frost Ring
+        {
+            if (m_SelectedSpell != Spell.FrostRing)
+            {
+                m_SelectedTower = null;
+                m_SelectedSpell = Spell.FrostRing;
             }
             else
             {
@@ -365,6 +494,11 @@ public class Player : MonoBehaviour
             MinionSelect();
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            DemonSelect();
+        }
+
 
 
     }
@@ -397,13 +531,13 @@ public class Player : MonoBehaviour
                 GameManager.instance.EnableFrame(true);
                 GameManager.instance.MoveFrame(GameManager.instance.Spell1.GetComponent<RectTransform>());
                 break;
-            case Spell.SpellA:
+            case Spell.FrostRing:
                 GameManager.instance.EnableFrame(true);
-                GameManager.instance.MoveFrame(GameManager.instance.Spell1.GetComponent<RectTransform>());
+                GameManager.instance.MoveFrame(GameManager.instance.Spell2.GetComponent<RectTransform>());
                 break;
             case Spell.SpellB:
                 GameManager.instance.EnableFrame(true);
-                GameManager.instance.MoveFrame(GameManager.instance.Spell1.GetComponent<RectTransform>());
+                GameManager.instance.MoveFrame(GameManager.instance.Spell3.GetComponent<RectTransform>());
                 break;
         }
         
@@ -416,7 +550,13 @@ public class Player : MonoBehaviour
                 m_selected.GetComponent<MinionScript>().SetSelected(false);
 
             if (m_selected.tag == "Tower")
-                m_selected.GetComponent<TowerScript>().SetSelected(false);
+            {
+                m_selected.GetComponent<TowerScript>()?.SetSelected(false);
+                m_selected.GetComponent<BombTowerScript>()?.SetSelected(false);
+                m_selected.GetComponent<IceTowerScript>()?.SetSelected(false);
+                m_selected.GetComponent<LaserTowerScript>()?.SetSelected(false);
+            }
+            
 
 
         }
@@ -432,6 +572,14 @@ public class Player : MonoBehaviour
                     Instantiate(m_Fireball, _targetPos + Vector3.up * 20.0f, Quaternion.identity);
                     m_fFireballTimeLeft = m_fFireballCoolDown;
                     fManaPool -= fFireballCost;
+                }
+                break;
+            case Spell.FrostRing:
+                if (m_fFrostRingTimeLeft == 0.0f && fFrostFieldCost <= fManaPool)
+                {
+                    Instantiate(m_FrostRing, _targetPos + Vector3.up * 20.0f, Quaternion.identity);
+                    m_fFrostRingTimeLeft = m_fFrostRingCoolDown;
+                    fManaPool -= fFrostFieldCost;
                 }
                 break;
         }

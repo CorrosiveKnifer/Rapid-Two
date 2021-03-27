@@ -289,10 +289,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6996531975935791755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db960182c6d17c348a8adceed320a7c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 05e13e5021b369e46be823f2de29dd49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ColourDim: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+  m_ColourDim: {r: 0.5, g: 0.5, b: 0.5, a: 0.5019608}
   m_SelectableMask:
     serializedVersion: 2
     m_Bits: 512
@@ -300,16 +300,24 @@ MonoBehaviour:
   m_CursorOff: {fileID: 2800000, guid: 8812d0d4eaa705f47bc45d019d520bea, type: 3}
   m_Fireball: {fileID: 6602204647791965198, guid: 465290f0ab0e09749b41e93dd5e5d6b2,
     type: 3}
-  m_SpellA: {fileID: 0}
+  m_FireCircle: {fileID: 21300000, guid: c0c19ed4f0887964ab8a4fa2271898b2, type: 3}
+  m_FrostRing: {fileID: 6602204647791965198, guid: f1c7a2a7a29dbdd4189aadf61f6bf2cf,
+    type: 3}
+  m_FrostCircle: {fileID: 21300000, guid: ab91baef052a5d1438aa22f4bb0533cf, type: 3}
   m_SpellB: {fileID: 0}
-  m_FireTower: {fileID: 0}
-  m_FrostTower: {fileID: 0}
-  m_LaserTower: {fileID: 0}
-  m_BoomTower: {fileID: 0}
+  m_BasicTower: {fileID: 3088434373008096971, guid: 37f2b8600d74586439f516417c8b23ce,
+    type: 3}
+  m_FireTower: {fileID: 8018882010703795492, guid: e4a137f40c672b443985c9ae5a778107,
+    type: 3}
+  m_FrostTower: {fileID: 6940892701847570152, guid: 7cb75cd8178991842bfaac5f5456e9ba,
+    type: 3}
+  m_LaserTower: {fileID: 7882538585948877513, guid: d6ba7a7fc6fa26944b6058810647e0d6,
+    type: 3}
   fManaMaximum: 100
-  fManaPool: 0
+  fManaPool: 100
   fManaRegen: 5
   fFireballCost: 30
+  fFrostFieldCost: 50
   fCameraMoveSpeed: 0.3
   fCameraZoomSpeed: 0.3
   fCameraMaxZoom: 15

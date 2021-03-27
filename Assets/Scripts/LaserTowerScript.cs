@@ -9,6 +9,7 @@ public class LaserTowerScript : MonoBehaviour
     //main tower variables
     public GameObject ammo;
     public float bulletDamage = 1.0f;
+    public int cost = 25;
 
     //variables for the target enemy
     public GameObject[] enemies;

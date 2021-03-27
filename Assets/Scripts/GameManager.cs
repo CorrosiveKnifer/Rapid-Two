@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
     public GameObject Tower2;
     public GameObject Tower3;
     public GameObject Tower4;
+
     public GameObject Minion;
+    public GameObject Demon;
 
     public Slider ManaBar;
     public Slider MinionBloodBar;
