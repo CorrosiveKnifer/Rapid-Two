@@ -116,8 +116,8 @@ public class Player : MonoBehaviour
 
         // Raycast
         Ray ray = m_Camera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 50.0f, Color.red, 0.5f);
-        hits = Physics.RaycastAll(ray.origin, ray.direction, 50.0f);
+        Debug.DrawRay(ray.origin, ray.direction * 1500.0f, Color.red, 0.5f);
+        hits = Physics.RaycastAll(ray.origin, ray.direction, 1500.0f);
 
         if (hits.Length != 0) // Check if raycast detects any objects
         {
