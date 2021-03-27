@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         GameTime += Time.deltaTime;
 
         if(BloodDisplay != null)
-            BloodDisplay.text = $"Blood: {Mathf.FloorToInt(blood)}";
+            BloodDisplay.text = $"{Mathf.FloorToInt(blood)}";
 
         if (WorldSpawners.Length > 0)
         {
@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     {
         ManaBar.value = _mana;
     }
+
     public void SetMinionBlood(float _blood)
     {
         MinionBloodBar.value = _blood;

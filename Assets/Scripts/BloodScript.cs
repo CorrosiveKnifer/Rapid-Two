@@ -32,7 +32,7 @@ public class BloodScript : MonoBehaviour
         if(!IsDestroyed && bloodCount <= 0)
         {
             IsDestroyed = true;
-            Destroy(gameObject, 1.5f);
+            Destroy(gameObject, 2.5f);
         }
     }
 
@@ -49,8 +49,8 @@ public class BloodScript : MonoBehaviour
     //External access to the coroutine to start harvesting a single blob of blood.
     public void Consume(HarvesterScript harvester, float HarvestAmount)
     {
-        
-        StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
+        if(bloodCount > 0)
+            StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
     }
 
     private IEnumerator SendBloodProjToHarvester(HarvesterScript consumer, float bloodTransferAmount)

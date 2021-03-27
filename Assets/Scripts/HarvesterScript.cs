@@ -10,7 +10,7 @@ public class HarvesterScript : MinionScript
     public float bloodHold;
 
     [Header("Harvester Settings")]
-    public float health;
+    public float maxHealth = 100.0f;
     public float maximumBlood = 100.0f;
     public float DetectRadius = 12.5f;
     public float HarvestRadius = 2.5f;
@@ -21,9 +21,11 @@ public class HarvesterScript : MinionScript
     private AIState currentState;
     private GameObject myHuntTarget;
     private float delay;
+    private float health;
 
     protected override void Start()
     {
+        health = maxHealth;
         base.Start();
     }
 
@@ -34,6 +36,8 @@ public class HarvesterScript : MinionScript
 
         float speedRange = maximumSpeed - minimumSpeed;
         speed = Mathf.Clamp((1.0f - bloodHold / maximumBlood) * speedRange + minimumSpeed, minimumSpeed, maximumSpeed);
+
+        GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
         StateBasedUpdate();
         base.Update();
