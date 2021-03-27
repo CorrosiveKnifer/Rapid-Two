@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 112273424}
   - component: {fileID: 112273423}
   - component: {fileID: 112273422}
+  - component: {fileID: 112273425}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -197,13 +198,44 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112273421}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.4384457, y: -0.25586703, z: 0.15549533, w: 0.8474188}
+  m_LocalPosition: {x: 5.26, y: 10.92, z: -3.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55.353004, y: -31.529001, z: 3.9510002}
+--- !u!114 &112273425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112273421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &161821124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -290,6 +322,31 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fe86799996371514f9c3018d03ea92ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &375645994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1515539659753458228, guid: 276adc2d7d1130448a078725dd4078fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 4709237401923706104}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &375645995
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375645994}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4ee58823aa5c67c4bbb9dfc483b1d5ec, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -457,6 +514,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: StraightPath
       objectReference: {fileID: 0}
+    - target: {fileID: 7634420336206251407, guid: f893b5c991109434f8ad9ff0571c547f,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634420336206251407, guid: f893b5c991109434f8ad9ff0571c547f,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634420336206251407, guid: f893b5c991109434f8ad9ff0571c547f,
+        type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f893b5c991109434f8ad9ff0571c547f, type: 3}
 --- !u!1001 &4709237401923706104
@@ -526,6 +598,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4659193524283874685, guid: 276adc2d7d1130448a078725dd4078fe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: bd33eaa63676622439614a43bf0be7c6, type: 2}
+    - target: {fileID: 5216042196279618811, guid: 276adc2d7d1130448a078725dd4078fe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 156091c1d100b2e40a1575cf9cd4b30b, type: 2}
+    - target: {fileID: 5427913122772452666, guid: 276adc2d7d1130448a078725dd4078fe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c0edd39c001acda469ca8c31e12131d2, type: 2}
+    - target: {fileID: 5678990380932179389, guid: 276adc2d7d1130448a078725dd4078fe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a00c1daa980b3a84d83f361a43408bac, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 276adc2d7d1130448a078725dd4078fe, type: 3}
 --- !u!1001 &7371062785520185248
@@ -588,6 +680,21 @@ PrefabInstance:
     - target: {fileID: 7044192705914935442, guid: f6aeeaf65ca3bbd4c8684e8fd5796c46,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371062785516011387, guid: f6aeeaf65ca3bbd4c8684e8fd5796c46,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371062785516011387, guid: f6aeeaf65ca3bbd4c8684e8fd5796c46,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371062785516011387, guid: f6aeeaf65ca3bbd4c8684e8fd5796c46,
+        type: 3}
+      propertyPath: outlineColor.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7677000591952134696, guid: f6aeeaf65ca3bbd4c8684e8fd5796c46,
@@ -657,6 +764,21 @@ PrefabInstance:
     - target: {fileID: 3806295761482470201, guid: d33a6f31234e52341a370877212c5dc8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582832052584089986, guid: d33a6f31234e52341a370877212c5dc8,
+        type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582832052584089986, guid: d33a6f31234e52341a370877212c5dc8,
+        type: 3}
+      propertyPath: outlineColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582832052584089986, guid: d33a6f31234e52341a370877212c5dc8,
+        type: 3}
+      propertyPath: outlineColor.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4582832052584089987, guid: d33a6f31234e52341a370877212c5dc8,
