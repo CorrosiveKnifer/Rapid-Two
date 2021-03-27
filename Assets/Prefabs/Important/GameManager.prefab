@@ -1155,6 +1155,7 @@ MonoBehaviour:
   Tower3: {fileID: 3878599344504544722}
   Tower4: {fileID: 8738432674898551674}
   Minion: {fileID: 4445992542923633248}
+  Demon: {fileID: 0}
   ManaBar: {fileID: 7388019394724230495}
   MinionBloodBar: {fileID: 3325484977708291662}
   SelectFrame: {fileID: 4310277211738195168}
@@ -1164,8 +1165,8 @@ MonoBehaviour:
   WorldSpawners: []
   waveSize: 20
   lives: 100
-  blood: 0
-  BloodDisplay: {fileID: 0}
+  blood: 99999
+  BloodDisplay: {fileID: 7361910664356189790}
 --- !u!1 &3817259588384483420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1550,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 543229056422156977}
   m_Direction: 2
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:

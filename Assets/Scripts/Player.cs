@@ -366,7 +366,7 @@ public class Player : MonoBehaviour
             {
                 return;
             }
-            else
+            else if (m_SelectedTower == m_BasicTower)
             {
                 GameManager.instance.blood -= m_iBasicTowerCost;
             }
@@ -374,7 +374,7 @@ public class Player : MonoBehaviour
             {
                 return;
             }
-            else
+            else if (m_SelectedTower == m_FireTower)
             {
                 GameManager.instance.blood -= m_iFireTowerCost;
             }
@@ -382,7 +382,7 @@ public class Player : MonoBehaviour
             {
                 return;
             }
-            else
+            else if (m_SelectedTower == m_FrostTower)
             {
                 GameManager.instance.blood -= m_iFrostTowerCost;
             }
@@ -390,7 +390,7 @@ public class Player : MonoBehaviour
             {
                 return;
             }
-            else
+            else if (m_SelectedTower == m_LaserTower)
             {
                 GameManager.instance.blood -= m_iLaserTowerCost;
             }
