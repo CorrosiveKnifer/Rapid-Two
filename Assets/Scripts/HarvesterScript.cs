@@ -10,12 +10,14 @@ public class HarvesterScript : MinionScript
     public float bloodHold;
 
     [Header("Harvester Settings")]
-    public float DetectRadius = 10.0f;
-    public float HarvestRadius = 2.0f;
+    public float health;
+    public float maximumBlood = 100.0f;
+    public float DetectRadius = 12.5f;
+    public float HarvestRadius = 2.5f;
     public float HarvestDelay = 0.5f;
     public float HarvestAmount = 1.0f;
 
-    private enum AIState { DETECT, SELECTED, HARVEST};
+    private enum AIState { DETECT, SELECTED, HARVEST, DEPOSIT};
     private AIState currentState;
     private GameObject myHuntTarget;
     private float delay;
@@ -30,6 +32,9 @@ public class HarvesterScript : MinionScript
         if (delay > 0)
             delay = Mathf.Clamp(delay - Time.deltaTime, 0, HarvestDelay);
 
+        float speedRange = maximumSpeed - minimumSpeed;
+        speed = Mathf.Clamp((1.0f - bloodHold / maximumBlood) * speedRange + minimumSpeed, minimumSpeed, maximumSpeed);
+
         StateBasedUpdate();
         base.Update();
     }
@@ -39,6 +44,10 @@ public class HarvesterScript : MinionScript
         if(IsSelected)
         {
             TransitionTo(AIState.SELECTED);
+        }
+        else if (currentState == AIState.SELECTED)
+        {
+            TransitionTo(AIState.DETECT);
         }
 
         switch (currentState)
@@ -58,6 +67,11 @@ public class HarvesterScript : MinionScript
                     HarvestUpdate();
                     break;
                 }
+            case AIState.DEPOSIT:
+                {
+                    DepositUpdate();
+                    break;
+                }
             default:
                 break;
         }
@@ -67,12 +81,12 @@ public class HarvesterScript : MinionScript
      * Detect Mode
      * -------------------
      * The soul intent of this mode is to constantly look out for the nearest blood to harvest.
-     * Once a blood is within range, which is returned by the DetectBlood function, it will transition 
+     * Once a blood is within range, which is returned by the FindClosestofTag function, it will transition 
      * to the HARVEST Mode.
      */
     private void DetectUpdate()
     {
-        GameObject blood = DetectBlood();
+        GameObject blood = myHuntTarget = FindClosestofTag("Blood", DetectRadius);
         if (blood != null)
         {
             myHuntTarget = blood;
@@ -96,7 +110,7 @@ public class HarvesterScript : MinionScript
             if (myHuntTarget == null)
             {
                 //Find closest target.
-                myHuntTarget = DetectBlood();
+                myHuntTarget = FindClosestofTag("Blood", DetectRadius);
             }
             else
             {
@@ -132,8 +146,17 @@ public class HarvesterScript : MinionScript
      */
     private void HarvestUpdate()
     {
+        if (bloodHold >= maximumBlood)
+        {
+            TransitionTo(AIState.DEPOSIT);
+            return;
+        }
+
         if (myHuntTarget == null)
+        {
             TransitionTo(AIState.DETECT);
+            return;
+        }
 
         float distance = Vector3.Distance(transform.position, myHuntTarget.transform.position);
 
@@ -151,29 +174,52 @@ public class HarvesterScript : MinionScript
             if (delay <= 0)
             {
                 delay = HarvestDelay;
-                myHuntTarget?.GetComponent<BloodScript>().Consume(this, HarvestAmount);
+                float amount = Mathf.Min(HarvestAmount, maximumBlood - bloodHold);
+                myHuntTarget?.GetComponent<BloodScript>().Consume(this, amount);
             }
         }
     }
 
-    private GameObject DetectBlood()
+    /*--------------------
+     * Deposit Mode
+     * -------------------
+     * The soul intent of this state is to deliver the blood to the end goal whenever the blood
+     * hold is full.
+     */
+    private void DepositUpdate()
     {
-        GameObject[] bloods = GameObject.FindGameObjectsWithTag("Blood");
-        float closestDistance = 100000;
-        GameObject closestBlood = null;
-        foreach (var blood in bloods)
+        myHuntTarget = FindClosestofTag("End");
+
+        SetTargetLocation(myHuntTarget.transform.position);
+
+        if (IsAgentFinished())
         {
-            float distance = Vector3.Distance(transform.position, blood.transform.position);
+            TransitionTo(AIState.DETECT);
+        }
+    }
+
+    private GameObject FindClosestofTag(string tag, float range = -1)
+    {
+        GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
+        float closestDistance = 100000;
+        GameObject closestObject = null;
+        foreach (var foundObject in foundObjects)
+        {
+            float distance = Vector3.Distance(transform.position, foundObject.transform.position);
             if (distance < closestDistance)
             {
-                closestBlood = blood;
+                closestObject = foundObject;
                 closestDistance = distance;
             }
         }
 
-        if (closestDistance <= DetectRadius)
+        if(range < 0)
         {
-            return closestBlood;
+            return closestObject;
+        }
+        else if (closestDistance <= range)
+        {
+            return closestObject;
         }
         return null;
     }
@@ -191,6 +237,9 @@ public class HarvesterScript : MinionScript
             case AIState.SELECTED:
                 break;
             case AIState.HARVEST:
+                break;
+            case AIState.DEPOSIT:
+                myHuntTarget = null;
                 break;
             default:
                 break;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2946569660922845121}
   m_Layer: 31
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 3329162200956083844}
   m_Layer: 0
   m_Name: FiveWall
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

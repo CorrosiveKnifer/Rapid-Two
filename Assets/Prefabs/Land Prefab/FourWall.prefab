@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 678794090412549797}
   m_Layer: 0
   m_Name: FourWall
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,10 +94,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1487536922648330010, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745734497359096079, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 7522364239403715641, guid: 1c3868811e3d94344a6618068a55b0a4,
         type: 3}
       propertyPath: m_Name
       value: TwoWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522364239403715641, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3868811e3d94344a6618068a55b0a4, type: 3}
@@ -169,10 +184,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1487536922648330010, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1745734497359096079, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 7522364239403715641, guid: 1c3868811e3d94344a6618068a55b0a4,
         type: 3}
       propertyPath: m_Name
       value: TwoWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522364239403715641, guid: 1c3868811e3d94344a6618068a55b0a4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c3868811e3d94344a6618068a55b0a4, type: 3}

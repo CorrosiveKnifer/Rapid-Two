@@ -8,10 +8,8 @@ public class MinionScript : MonoBehaviour
     public Renderer selectedCircle;
 
     protected NavMeshAgent agent;
-    public float bloodCount = 0.0f;
 
     [Header("Minion Settings")]
-    public float maximumBlood = 100.0f;
     public float minimumSpeed = 1.0f;
     public float maximumSpeed = 7.0f;
     public float speedMod = 1.0f;
@@ -29,7 +27,6 @@ public class MinionScript : MonoBehaviour
     {
         selectedCircle.enabled = IsSelected;
         //speed is inversly proportional to the blood count
-        speed = Mathf.Clamp((1.0f - bloodCount/maximumBlood) * maximumSpeed, minimumSpeed, maximumSpeed);
 
         agent.speed = speed * speedMod;
     }
