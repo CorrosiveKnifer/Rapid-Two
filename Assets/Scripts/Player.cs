@@ -32,9 +32,9 @@ public class Player : MonoBehaviour
     float m_fFireballCoolDown = 2.0f;
     float m_fFireballTimeLeft = 0.0f;
 
-    public GameObject m_SpellA;
-    float m_fSpellACoolDown = 2.0f;
-    float m_fSpellATimeLeft = 0.0f;
+    public GameObject m_FrostRing;
+    float m_fFrostRingCoolDown = 2.0f;
+    float m_fFrostRingTimeLeft = 0.0f;
 
     public GameObject m_SpellB;
     float m_fSpellBCoolDown = 2.0f;
@@ -42,10 +42,19 @@ public class Player : MonoBehaviour
 
 
     [Header("Towers")]
+    public GameObject m_BasicTower;
+    int m_iBasicTowerCost = 10;
+
     public GameObject m_FireTower;
+    int m_iFireTowerCost = 15;
+
     public GameObject m_FrostTower;
+    int m_iFrostTowerCost = 20;
+
     public GameObject m_LaserTower;
-    public GameObject m_BoomTower;
+    int m_iLaserTowerCost = 25;
+
+
 
     [Header("Mana")]
     public float fManaMaximum = 100.0f;
@@ -71,6 +80,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_SelectedSpell = Spell.None;
+
+        GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
+        GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
+        GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
+        GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
     }
 
     // Update is called once per frame
@@ -92,6 +106,20 @@ public class Player : MonoBehaviour
             if (m_fFireballTimeLeft < 0.0f)
             {
                 m_fFireballTimeLeft = 0.0f;
+            }
+            m_Marker.GetComponentInChildren<SpriteRenderer>().color = m_ColourDim;
+        }
+        else
+        {
+            m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        }
+
+        if (m_fFrostRingTimeLeft > 0.0f)
+        {
+            m_fFrostRingTimeLeft -= Time.deltaTime;
+            if (m_fFrostRingTimeLeft < 0.0f)
+            {
+                m_fFrostRingTimeLeft = 0.0f;
             }
             m_Marker.GetComponentInChildren<SpriteRenderer>().color = m_ColourDim;
         }
@@ -278,7 +306,20 @@ public class Player : MonoBehaviour
             DeselectObject();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1)) // Fire Tower
+        if (Input.GetKeyDown(KeyCode.Alpha1)) // Basic Tower
+        {
+            m_SelectedSpell = Spell.None;
+            if (m_SelectedTower != m_BasicTower)
+            {
+                m_SelectedTower = m_BasicTower;
+            }
+            else
+            {
+                m_SelectedTower = null;
+            }
+            DeselectObject();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) // Fire Tower
         {
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FireTower)
@@ -291,7 +332,7 @@ public class Player : MonoBehaviour
             }
             DeselectObject();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) // Frost Tower
+        if (Input.GetKeyDown(KeyCode.Alpha3)) // Frost Tower
         {
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FrostTower)
@@ -304,25 +345,12 @@ public class Player : MonoBehaviour
             }
             DeselectObject();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) // Laser Tower
+        if (Input.GetKeyDown(KeyCode.Alpha4)) // Laser Tower
         {
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_LaserTower)
             {
                 m_SelectedTower = m_LaserTower;
-            }
-            else
-            {
-                m_SelectedTower = null;
-            }
-            DeselectObject();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) // Boom Tower
-        {
-            m_SelectedSpell = Spell.None;
-            if (m_SelectedTower != m_BoomTower)
-            {
-                m_SelectedTower = m_BoomTower;
             }
             else
             {
@@ -342,23 +370,23 @@ public class Player : MonoBehaviour
     }
     private void CursorSelect()
     {
-        if (m_SelectedTower == m_FireTower)
+        if (m_SelectedTower == m_BasicTower)
         {
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower1.GetComponent<RectTransform>());
         }
-        else if (m_SelectedTower == m_FrostTower)
+        else if (m_SelectedTower == m_FireTower)
         {
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower2.GetComponent<RectTransform>());
         }
-        else if (m_SelectedTower == m_LaserTower)
+        else if (m_SelectedTower == m_FrostTower)
         {
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower3.GetComponent<RectTransform>());
 
         }
-        else if (m_SelectedTower == m_BoomTower)
+        else if (m_SelectedTower == m_LaserTower)
         {
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower4.GetComponent<RectTransform>());
