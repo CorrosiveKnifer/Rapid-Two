@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4552139984263786657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4668507907146144354}
+  m_Layer: 0
+  m_Name: MarkerContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4668507907146144354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552139984263786657}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6996531975368388649}
+  m_Father: {fileID: 6996531975935791752}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6996531975368388648
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6996531975368388649}
   - component: {fileID: 6996531975368388654}
+  - component: {fileID: 3950146781457636110}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -24,12 +56,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6996531975368388648}
-  m_LocalRotation: {x: -0.7071068, y: 0.000000029802319, z: 0.000000029802319, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0.000000044703484, z: 0.000000044703484, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.10000001, y: 0.10000002, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 6996531975935791752}
-  m_RootOrder: 1
+  m_Father: {fileID: 4668507907146144354}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &6996531975368388654
 SpriteRenderer:
@@ -70,17 +102,36 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 763d6a900ac884e489582992f0962b7b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 355995ff44c5e33438518d73bc7e6557, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 10.8, y: 10.8}
+  m_Size: {x: 18.49, y: 18.49}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3950146781457636110
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996531975368388648}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c7b33f35200ff849a0e6a6e6be59248, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6996531975679878162
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +192,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 12.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -225,7 +276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6996531975679878161}
-  - {fileID: 6996531975368388649}
+  - {fileID: 4668507907146144354}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
@@ -242,12 +293,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ColourDim: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
+  m_SelectableMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_CursorOn: {fileID: 2800000, guid: 40607c6f8591aaa419eb0689952c81ae, type: 3}
+  m_CursorOff: {fileID: 2800000, guid: 8812d0d4eaa705f47bc45d019d520bea, type: 3}
   m_Fireball: {fileID: 6602204647791965198, guid: 465290f0ab0e09749b41e93dd5e5d6b2,
     type: 3}
   fCameraMoveSpeed: 0.3
   fCameraZoomSpeed: 0.3
   fCameraMaxZoom: 15
   m_Camera: {fileID: 6996531975679878160}
-  m_Marker: {fileID: 6996531975368388648}
+  m_Marker: {fileID: 4552139984263786657}
   m_TempTurret: {fileID: 3088434373008096971, guid: 37f2b8600d74586439f516417c8b23ce,
     type: 3}

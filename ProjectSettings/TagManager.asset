@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Minion
   - Ground
+  - Tower
+  - TowerPlot
+  - Blood
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - 
   - Enemy
-  - 
+  - Selectable
   - 
   - 
   - 
