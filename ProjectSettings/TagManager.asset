@@ -10,6 +10,7 @@ TagManager:
   - Tower
   - TowerPlot
   - Blood
+  - End
   layers:
   - Default
   - TransparentFX

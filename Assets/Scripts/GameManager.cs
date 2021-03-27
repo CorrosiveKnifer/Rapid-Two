@@ -33,6 +33,21 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    [Header("Hotbar")]
+    public GameObject Spell1;
+    public GameObject Spell2;
+    public GameObject Spell3;
+    public GameObject Tower1;
+    public GameObject Tower2;
+    public GameObject Tower3;
+    public GameObject Tower4;
+    public GameObject Minion;
+
+    public Slider ManaBar;
+    public Slider MinionBloodBar;
+
+    public GameObject SelectFrame;
+
     //Volume Settings
     public static float MasterVolume { get; set; } = 1.0f;
     public static float SoundEffectVolume { get; set; } = 1.0f;
@@ -59,7 +74,7 @@ public class GameManager : MonoBehaviour
         GameTime += Time.deltaTime;
 
         if(BloodDisplay != null)
-            BloodDisplay.text = $"Blood: {Mathf.FloorToInt(blood)}";
+            BloodDisplay.text = $"{Mathf.FloorToInt(blood)}";
 
         if (WorldSpawners.Length > 0)
         {
@@ -71,5 +86,26 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
+    }
+
+    public void MoveFrame(RectTransform _transform)
+    {
+        SelectFrame.GetComponent<RectTransform>().position = _transform.position;
+    }
+
+    public void EnableFrame(bool _visible)
+    {
+        SelectFrame.GetComponent<Image>().enabled = _visible;
+    }
+
+    public void SetMana(float _mana)
+    {
+        ManaBar.value = _mana;
+    }
+
+    public void SetMinionBlood(float _blood)
+    {
+        MinionBloodBar.value = _blood;
     }
 }

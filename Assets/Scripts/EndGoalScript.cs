@@ -25,9 +25,12 @@ public class EndGoalScript : MonoBehaviour
         }
         if (other.tag == "Minion")
         {
-            MinionScript minion = other.GetComponent<MinionScript>();
-            GameManager.instance.blood += minion.bloodCount;
-            minion.bloodCount = 0;
+            HarvesterScript minion = other.GetComponent<HarvesterScript>();
+            if (minion != null)
+            {
+                GameManager.instance.blood += minion.bloodHold;
+                minion.bloodHold = 0;
+            }
         }
     }
 }
