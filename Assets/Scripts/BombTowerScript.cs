@@ -5,11 +5,12 @@ using UnityEngine;
 /// <summary>
 /// Rachael work
 /// </summary>
-public class TowerScript : MonoBehaviour
+/// 
+public class BombTowerScript : MonoBehaviour
 {
     //main tower variables
     public GameObject ammo;
-    public float bulletDamage = 1.0f; 
+    public float bulletDamage = 1.0f;
     public float bulletSpeed = 1.0f;
     public float coolDown = 10.0f;
     private float towerCoolDown;
@@ -40,7 +41,7 @@ public class TowerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -74,9 +75,9 @@ public class TowerScript : MonoBehaviour
     {
         GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
-        bulletClone.GetComponent<BulletScript>().SetDamage(bulletDamage);
-        bulletClone.GetComponent<BulletScript>().target = target;
-        
+        bulletClone.GetComponent<BombScript>().SetDamage(bulletDamage);
+        bulletClone.GetComponent<BombScript>().target = target;
+
     }
 
     //function which activates the targeting of enemies for the tower created
@@ -98,7 +99,7 @@ public class TowerScript : MonoBehaviour
             //Vector3 direction = target.transform.position - transform.position;
 
             Vector3 forward = transform.TransformDirection(Vector3.forward);
-            Debug.DrawRay(transform.position, forward* towerRadius, Color.green);
+            Debug.DrawRay(transform.position, forward * towerRadius, Color.green);
             transform.LookAt(target.transform);
         }
     }
@@ -227,5 +228,4 @@ public class TowerScript : MonoBehaviour
             }
         }
     }
-
 }
