@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Minion
+  - Ground
+  - Tower
+  - TowerPlot
+  - Blood
   layers:
   - Default
   - TransparentFX
@@ -13,6 +19,8 @@ TagManager:
   - UI
   - 
   - 
+  - Enemy
+  - Selectable
   - 
   - 
   - 
@@ -34,9 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Ground
   m_SortingLayers:
   - name: Default
     uniqueID: 0

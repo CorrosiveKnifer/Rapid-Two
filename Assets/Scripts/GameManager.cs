@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Michael Jordan
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     #region Singleton
 
-    public GameManager instance = null;
+    public static GameManager instance = null;
 
     private void Awake()
     {
@@ -39,9 +40,36 @@ public class GameManager : MonoBehaviour
 
     public double GameTime = 0.0;
 
+    public GameObject BasicEnemy;
+
+    public SpawnerScript[] WorldSpawners;
+
+    public int waveSize;
+    public int lives = 100;
+    public float blood;
+    public Text BloodDisplay;
+    private void Start()
+    {
+        Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
+    }
+
     // Update is called once per frame
     void Update()
     {
         GameTime += Time.deltaTime;
+
+        if(BloodDisplay != null)
+            BloodDisplay.text = $"Blood: {Mathf.FloorToInt(blood)}";
+
+        if (WorldSpawners.Length > 0)
+        {
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
+            {
+                foreach (var spawner in WorldSpawners)
+                {
+                    spawner.SpawnGameObject(BasicEnemy);
+                }
+            }
+        }
     }
 }
