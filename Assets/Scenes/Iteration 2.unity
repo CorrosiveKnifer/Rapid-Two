@@ -40882,6 +40882,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretPlot (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 7494290597945271843, guid: 5de82a75647db6447a109a73c3e87132,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7494290597945271844, guid: 5de82a75647db6447a109a73c3e87132,
         type: 3}
       propertyPath: m_RootOrder
@@ -56695,7 +56700,7 @@ PrefabInstance:
     - target: {fileID: 6922283797140715296, guid: 25388f5205476c64aa0e8cf2ab862afd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 6922283797140715296, guid: 25388f5205476c64aa0e8cf2ab862afd,
         type: 3}
