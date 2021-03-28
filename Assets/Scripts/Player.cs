@@ -327,7 +327,6 @@ public class Player : MonoBehaviour
                 PlotSelect(plot);
                 return;
             }
-
         }
 
         if (Input.GetMouseButtonDown(0)) // Cast spell
