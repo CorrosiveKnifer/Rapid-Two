@@ -42,21 +42,18 @@ public class Player : MonoBehaviour
     float m_fSpellBCoolDown = 2.0f;
     float m_fSpellBTimeLeft = 0.0f;
 
-
     [Header("Towers")]
     public GameObject m_BasicTower;
-    int m_iBasicTowerCost = 10;
-
     public GameObject m_FireTower;
-    int m_iFireTowerCost = 15;
-
     public GameObject m_FrostTower;
-    int m_iFrostTowerCost = 20;
-
     public GameObject m_LaserTower;
+    
+    [Header("Prices")]
+    int m_iBasicTowerCost = 10;
+    int m_iFireTowerCost = 15;
+    int m_iFrostTowerCost = 20;
     int m_iLaserTowerCost = 25;
-
-
+    int m_iDemonCost = 200;
 
     [Header("Mana")]
     public float fManaMaximum = 100.0f;
@@ -71,6 +68,12 @@ public class Player : MonoBehaviour
     public float fCameraMoveSpeed = 0.3f;
     public float fCameraZoomSpeed = 0.3f;
     public float fCameraMaxZoom = 15.0f;
+
+    [Header("Camera Positon Clamp Values")]
+    public float fCameraClampX1 = 30;
+    public float fCameraClampX2 = -30;
+    public float fCameraClampY1 = 45;
+    public float fCameraClampY2 = -65;
 
     [Header("Attachements")]
     public Camera m_Camera;
@@ -89,10 +92,12 @@ public class Player : MonoBehaviour
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
         GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
+        GameManager.instance.Spell3.GetComponentInChildren<Text>().text = m_iDemonCost.ToString();
     }
     private void CoolDowns()
     {
         // Fireball cooldown
+        GameManager.instance.Spell1.GetComponentInChildren<Slider>().value = (m_fFireballTimeLeft/m_fFireballCoolDown);
         if (m_fFireballTimeLeft > 0.0f)
         {
             m_fFireballTimeLeft -= Time.deltaTime;
@@ -107,6 +112,8 @@ public class Player : MonoBehaviour
             m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         }
 
+        // Frostring cooldown
+        GameManager.instance.Spell2.GetComponentInChildren<Slider>().value = (m_fFrostRingTimeLeft / m_fFrostRingCoolDown);
         if (m_fFrostRingTimeLeft > 0.0f)
         {
             m_fFrostRingTimeLeft -= Time.deltaTime;
@@ -171,6 +178,22 @@ public class Player : MonoBehaviour
 
         // Move player
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
+        if (transform.position.x > fCameraClampX1)
+        {
+            transform.position = new Vector3(30, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x < fCameraClampX2)
+        {
+            transform.position = new Vector3(-30, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z > fCameraClampY1)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 45);
+        }
+        if (transform.position.z < fCameraClampY2)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -65);
+        }
 
         // Camera zoom
         m_Camera.orthographicSize = Mathf.Clamp(m_Camera.orthographicSize - Input.mouseScrollDelta.y * fCameraZoomSpeed, 1, fCameraMaxZoom);
@@ -234,18 +257,25 @@ public class Player : MonoBehaviour
 
     
     private void HandleRayCastHit(RaycastHit hit)
-    { 
-        if (hit.collider.gameObject.layer == 9) // Check if object is selectable
+    {
+        if (m_SelectedSpell == Spell.None)
         {
-            // Set cursor to hovering
-            Cursor.SetCursor(m_CursorOn, new Vector2(16, 16), CursorMode.Auto);
+            Cursor.visible = true;
+            if (hit.collider.gameObject.layer == 9) // Check if object is selectable
+            {
+                // Set cursor to hovering
+                Cursor.SetCursor(m_CursorOn, new Vector2(16, 16), CursorMode.Auto);
+            }
+            else
+            {
+                // Set cursor to not hovering
+                Cursor.SetCursor(m_CursorOff, new Vector2(16, 16), CursorMode.Auto);
+            }
         }
         else
         {
-            // Set cursor to not hovering
-            Cursor.SetCursor(m_CursorOff, new Vector2(16, 16), CursorMode.Auto);
+            Cursor.visible = false;
         }
-
         if (m_SelectedSpell == Spell.None) // Check if spell is selected
         {
             // Select minion
@@ -314,9 +344,10 @@ public class Player : MonoBehaviour
         {
             if (m_selected.tag == "Minion")
             {
-                DeselectObject();
-                m_selected = null;
-                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                //DeselectObject();
+                //m_selected = null;
+                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
             }
         }
         else
@@ -399,6 +430,9 @@ public class Player : MonoBehaviour
         }
         if (plot.m_AttachedTurret != null)
         {
+            m_SelectedSpell = Spell.None;
+            m_SelectedTower = null;
+
             m_selected = plot.m_AttachedTurret;
             m_selected.GetComponent<TowerScript>()?.SetSelected(true);
             m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
@@ -556,9 +590,6 @@ public class Player : MonoBehaviour
                 m_selected.GetComponent<IceTowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<LaserTowerScript>()?.SetSelected(false);
             }
-            
-
-
         }
         m_selected = null;
     }
