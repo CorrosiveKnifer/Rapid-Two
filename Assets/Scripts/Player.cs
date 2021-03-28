@@ -11,7 +11,7 @@ enum Spell
 {
     Fireball,
     FrostRing,
-    SpellB,
+    DemonSummon,
     None
 }
 
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
                     m_Marker.GetComponentInChildren<SpriteRenderer>().color = Color.white;
                 }
                 break;
-            case Spell.SpellB:
+            case Spell.DemonSummon:
                 break;
 
         }
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion") // Check if minion is currently selected and move frame to minion on hotbar
+            if (m_selected.tag == "Minion" || m_selected.tag == "Demon") // Check if minion is currently selected and move frame to minion on hotbar
             {
                 GameManager.instance.EnableFrame(true);
             }
@@ -307,7 +307,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
                 {
-                    m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
+                    m_selected.GetComponent<DemonScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
                     return;
                 }
@@ -374,9 +374,9 @@ public class Player : MonoBehaviour
         else
         {
             GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-            //GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+            GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
             m_selected = m_Demon;
-            m_selected.GetComponent<HarvesterScript>().SetSelected(true);
+            m_selected.GetComponent<DemonScript>().SetSelected(true);
         }
     }
     private void TowerSelect(RaycastHit hit)
@@ -532,9 +532,6 @@ public class Player : MonoBehaviour
         {
             DemonSelect();
         }
-
-
-
     }
     private void CursorSelect()
     {
@@ -569,7 +566,7 @@ public class Player : MonoBehaviour
                 GameManager.instance.EnableFrame(true);
                 GameManager.instance.MoveFrame(GameManager.instance.Spell2.GetComponent<RectTransform>());
                 break;
-            case Spell.SpellB:
+            case Spell.DemonSummon:
                 GameManager.instance.EnableFrame(true);
                 GameManager.instance.MoveFrame(GameManager.instance.Spell3.GetComponent<RectTransform>());
                 break;
@@ -581,7 +578,10 @@ public class Player : MonoBehaviour
         if (m_selected != null)
         {
             if (m_selected.tag == "Minion")
-                m_selected.GetComponent<MinionScript>().SetSelected(false);
+                m_selected.GetComponent<HarvesterScript>().SetSelected(false);
+
+            if (m_selected.tag == "Demon")
+                m_selected.GetComponent<DemonScript>().SetSelected(false);
 
             if (m_selected.tag == "Tower")
             {
