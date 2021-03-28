@@ -297,21 +297,21 @@ public class Player : MonoBehaviour
 
 
             // Select Demon
-            //DemonScript demon = hit.collider.gameObject.GetComponentInChildren<HarvesterScript>();
-            //if ((demon != null && Input.GetMouseButtonDown(0))) // Select minion with click
-            //{
-            //    DemonSelect();
-            //    return;
-            //}
-            //if (m_selected != null)
-            //{
-            //    if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
-            //    {
-            //        m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
-            //        Debug.Log(hit.point);
-            //        return;
-            //    }
-            //}
+            DemonScript demon = hit.collider.gameObject.GetComponentInChildren<DemonScript>();
+            if ((demon != null && Input.GetMouseButtonDown(0))) // Select minion with click
+            {
+                DemonSelect();
+                return;
+            }
+            if (m_selected != null)
+            {
+                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
+                {
+                    m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
+                    Debug.Log(hit.point);
+                    return;
+                }
+            }
 
             // Select tower
             TowerScript tower = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
@@ -366,9 +366,10 @@ public class Player : MonoBehaviour
         {
             if (m_selected.tag == "Demon")
             {
-                DeselectObject();
-                m_selected = null;
-                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                //DeselectObject();
+                //m_selected = null;
+                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
             }
         }
         else
