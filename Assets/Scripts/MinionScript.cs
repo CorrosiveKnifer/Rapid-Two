@@ -49,4 +49,30 @@ public class MinionScript : MonoBehaviour
 
         return Vector2.Distance(currentPos, destinationPos) < offset;
     }
+
+    protected GameObject FindClosestofTag(string tag, float range = -1)
+    {
+        GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
+        float closestDistance = 100000;
+        GameObject closestObject = null;
+        foreach (var foundObject in foundObjects)
+        {
+            float distance = Vector3.Distance(transform.position, foundObject.transform.position);
+            if (distance < closestDistance)
+            {
+                closestObject = foundObject;
+                closestDistance = distance;
+            }
+        }
+
+        if (range < 0)
+        {
+            return closestObject;
+        }
+        else if (closestDistance <= range)
+        {
+            return closestObject;
+        }
+        return null;
+    }
 }

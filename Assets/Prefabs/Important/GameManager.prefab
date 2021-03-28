@@ -1503,7 +1503,7 @@ MonoBehaviour:
   Tower3: {fileID: 3878599344504544722}
   Tower4: {fileID: 8738432674898551674}
   Minion: {fileID: 4445992542923633248}
-  Demon: {fileID: 0}
+  Demon: {fileID: 7481060365848121268}
   ManaBar: {fileID: 7388019394724230495}
   MinionBloodBar: {fileID: 3325484977708291662}
   SelectFrame: {fileID: 4310277211738195168}
