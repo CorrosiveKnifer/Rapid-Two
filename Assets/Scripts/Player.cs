@@ -375,7 +375,7 @@ public class Player : MonoBehaviour
         else
         {
             GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-            GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+            //GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
             m_selected = m_Demon;
             m_selected.GetComponent<HarvesterScript>().SetSelected(true);
         }

@@ -25,7 +25,7 @@ public class DemonScript : MinionScript
 
     protected override void Update()
     {
-        GetComponentInChildren<Animator>().SetBool("IsMoving", IsAgentFinished());
+        GetComponentInChildren<Animator>().SetBool("IsMoving", !IsAgentFinished());
         StateBasedUpdate();
         base.Update();
     }
@@ -136,14 +136,15 @@ public class DemonScript : MinionScript
      */
     private void AttackUpdate()
     {
-        //myHuntTarget = FindClosestofTag("End");
+        myHuntTarget = FindClosestofTag("End");
         //
-        //SetTargetLocation(myHuntTarget.transform.position);
+        SetTargetLocation(myHuntTarget.transform.position);
         //
-        //if (IsAgentFinished())
-        //{
-        //    TransitionTo(AIState.DETECT);
-        //}
+        if (IsAgentFinished())
+        {
+            GetComponentInChildren<Animator>().SetBool("IsAttacking", true);
+            //TransitionTo(AIState.DETECT);
+        }
     }
 
     private void TransitionTo(AIState newState)
@@ -154,9 +155,11 @@ public class DemonScript : MinionScript
         switch (newState)
         {
             case AIState.DETECT:
+                GetComponentInChildren<Animator>().SetBool("IsAttacking", false);
                 myHuntTarget = null;
                 break;
             case AIState.SELECTED:
+                GetComponentInChildren<Animator>().SetBool("IsAttacking", false);
                 myHuntTarget = null;
                 break;
             case AIState.ATTACK:
@@ -166,5 +169,10 @@ public class DemonScript : MinionScript
         }
 
         currentState = newState;
+    }
+
+    public void DealDamage()
+    {
+
     }
 }
