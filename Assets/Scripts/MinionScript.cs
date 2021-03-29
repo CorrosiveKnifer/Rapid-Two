@@ -14,6 +14,8 @@ public abstract class MinionScript : MonoBehaviour
     public float maximumSpeed = 7.0f;
     public float speedMod = 1.0f;
 
+    public GameObject materialLoc;
+
     protected float speed;
     protected bool IsDead = false;
     protected bool IsSelected = false;
@@ -46,6 +48,7 @@ public abstract class MinionScript : MonoBehaviour
     }
 
     public abstract void TakeDamage(float damage);
+    protected abstract void HandleShowDeathFinalFrame();
 
     protected bool IsAgentFinished(float offset = 1.0f)
     {
@@ -79,5 +82,33 @@ public abstract class MinionScript : MonoBehaviour
             return closestObject;
         }
         return null;
+    }
+    public void Death()
+    {
+        agent.isStopped = true;
+        IsDead = true;
+        StartCoroutine(ShowDeath());
+    }
+
+    protected IEnumerator ShowDeath()
+    {
+        float t = 0.0f;
+        float dt = 0.05f;
+        float dt2 = 0.01f;
+        float alpha = 1.0f;
+
+        while (alpha > 0.0f)
+        {
+            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
+
+            t += dt * Time.deltaTime;
+            dt += dt2;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        HandleShowDeathFinalFrame();
+        yield return null;
     }
 }

@@ -10,10 +10,6 @@ public class DemonScript : MinionScript
     public float AttackRadius = 2.5f;
     public float Damage = 50.0f;
 
-    [Header("Demon Material")]
-    public GameObject materialLoc;
-    public Material material;
-
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
     private GameObject myHuntTarget;
@@ -108,13 +104,9 @@ public class DemonScript : MinionScript
         if (IsAgentFinished())
         {
             agent.isStopped = true;
+            myHuntTarget = FindClosestofTag("Enemy", DetectRadius);
 
-            if (myHuntTarget == null)
-            {
-                //Find closest target.
-                myHuntTarget = FindClosestofTag("Enemy", DetectRadius);
-            }
-            else
+            if (myHuntTarget != null)
             {
                 float distance = Vector3.Distance(transform.position, myHuntTarget.transform.position);
                 if (distance > DetectRadius)
@@ -128,12 +120,10 @@ public class DemonScript : MinionScript
                 }
                 else
                 {
-                    ////Start harvesting
-                    //if (delay <= 0)
-                    //{
-                    //    delay = HarvestDelay;
-                    //    myHuntTarget?.GetComponent<BloodScript>().Consume(this, HarvestAmount);
-                    //}
+                    agent.isStopped = true;
+                    transform.LookAt(myHuntTarget.transform, Vector3.up);
+                    transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+                    GetComponentInChildren<Animator>()?.SetBool("IsAttacking", true);
                 }
             }
         }
@@ -258,33 +248,6 @@ public class DemonScript : MinionScript
         yield return null;
     }
 
-    private IEnumerator ShowDeath()
-    {
-        float t = 0.0f;
-        float dt = 0.05f;
-        float dt2 = 0.01f;
-        float alpha = 1.0f;
-
-        while (alpha > 0.0f)
-        {
-            alpha = Mathf.Lerp(1.0f, 0.0f, t);
-            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
-
-            t += dt * Time.deltaTime;
-            dt += dt2;
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        Destroy(gameObject);
-        yield return null;
-    }
-
-    public void Death()
-    {
-        StartCoroutine(ShowDeath());
-    }
-
     public override void TakeDamage(float damage)
     {
         if (IsDead)
@@ -296,5 +259,10 @@ public class DemonScript : MinionScript
             IsDead = true;
             GetComponentInChildren<Animator>()?.SetTrigger("IsDead");
         }
+    }
+
+    protected override void HandleShowDeathFinalFrame()
+    {
+        Destroy(gameObject);
     }
 }

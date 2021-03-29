@@ -5,10 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Michael Jordan
 /// </summary>
-public class EnemyAnimScript : MonoBehaviour
+public class HarvesterAnimLink : MonoBehaviour
 {
-    public void Attack()
+    public void Death()
     {
-        GetComponentInParent<EnemyScript>().Attack();
+        GetComponentInParent<HarvesterScript>().Death();
     }
 }
