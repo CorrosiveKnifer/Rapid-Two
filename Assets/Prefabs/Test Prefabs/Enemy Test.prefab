@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4660356470638291541}
   - component: {fileID: 596003420842702735}
   - component: {fileID: 1190592559249138336}
+  - component: {fileID: 1441847992145869961}
   m_Layer: 2
   m_Name: Enemy Test
   m_TagString: Enemy
@@ -115,6 +116,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1441847992145869961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005697309048812295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74dfe0151b8f234419c0d92ced6dea56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7686139725706433181
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,8 +279,9 @@ MonoBehaviour:
   currentIndex: -1
   health: 100
   HuntRange: 5
-  AttackRange: 1.5
+  AttackRange: 2.5
   BloodAmount: 5
+  Damage: 5
   IsDead: 0
   BloodPrefab: {fileID: 4479456426645096089, guid: 34a8eacc338b5c9498a17cff2a2c2e94,
     type: 3}
