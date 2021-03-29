@@ -48,8 +48,9 @@ public class Player : MonoBehaviour
     public GameObject m_FireTower;
     public GameObject m_FrostTower;
     public GameObject m_LaserTower;
-    
+
     [Header("Prices")]
+    public float m_fRefund = 0.4f;
     int m_iBasicTowerCost = 10;
     int m_iFireTowerCost = 15;
     int m_iFrostTowerCost = 20;
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        // Move player
+        // Move player with keyboard
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
         if (transform.position.x > fCameraClampX1)
         {
@@ -314,8 +315,11 @@ public class Player : MonoBehaviour
             }
 
             // Select tower
-            TowerScript tower = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
-            if (tower != null && Input.GetMouseButtonDown(0))
+            TowerScript tower1 = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
+            BombTowerScript tower2 = hit.collider.gameObject.GetComponentInChildren<BombTowerScript>();
+            IceTowerScript tower3 = hit.collider.gameObject.GetComponentInChildren<IceTowerScript>();
+            LaserTowerScript tower4 = hit.collider.gameObject.GetComponentInChildren<LaserTowerScript>();
+            if ((tower1 != null || tower2 != null || tower3 != null || tower4 != null)  && Input.GetMouseButtonDown(0))
             {
                 TowerSelect(hit);
                 return;
@@ -341,7 +345,7 @@ public class Player : MonoBehaviour
         m_SelectedSpell = Spell.None;
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion")
+            if (/*m_selected.tag == "Minion"*/m_selected.gameObject.GetComponent<HarvesterScript>() != null)
             {
                 //DeselectObject();
                 //m_selected = null;
@@ -363,7 +367,7 @@ public class Player : MonoBehaviour
         m_SelectedSpell = Spell.None;
         if (m_selected != null)
         {
-            if (m_selected.tag == "Demon")
+            if (m_selected.gameObject.GetComponent<DemonScript>() != null)
             {
                 //DeselectObject();
                 //m_selected = null;
@@ -381,14 +385,33 @@ public class Player : MonoBehaviour
     }
     private void TowerSelect(RaycastHit hit)
     {
+        DeselectObject();
         if (m_bDestroyMode)
         {
-            DeselectObject();
+            if (hit.collider.gameObject.GetComponentInChildren<TowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iBasicTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<BombTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iFireTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<IceTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iFrostTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<LaserTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iLaserTowerCost * m_fRefund;
+            }
+            else
+            {
+                Debug.Log("No Turret");
+            }
             Destroy(hit.collider.gameObject);
             return;
         }
 
-        DeselectObject();
         m_selected = hit.collider.gameObject;
         m_selected.GetComponent<TowerScript>()?.SetSelected(true);
         m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
@@ -400,7 +423,30 @@ public class Player : MonoBehaviour
         DeselectObject();
         if (m_bDestroyMode)
         {
-            plot.DestroyTurret();
+            if (plot.m_AttachedTurret != null)
+            {
+                if (plot.m_AttachedTurret.GetComponentInChildren<TowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iBasicTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<BombTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iFireTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<IceTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iFrostTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<LaserTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iLaserTowerCost * m_fRefund;
+                }
+                else
+                {
+                    Debug.Log("No Turret");
+                }
+                plot.DestroyTurret();
+            }
             return;
         }
         if (m_SelectedTower != null)

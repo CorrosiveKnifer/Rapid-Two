@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class TurretPlot : MonoBehaviour
 {
-    bool m_bHasTurret = false;
     public Transform m_SpawnLoc;
     public GameObject m_AttachedTurret;
 
@@ -25,20 +24,18 @@ public class TurretPlot : MonoBehaviour
 
     public void SpawnTurret(GameObject _turret)
     {
-        if (!m_bHasTurret)
+        if (m_AttachedTurret == null)
         {
             m_AttachedTurret = Instantiate(_turret, m_SpawnLoc.position, Quaternion.identity);
-            m_bHasTurret = true;
             Debug.Log("Spawned Turret");
         }
     }
 
     public void DestroyTurret()
     {
-        if (m_bHasTurret)
+        if (m_AttachedTurret != null)
         {
             Destroy(m_AttachedTurret);
-            m_bHasTurret = false;
         }
     }
 }
