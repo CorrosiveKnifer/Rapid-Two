@@ -17447,10 +17447,10 @@ MonoBehaviour:
   - {fileID: 1538320534}
   enemyPrefabs:
   - {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f, type: 3}
-  - {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f, type: 3}
-  - {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f, type: 3}
-  - {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f, type: 3}
-  - {fileID: 7686139726918785634, guid: 989aebc2b6540cf4a81539369019821f, type: 3}
+  - {fileID: 7686139726918785634, guid: 782d3f6c825da9a46a422fb8195171e0, type: 3}
+  - {fileID: 7686139726918785634, guid: ee7d6688d12d3bc458f35f4b3809d818, type: 3}
+  - {fileID: 7686139726918785634, guid: 84a946429a8de634b8f025cf0abf0748, type: 3}
+  - {fileID: 7686139726918785634, guid: 2ef904da6019da740a6958185b6a5a3c, type: 3}
   waveCode:
   - 0.3,4,0,0,0,0
   - 0.25,8,0,0,0,0
@@ -17462,7 +17462,7 @@ MonoBehaviour:
   - 0.12,4,8,8,10,0
   - 0.1,4,8,16,20,0
   - 0.05,0,0,0,0,16
-  waveIndex: 4
+  waveIndex: 0
 --- !u!1 &706803787
 GameObject:
   m_ObjectHideFlags: 0
@@ -55272,6 +55272,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 17.964844
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025464078149559631, guid: a93c100867ab27a4d80b32a93b5bfd67,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025464078149559631, guid: a93c100867ab27a4d80b32a93b5bfd67,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9025464078149559631, guid: a93c100867ab27a4d80b32a93b5bfd67,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 9065197322286581868, guid: a93c100867ab27a4d80b32a93b5bfd67,
         type: 3}

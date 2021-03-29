@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9b16e41ffd05ade4490d0e356af772df, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 6165241380486875388}
   - component: {fileID: 1648994889003022523}
   m_Layer: 2
-  m_Name: Enemy Test
+  m_Name: Enemy Brute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,11 +277,13 @@ MonoBehaviour:
   myPath: {fileID: 0}
   currentState: 0
   currentIndex: -1
-  health: 100
-  HuntRange: 5
+  health: 85
+  HuntRange: 2
   AttackRange: 2.5
-  BloodAmount: 5
-  Damage: 5
+  BloodAmount: 45
+  Damage: 25
+  baseSpeed: 4
+  livesCost: 40
   IsDead: 0
   BloodPrefab: {fileID: 4479456426645096089, guid: 34a8eacc338b5c9498a17cff2a2c2e94,
     type: 3}

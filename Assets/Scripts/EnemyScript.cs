@@ -22,6 +22,8 @@ public class EnemyScript : MonoBehaviour
     public float AttackRange = 2.5f;
     public float BloodAmount = 5.0f;
     public float Damage = 5.0f;
+    public float baseSpeed = 3.5f;
+    public int livesCost = 1;
 
     public bool IsDead = false;
     public GameObject BloodPrefab;
@@ -33,6 +35,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = baseSpeed;
         controller = GetComponentInChildren<Animator>();
 
         if (myPath == null)
@@ -229,14 +232,14 @@ public class EnemyScript : MonoBehaviour
                 break;
             case AIState.MOVING:
                 agent.isStopped = false;
-                agent.speed = 3.5f * MovementSpeedMod;
+                agent.speed = baseSpeed * MovementSpeedMod;
                 break;
             case AIState.HUNTING:
                 agent.isStopped = false;
-                agent.speed = 4.0f * MovementSpeedMod;
+                agent.speed = (baseSpeed + 0.5f) * MovementSpeedMod;
                 break;
             case AIState.ATTACKING:
-                agent.speed = 1.5f * MovementSpeedMod;
+                agent.speed = (baseSpeed - 1.0f) * MovementSpeedMod;
                 break;
             default:
                 break;

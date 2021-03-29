@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 523c4e5134edfa9448439ef982b93aa6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 6165241380486875388}
   - component: {fileID: 1648994889003022523}
   m_Layer: 2
-  m_Name: Enemy Test
+  m_Name: Enemy Beef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,10 +278,12 @@ MonoBehaviour:
   currentState: 0
   currentIndex: -1
   health: 100
-  HuntRange: 5
+  HuntRange: 4
   AttackRange: 2.5
-  BloodAmount: 5
-  Damage: 5
+  BloodAmount: 30
+  Damage: 8
+  baseSpeed: 2
+  livesCost: 20
   IsDead: 0
   BloodPrefab: {fileID: 4479456426645096089, guid: 34a8eacc338b5c9498a17cff2a2c2e94,
     type: 3}

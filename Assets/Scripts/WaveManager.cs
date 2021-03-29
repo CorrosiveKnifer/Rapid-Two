@@ -19,7 +19,11 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+                StartNextWave();
+        }
     }
 
     public void StartNextWave()
