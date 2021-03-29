@@ -229,4 +229,9 @@ public class BombTowerScript : MonoBehaviour
             }
         }
     }
+    void OnDestroy()
+    {
+        // Will be called just prior to destruction of the gameobject to which this script is attached
+        Destroy(m_Indicator);
+    }
 }
