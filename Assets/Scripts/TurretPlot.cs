@@ -25,17 +25,20 @@ public class TurretPlot : MonoBehaviour
 
     public void SpawnTurret(GameObject _turret)
     {
-        // TEMP
         if (!m_bHasTurret)
         {
             m_AttachedTurret = Instantiate(_turret, m_SpawnLoc.position, Quaternion.identity);
             m_bHasTurret = true;
             Debug.Log("Spawned Turret");
         }
-        //else
-        //{
-        //    Destroy(m_AttachedTurret);
-        //    m_bHasTurret = false;
-        //}
+    }
+
+    public void DestroyTurret()
+    {
+        if (m_bHasTurret)
+        {
+            Destroy(m_AttachedTurret);
+            m_bHasTurret = false;
+        }
     }
 }

@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     GameObject m_SelectedTower;
     public Color m_ColourDim;
     public LayerMask m_SelectableMask;
+    bool m_bDestroyMode = false;
 
     [Header("Cursors")]
     public Texture2D m_CursorOn;
@@ -244,7 +245,7 @@ public class Player : MonoBehaviour
                 GameManager.instance.EnableFrame(false);
             }
         }
-        else if (m_SelectedSpell == Spell.None && m_SelectedTower == null)
+        else if (m_SelectedSpell == Spell.None && m_SelectedTower == null && !m_bDestroyMode)
         {
             GameManager.instance.EnableFrame(false);
         }
@@ -294,7 +295,6 @@ public class Player : MonoBehaviour
                     return;
                 }
             }
-
 
             // Select Demon
             DemonScript demon = hit.collider.gameObject.GetComponentInChildren<DemonScript>();
@@ -381,6 +381,13 @@ public class Player : MonoBehaviour
     }
     private void TowerSelect(RaycastHit hit)
     {
+        if (m_bDestroyMode)
+        {
+            DeselectObject();
+            Destroy(hit.collider.gameObject);
+            return;
+        }
+
         DeselectObject();
         m_selected = hit.collider.gameObject;
         m_selected.GetComponent<TowerScript>()?.SetSelected(true);
@@ -391,6 +398,11 @@ public class Player : MonoBehaviour
     private void PlotSelect(TurretPlot plot)
     {
         DeselectObject();
+        if (m_bDestroyMode)
+        {
+            plot.DestroyTurret();
+            return;
+        }
         if (m_SelectedTower != null)
         {
             if (m_SelectedTower == m_BasicTower && m_iBasicTowerCost > GameManager.instance.blood)
@@ -428,6 +440,8 @@ public class Player : MonoBehaviour
 
             plot.SpawnTurret(m_SelectedTower);
         }
+
+
         if (plot.m_AttachedTurret != null)
         {
             m_SelectedSpell = Spell.None;
@@ -444,6 +458,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q)) // Fireball
         {
+            m_bDestroyMode = false;
             if (m_SelectedSpell != Spell.Fireball)
             {
                 m_SelectedTower = null;
@@ -457,6 +472,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E)) // Frost Ring
         {
+            m_bDestroyMode = false;
             if (m_SelectedSpell != Spell.FrostRing)
             {
                 m_SelectedTower = null;
@@ -471,6 +487,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) // Basic Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_BasicTower)
             {
@@ -484,6 +501,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) // Fire Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FireTower)
             {
@@ -497,6 +515,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) // Frost Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FrostTower)
             {
@@ -510,6 +529,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) // Laser Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_LaserTower)
             {
@@ -520,6 +540,21 @@ public class Player : MonoBehaviour
                 m_SelectedTower = null;
             }
             DeselectObject();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) // Laser Tower
+        {
+            m_SelectedSpell = Spell.None;
+            m_SelectedTower = null;
+            DeselectObject();
+
+            if (m_bDestroyMode)
+            {
+                m_bDestroyMode = false;
+            }
+            else
+            {
+                m_bDestroyMode = true;
+            }
         }
 
 
@@ -555,6 +590,11 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower4.GetComponent<RectTransform>());
+        }
+        else if (m_bDestroyMode)
+        {
+            GameManager.instance.EnableFrame(true);
+            GameManager.instance.MoveFrame(GameManager.instance.TowerDestroy.GetComponent<RectTransform>());
         }
         switch (m_SelectedSpell)
         {
