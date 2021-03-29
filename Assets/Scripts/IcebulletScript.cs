@@ -36,8 +36,10 @@ public class IcebulletScript : MonoBehaviour
         if (other.tag == "Enemy")
         {
             BulletHealth = other.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletdamage);
-            //if it does hit
-            if (BulletHealth == 0)
+            Debug.Log(BulletHealth);
+
+            //if it does hit or if the enemy is dead when it hits
+            if (BulletHealth == 0 || other.GetComponentInParent<EnemyScript>().IsDead)
             {
                 Effect();
                 Destroy(gameObject);
@@ -47,7 +49,7 @@ public class IcebulletScript : MonoBehaviour
 
     void Effect()
     {
-        GameObject IceEffect = (GameObject)Instantiate(IceField, target.transform.position, target.transform.rotation);
+        GameObject IceEffect = (GameObject)Instantiate(IceField, transform.position, transform.rotation);
     }
 
     //setting the bullets damage
