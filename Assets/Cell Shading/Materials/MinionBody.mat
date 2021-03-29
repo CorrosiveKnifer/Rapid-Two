@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crystal2
+  m_Name: MinionBody
   m_Shader: {fileID: -6465566751694194690, guid: 3dcb6fc3d4cee254c87e057d90b58be8,
     type: 3}
   m_ShaderKeywords: BOOLEAN_20A2BDA1_ON BOOLEAN_7188B8F1_ON BOOLEAN_797A78DA_ON

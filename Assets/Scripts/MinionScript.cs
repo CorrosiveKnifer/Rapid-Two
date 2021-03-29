@@ -22,6 +22,7 @@ public abstract class MinionScript : MonoBehaviour
     {
         speed = (maximumSpeed + minimumSpeed) / 2.0f;
         agent = GetComponent<NavMeshAgent>();
+        agent.isStopped = true;
     }
 
     // Update is called once per frame

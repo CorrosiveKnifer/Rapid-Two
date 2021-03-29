@@ -22,9 +22,11 @@ public class HarvesterScript : MinionScript
     private GameObject myHuntTarget;
     private float delay;
     private float health;
+    private Animator animator;
 
     protected override void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
@@ -37,6 +39,8 @@ public class HarvesterScript : MinionScript
 
         float speedRange = maximumSpeed - minimumSpeed;
         speed = Mathf.Clamp((1.0f - bloodHold / maximumBlood) * speedRange + minimumSpeed, minimumSpeed, maximumSpeed);
+        animator.SetFloat("MovementMod", Mathf.Clamp((speed / maximumSpeed) * 2.0f, 0.5f, 2.0f));
+        animator.SetBool("IsMoving", !agent.isStopped);
 
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
@@ -196,9 +200,11 @@ public class HarvesterScript : MinionScript
         myHuntTarget = FindClosestofTag("End");
 
         SetTargetLocation(myHuntTarget.transform.position);
+        //animator.SetBool("IsMoving", true);
 
         if (IsAgentFinished())
         {
+            //animator.SetBool("IsMoving", false);
             TransitionTo(AIState.DETECT);
         }
     }
@@ -212,6 +218,7 @@ public class HarvesterScript : MinionScript
         {
             case AIState.DETECT:
                 myHuntTarget = null;
+                
                 break;
             case AIState.SELECTED:
                 break;
