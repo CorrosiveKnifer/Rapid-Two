@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MinionScript : MonoBehaviour
+public abstract class MinionScript : MonoBehaviour
 {
     public Renderer selectedCircle;
 
@@ -15,10 +15,12 @@ public class MinionScript : MonoBehaviour
     public float speedMod = 1.0f;
 
     protected float speed;
+    protected bool IsDead = false;
     protected bool IsSelected = false;
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        speed = (maximumSpeed + minimumSpeed) / 2.0f;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -42,6 +44,8 @@ public class MinionScript : MonoBehaviour
         IsSelected = selected;
     }
 
+    public abstract void TakeDamage(float damage);
+
     protected bool IsAgentFinished(float offset = 1.0f)
     {
         Vector2 destinationPos = new Vector2(agent.destination.x, agent.destination.z);
@@ -50,7 +54,7 @@ public class MinionScript : MonoBehaviour
         return Vector2.Distance(currentPos, destinationPos) < offset;
     }
 
-    protected GameObject FindClosestofTag(string tag, float range = -1)
+    protected virtual GameObject FindClosestofTag(string tag, float range = -1)
     {
         GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
         float closestDistance = 100000;

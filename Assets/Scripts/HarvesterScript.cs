@@ -225,4 +225,17 @@ public class HarvesterScript : MinionScript
 
         currentState = newState;
     }
+
+    public override void TakeDamage(float damage)
+    {
+        if (IsDead)
+            return;
+
+        health -= damage;
+        if (health <= 0)
+        {
+            IsDead = true;
+            //GetComponentInChildren<Animator>()?.SetTrigger("IsDead");
+        }
+    }
 }

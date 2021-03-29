@@ -8,24 +8,27 @@ public class DemonScript : MinionScript
     public float maxHealth = 100.0f;
     public float DetectRadius = 12.5f;
     public float AttackRadius = 2.5f;
-    public float Damage;
-
+    public float Damage = 50.0f;
+    
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
     private GameObject myHuntTarget;
     private bool IsDead = false;
     private float health;
+    private SphereCollider attackSphere;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        attackSphere = GetComponentInChildren<SphereCollider>();
+        GetComponentInChildren<Animator>().SetTrigger("IsSpawned");
         health = maxHealth;
         base.Start();
     }
 
     protected override void Update()
     {
-        GetComponentInChildren<Animator>().SetBool("IsMoving", !IsAgentFinished());
+        GetComponentInChildren<Animator>()?.SetBool("IsMoving", !IsAgentFinished(0.25f));
         StateBasedUpdate();
         base.Update();
     }
@@ -77,14 +80,17 @@ public class DemonScript : MinionScript
      */
     private void DetectUpdate()
     {
-        //myHuntTarget = FindClosestofTag("End");
-        //
-        //SetTargetLocation(myHuntTarget.transform.position);
-        //
-        //if (IsAgentFinished())
-        //{
-        //    TransitionTo(AIState.DETECT);
-        //}
+        myHuntTarget = FindClosestofTag("Enemy");
+
+        if(myHuntTarget != null)
+        {
+            SetTargetLocation(myHuntTarget.transform.position);
+
+            if (IsAgentFinished(2.5f))
+            {
+                TransitionTo(AIState.ATTACK);
+            }
+        }
     }
 
     /*--------------------
@@ -136,14 +142,29 @@ public class DemonScript : MinionScript
      */
     private void AttackUpdate()
     {
-        myHuntTarget = FindClosestofTag("End");
-        //
-        SetTargetLocation(myHuntTarget.transform.position);
-        //
-        if (IsAgentFinished())
+        if(myHuntTarget != null)
         {
-            GetComponentInChildren<Animator>().SetBool("IsAttacking", true);
-            //TransitionTo(AIState.DETECT);
+            float distance = Vector3.Distance(transform.position, myHuntTarget.transform.position);
+
+            if(distance <= AttackRadius)
+            {
+                agent.isStopped = true;
+                transform.LookAt(myHuntTarget.transform, Vector3.up);
+                transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
+                GetComponentInChildren<Animator>()?.SetBool("IsAttacking", true);
+            }
+            else if(distance > DetectRadius)
+            {
+                TransitionTo(AIState.DETECT);
+            }
+            else
+            {
+                SetTargetLocation(myHuntTarget.transform.position);
+            }
+        }
+        else
+        {
+            TransitionTo(AIState.DETECT);
         }
     }
 
@@ -155,11 +176,11 @@ public class DemonScript : MinionScript
         switch (newState)
         {
             case AIState.DETECT:
-                GetComponentInChildren<Animator>().SetBool("IsAttacking", false);
+                GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
                 myHuntTarget = null;
                 break;
             case AIState.SELECTED:
-                GetComponentInChildren<Animator>().SetBool("IsAttacking", false);
+                GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
                 myHuntTarget = null;
                 break;
             case AIState.ATTACK:
@@ -173,6 +194,78 @@ public class DemonScript : MinionScript
 
     public void DealDamage()
     {
+        Collider[] hits = Physics.OverlapSphere(attackSphere.gameObject.transform.position, attackSphere.radius);
+        foreach (var hit in hits)
+        {
+            if(hit.tag == "Enemy")
+            {
+                EnemyScript script = hit.gameObject.GetComponentInParent<EnemyScript>();
+                script.SetMovementMod(0.5f);
+                script.DealDamageToEnemy(Damage);
+                StartCoroutine(ResetSlowOn(script, 0.5f));
+            }
+        }
+    }
 
+
+
+    override protected GameObject FindClosestofTag(string tag, float range = -1)
+    {
+        GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
+        float closestDistance = 100000;
+        GameObject closestObject = null;
+        
+        foreach (var foundObject in foundObjects)
+        {
+            float distance = Vector3.Distance(transform.position, foundObject.transform.position);
+
+            if (tag == "Enemy" && foundObject.GetComponentInParent<EnemyScript>().IsDead)
+            {
+                continue;
+            }
+
+            if (distance < closestDistance)
+            {
+                closestObject = foundObject;
+                closestDistance = distance;
+            }
+        }
+
+        if (range < 0)
+        {
+            return closestObject;
+        }
+        else if (closestDistance <= range)
+        {
+            return closestObject;
+        }
+        return null;
+    }
+
+    private IEnumerator ResetSlowOn(EnemyScript enemy, float time)
+    {
+        float delay = 0;
+
+        while(delay < time)
+        {
+            delay += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        enemy.SetMovementMod(1.0f);
+        yield return null;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (IsDead)
+            return;
+
+        health -= damage;
+        if(health <= 0)
+        {
+            IsDead = true;
+            GetComponentInChildren<Animator>()?.SetTrigger("IsDead");
+        }
     }
 }
