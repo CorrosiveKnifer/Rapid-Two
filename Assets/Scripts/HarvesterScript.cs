@@ -16,7 +16,7 @@ public class HarvesterScript : MinionScript
     public float HarvestRadius = 2.5f;
     public float HarvestDelay = 0.5f;
     public float HarvestAmount = 1.0f;
-
+    public Vector3 RespawnPoint;
     private enum AIState { DETECT, SELECTED, HARVEST, DEPOSIT};
     private AIState currentState;
     private GameObject myHuntTarget;
@@ -25,6 +25,7 @@ public class HarvesterScript : MinionScript
 
     protected override void Start()
     {
+        transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
     }
@@ -224,5 +225,22 @@ public class HarvesterScript : MinionScript
         }
 
         currentState = newState;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (IsDead)
+            return;
+
+        health -= damage;
+        if (health <= 0)
+        {
+            agent.isStopped = true;
+            agent.enabled = false;
+            transform.position = RespawnPoint;
+            agent.enabled = true;
+            health = maxHealth;
+            bloodHold = 0;
+        }
     }
 }

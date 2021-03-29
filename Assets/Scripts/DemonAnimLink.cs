@@ -8,4 +8,9 @@ public class DemonAnimLink : MonoBehaviour
     {
         GetComponentInParent<DemonScript>().DealDamage();
     }
+
+    public void Death()
+    {
+        GetComponentInParent<DemonScript>().Death();
+    }
 }

@@ -19,12 +19,14 @@ public class EnemyScript : MonoBehaviour
     [Header("Enemy Settings")]
     public float health = 100.0f;
     public float HuntRange = 5.0f;
-    public float AttackRange = 1.5f;
+    public float AttackRange = 2.5f;
     public float BloodAmount = 5.0f;
+    public float Damage = 5.0f;
 
     public bool IsDead = false;
     public GameObject BloodPrefab;
     private Animator controller;
+    private GameObject target;
     private float MovementSpeedMod = 1.0f;
 
     // Start is called before the first frame update
@@ -84,25 +86,32 @@ public class EnemyScript : MonoBehaviour
                         agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
                     }
 
-                    GameObject minion = GameObject.FindGameObjectWithTag("Minion");
-                    if (Vector3.Distance(minion.transform.position, transform.position) < 5.0f)
+                    target = FindClosestMinion();
+                    if (target != null)
                     {
-                        agent.SetDestination(minion.transform.position);
+                        agent.SetDestination(target.transform.position);
                         TransitionTo(AIState.HUNTING);
                     } 
                     break;
                 }
             case AIState.HUNTING:
                 {
-                    GameObject minion = GameObject.FindGameObjectWithTag("Minion");
-                    float distance = Vector3.Distance(minion.transform.position, transform.position);
+                    target = FindClosestMinion();
+                    if (target == null)
+                    {
+                        agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
+                        TransitionTo(AIState.MOVING);
+                        return;
+                    }
+
+                    float distance = Vector3.Distance(target.transform.position, transform.position);
                     if (distance < AttackRange)
                     {
                         TransitionTo(AIState.ATTACKING);
                     }
                     if (distance < HuntRange)
                     {
-                        agent.SetDestination(minion.transform.position);
+                        agent.SetDestination(target.transform.position);
                     }
                     else
                     {
@@ -113,8 +122,15 @@ public class EnemyScript : MonoBehaviour
                 }
             case AIState.ATTACKING:
                 {
-                    GameObject minion = GameObject.FindGameObjectWithTag("Minion");
-                    float distance = Vector3.Distance(minion.transform.position, transform.position);
+                    target = FindClosestMinion();
+                    if(target == null)
+                    {
+                        agent.SetDestination(myPath.GetWaypointLocation(currentIndex).position);
+                        TransitionTo(AIState.MOVING);
+                        return;
+                    }
+
+                    float distance = Vector3.Distance(target.transform.position, transform.position);
                     if (distance < AttackRange)
                     {
                         agent.isStopped = true;
@@ -123,7 +139,7 @@ public class EnemyScript : MonoBehaviour
                     else if(distance < HuntRange)
                     {
                         agent.isStopped = false;
-                        agent.SetDestination(minion.transform.position);
+                        agent.SetDestination(target.transform.position);
                         TransitionTo(AIState.HUNTING);
                     }
                     else
@@ -137,6 +153,32 @@ public class EnemyScript : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private GameObject FindClosestMinion()
+    {
+        GameObject[] foundObjects = GameObject.FindGameObjectsWithTag("Minion");
+        float closestDistance = 100000;
+        GameObject closestObject = null;
+        foreach (var foundObject in foundObjects)
+        {
+            float distance = Vector3.Distance(transform.position, foundObject.transform.position);
+            if (distance < closestDistance)
+            {
+                closestObject = foundObject;
+                closestDistance = distance;
+            }
+        }
+
+        if (HuntRange < 0)
+        {
+            return closestObject;
+        }
+        else if (closestDistance <= HuntRange)
+        {
+            return closestObject;
+        }
+        return null;
     }
 
     private bool IsAgentAt(Vector3 destination, float offset = 1.0f)
@@ -153,6 +195,14 @@ public class EnemyScript : MonoBehaviour
         Vector2 currentPos = new Vector2(transform.position.x, transform.position.z);
 
         return Vector2.Distance(currentPos, destinationPos) < offset;
+    }
+
+    public void Attack()
+    {
+        if (target != null)
+        {
+            target.GetComponent<MinionScript>().TakeDamage(Damage);
+        }
     }
 
     public float DealDamageToEnemy(float damage)
@@ -178,9 +228,11 @@ public class EnemyScript : MonoBehaviour
             case AIState.IDLE:
                 break;
             case AIState.MOVING:
+                agent.isStopped = false;
                 agent.speed = 3.5f * MovementSpeedMod;
                 break;
             case AIState.HUNTING:
+                agent.isStopped = false;
                 agent.speed = 4.0f * MovementSpeedMod;
                 break;
             case AIState.ATTACKING:
