@@ -9,7 +9,11 @@ public class DemonScript : MinionScript
     public float DetectRadius = 12.5f;
     public float AttackRadius = 2.5f;
     public float Damage = 50.0f;
-    
+
+    [Header("Demon Material")]
+    public GameObject materialLoc;
+    public Material material;
+
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
     private GameObject myHuntTarget;
@@ -207,8 +211,6 @@ public class DemonScript : MinionScript
         }
     }
 
-
-
     override protected GameObject FindClosestofTag(string tag, float range = -1)
     {
         GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -254,6 +256,33 @@ public class DemonScript : MinionScript
 
         enemy.SetMovementMod(1.0f);
         yield return null;
+    }
+
+    private IEnumerator ShowDeath()
+    {
+        float t = 0.0f;
+        float dt = 0.05f;
+        float dt2 = 0.01f;
+        float alpha = 1.0f;
+
+        while (alpha > 0.0f)
+        {
+            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
+
+            t += dt * Time.deltaTime;
+            dt += dt2;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        Destroy(gameObject);
+        yield return null;
+    }
+
+    public void Death()
+    {
+        StartCoroutine(ShowDeath());
     }
 
     public override void TakeDamage(float damage)

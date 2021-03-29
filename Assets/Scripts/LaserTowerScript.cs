@@ -64,7 +64,7 @@ public class LaserTowerScript : MonoBehaviour
     void Fire()
     {
         //since it knows where the target is, it will just shoot the constant beam
-        target.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletDamage);
+        target.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletDamage * Time.deltaTime);
     }
 
     //function which activates the targeting of enemies for the tower created
