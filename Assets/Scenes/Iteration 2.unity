@@ -3363,6 +3363,12 @@ PrefabInstance:
       propertyPath: m_Harvester
       value: 
       objectReference: {fileID: 617124975}
+    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
+        type: 3}
+      propertyPath: m_BasicTower
+      value: 
+      objectReference: {fileID: 7735834906880896410, guid: 25388f5205476c64aa0e8cf2ab862afd,
+        type: 3}
     - target: {fileID: 6996531975935791755, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
       propertyPath: m_Name

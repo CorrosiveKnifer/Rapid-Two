@@ -24,6 +24,12 @@ public class Player : MonoBehaviour
     public LayerMask m_SelectableMask;
     bool m_bDestroyMode = false;
 
+    // Lerping
+    public Vector3 m_LerpStart;
+    public Vector3 m_LerpTarget;
+    public bool m_isLerping = false;
+    public float m_fLerpT = 0;
+
     [Header("Cursors")]
     public Texture2D m_CursorOn;
     public Texture2D m_CursorOff;
@@ -70,6 +76,7 @@ public class Player : MonoBehaviour
     public float fCameraMoveSpeed = 0.3f;
     public float fCameraZoomSpeed = 0.3f;
     public float fCameraMaxZoom = 15.0f;
+    float fMouseMoveSens = 5.0f;
 
     [Header("Camera Positon Clamp Values")]
     public float fCameraClampX1 = 30;
@@ -85,11 +92,11 @@ public class Player : MonoBehaviour
     public GameObject m_Demon;
     private GameObject m_selected;
 
+
     // Start is called before the first frame update
     void Start()
     {
         m_SelectedSpell = Spell.None;
-
         GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
@@ -180,6 +187,54 @@ public class Player : MonoBehaviour
 
         // Move player with keyboard
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
+        if (x != 0 || z != 0)
+        {
+            m_isLerping = false;
+            m_fLerpT = 0;
+        }
+
+        x = 0;
+        z = 0;
+
+        if (Input.mousePosition.x < fMouseMoveSens)
+        {
+            x = -1;
+        }
+        if (Input.mousePosition.x > (Screen.width - fMouseMoveSens))
+        {
+            x = 1;
+        }
+        if (Input.mousePosition.y < fMouseMoveSens)
+        {
+            z = -1;
+        }
+        if (Input.mousePosition.y > (Screen.height - fMouseMoveSens))
+        {
+            z = 1;
+        }
+
+        if (x != 0 || z != 0)
+        {
+            m_isLerping = false; 
+            m_fLerpT = 0;
+        }
+
+        if (m_isLerping)
+        {
+            transform.position = Vector3.Lerp(transform.position, m_LerpTarget, m_fLerpT);
+            m_fLerpT += Time.deltaTime;
+            if (m_fLerpT > 1.0f)
+            {
+                m_fLerpT = 1.0f;
+            }
+        }
+        else
+        {
+            m_fLerpT = 0.0f;
+        }
+
+        transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * 1.5f * m_Camera.orthographicSize / fCameraMaxZoom;
+
         if (transform.position.x > fCameraClampX1)
         {
             transform.position = new Vector3(30, transform.position.y, transform.position.z);
@@ -350,7 +405,8 @@ public class Player : MonoBehaviour
                 //DeselectObject();
                 //m_selected = null;
                 //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                m_isLerping = true;
+                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
             }
         }
         else
@@ -372,7 +428,9 @@ public class Player : MonoBehaviour
                 //DeselectObject();
                 //m_selected = null;
                 //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                //transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                m_isLerping = true;
+                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
             }
         }
         else
