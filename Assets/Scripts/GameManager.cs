@@ -79,16 +79,16 @@ public class GameManager : MonoBehaviour
         if(BloodDisplay != null)
             BloodDisplay.text = $"{Mathf.FloorToInt(blood)}";
 
-        if (WorldSpawners.Length > 0)
-        {
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
-            {
-                foreach (var spawner in WorldSpawners)
-                {
-                    spawner.SpawnGameObject(BasicEnemy);
-                }
-            }
-        }
+        //if (WorldSpawners.Length > 0)
+        //{
+        //    if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
+        //    {
+        //        foreach (var spawner in WorldSpawners)
+        //        {
+        //            spawner.SpawnGameObject(BasicEnemy);
+        //        }
+        //    }
+        //}
 
     }
 
