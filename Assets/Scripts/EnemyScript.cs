@@ -269,4 +269,19 @@ public class EnemyScript : MonoBehaviour
                 break;
         }
     }
+
+    public void StartFreeze()
+    {
+        if (MovementSpeedMod != 0)
+        {
+            StartCoroutine(Freeze());
+        }
+    }
+    IEnumerator Freeze()
+    {
+        SetMovementMod(0.0f);
+        // Freeze duration.
+        yield return new WaitForSeconds(5.0f);
+        SetMovementMod(1.0f);
+    }
 }

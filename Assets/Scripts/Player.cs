@@ -345,7 +345,7 @@ public class Player : MonoBehaviour
             }
             if (m_selected != null)
             {
-                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion") // Create target location for minion
+                if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<HarvesterScript>() != null) // Create target location for minion
                 {
                     m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
@@ -362,7 +362,7 @@ public class Player : MonoBehaviour
             }
             if (m_selected != null)
             {
-                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
+                if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<DemonScript>() != null) // Create target location for minion
                 {
                     m_selected.GetComponent<DemonScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
@@ -432,13 +432,17 @@ public class Player : MonoBehaviour
         {
             if (m_Demon == null) // Summon new demon.
             {
-                m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
-                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-                GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
-                m_selected = m_Demon;
-                m_selected.GetComponent<DemonScript>().SetSelected(true);
-                m_isLerping = true;
-                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                if (m_iDemonCost <= GameManager.instance.blood)
+                {
+                    GameManager.instance.blood -= m_iDemonCost;
+                    m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                    GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+                    m_selected = m_Demon;
+                    m_selected.GetComponent<DemonScript>().SetSelected(true);
+                    m_isLerping = true;
+                    m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                }
             }
             else
             {
@@ -729,19 +733,12 @@ public class Player : MonoBehaviour
     {
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion")
-                m_selected.GetComponent<HarvesterScript>().SetSelected(false);
-
-            if (m_selected.tag == "Demon")
-                m_selected.GetComponent<DemonScript>().SetSelected(false);
-
-            if (m_selected.tag == "Tower")
-            {
+                m_selected.GetComponent<HarvesterScript>()?.SetSelected(false);
+                m_selected.GetComponent<DemonScript>()?.SetSelected(false);
                 m_selected.GetComponent<TowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<BombTowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<IceTowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<LaserTowerScript>()?.SetSelected(false);
-            }
         }
         m_selected = null;
     }
