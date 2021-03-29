@@ -89,6 +89,7 @@ public class Player : MonoBehaviour
     public GameObject m_Marker;
 
     public GameObject m_Harvester;
+    public GameObject m_DemonPref;
     public GameObject m_Demon;
     private GameObject m_selected;
 
@@ -292,7 +293,7 @@ public class Player : MonoBehaviour
 
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion" || m_selected.tag == "Demon") // Check if minion is currently selected and move frame to minion on hotbar
+            if (m_selected.tag == "Minion") // Check if minion is currently selected and move frame to minion on hotbar
             {
                 GameManager.instance.EnableFrame(true);
             }
@@ -398,16 +399,13 @@ public class Player : MonoBehaviour
     private void MinionSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<HarvesterScript>() != null)
         {
-            if (/*m_selected.tag == "Minion"*/m_selected.gameObject.GetComponent<HarvesterScript>() != null)
-            {
-                //DeselectObject();
-                //m_selected = null;
-                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                m_isLerping = true;
-                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
-            }
+            //DeselectObject();
+            //m_selected = null;
+            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            m_isLerping = true;
+            m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
         }
         else
         {
@@ -421,24 +419,34 @@ public class Player : MonoBehaviour
     private void DemonSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<DemonScript>() != null)
         {
-            if (m_selected.gameObject.GetComponent<DemonScript>() != null)
-            {
-                //DeselectObject();
-                //m_selected = null;
-                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                //transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
-                m_isLerping = true;
-                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
-            }
+            //DeselectObject();
+            //m_selected = null;
+            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            //transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+            m_isLerping = true;
+            m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
         }
         else
         {
-            GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-            GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
-            m_selected = m_Demon;
-            m_selected.GetComponent<DemonScript>().SetSelected(true);
+            if (m_Demon == null) // Summon new demon.
+            {
+                m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+                m_selected = m_Demon;
+                m_selected.GetComponent<DemonScript>().SetSelected(true);
+                m_isLerping = true;
+                m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+            }
+            else
+            {
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+                m_selected = m_Demon;
+                m_selected.GetComponent<DemonScript>().SetSelected(true);
+            }
         }
     }
     private void TowerSelect(RaycastHit hit)
