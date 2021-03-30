@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Michael Jordan
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject Minion;
     public GameObject Demon;
 
+    public Slider LifeBar;
     public Slider ManaBar;
     public Slider MinionBloodBar;
 
