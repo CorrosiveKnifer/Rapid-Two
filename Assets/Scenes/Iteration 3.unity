@@ -3359,6 +3359,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5495210629875083885, guid: 54d05ffb307242b4c9bf75754cb843ac,
         type: 3}
+    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
+        type: 3}
+      propertyPath: m_LaserTower
+      value: 
+      objectReference: {fileID: 2686230642788437689, guid: b5c839717a5bf754fa8447d983e1b9e4,
+        type: 3}
     - target: {fileID: 6996531975935791755, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
       propertyPath: m_Name
