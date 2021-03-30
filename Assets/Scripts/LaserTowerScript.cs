@@ -48,6 +48,11 @@ public class LaserTowerScript : MonoBehaviour
         if (IsInRange())
         {
             TowerActivated();
+            GetComponent<Animator>().SetBool("IsShooting",  true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("IsShooting", false);
         }
     }
 
@@ -89,8 +94,8 @@ public class LaserTowerScript : MonoBehaviour
             float enemydist = Vector3.Distance(target.transform.position, transform.position);
             Debug.DrawRay(transform.position, direction.normalized * towerRadius, Color.blue);
 
-            ray.transform.localScale = new Vector3(1.0f, 1.0f, enemydist);
-            transform.LookAt(target.transform);
+            ray.transform.localScale = new Vector3(10.0f, 10.0f, enemydist);
+            ray.transform.LookAt(target.transform);
         }
     }
 

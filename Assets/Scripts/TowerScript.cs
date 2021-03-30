@@ -19,6 +19,7 @@ public class TowerScript : MonoBehaviour
     public GameObject[] enemies;
     public float towerRadius = 3.0f;
     public GameObject target;
+    public Transform spawner;
     public GameObject indicator;
     bool isFirst = false;
 
@@ -88,9 +89,9 @@ public class TowerScript : MonoBehaviour
 
     //Function called by the animator
     //function to spawn bullet
-    void Fire()
+    public void Fire()
     {
-        GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
+        GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<BulletScript>().SetDamage(bulletDamage);
         bulletClone.GetComponent<BulletScript>().target = target;

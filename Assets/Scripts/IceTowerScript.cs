@@ -21,7 +21,7 @@ public class IceTowerScript : MonoBehaviour
     public GameObject target;
     public GameObject indicator;
     bool isFirst = false;
-
+    public Transform spawner;
     public GameObject m_Indicator;
 
     // Called before start
@@ -52,6 +52,10 @@ public class IceTowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("Reset");
+        }
     }
 
     public void SetSelected(bool selected)
@@ -75,7 +79,7 @@ public class IceTowerScript : MonoBehaviour
     //function to spawn bullet
     void Fire()
     {
-        GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
+        GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<IcebulletScript>().SetDamage(bulletDamage);
         bulletClone.GetComponent<IcebulletScript>().target = target;
@@ -102,7 +106,7 @@ public class IceTowerScript : MonoBehaviour
 
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Debug.DrawRay(transform.position, forward * towerRadius, Color.green);
-            transform.LookAt(target.transform);
+            //transform.LookAt(target.transform);
         }
     }
 
