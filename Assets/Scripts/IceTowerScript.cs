@@ -52,6 +52,10 @@ public class IceTowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("Reset");
+        }
     }
 
     public void SetSelected(bool selected)
