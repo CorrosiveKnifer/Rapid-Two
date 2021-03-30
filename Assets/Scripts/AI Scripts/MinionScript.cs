@@ -36,6 +36,21 @@ public abstract class MinionScript : MonoBehaviour
         //speed is inversly proportional to the blood count
 
         agent.speed = speed * speedMod;
+
+        if (IsSelected && !IsAgentFinished())
+        {
+            //Spawn Arrow
+            if (arrowDisplay == null)
+                arrowDisplay = GameObject.Instantiate(arrowPrefab, agent.destination + new Vector3(0.0f, 0.1f, 0.0f), Quaternion.identity);
+            else
+                arrowDisplay.transform.position = agent.destination;
+        }
+        else if (!IsSelected || IsAgentFinished())
+        {
+            //Despawn Arrow
+            if (arrowDisplay != null)
+                Destroy(arrowDisplay);
+        }
     }
 
     public void SetTargetLocation(Vector3 positon)
