@@ -17282,6 +17282,11 @@ PrefabInstance:
       objectReference: {fileID: 1985580326}
     - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
+      propertyPath: maxVolumeDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
+        type: 3}
       propertyPath: WorldSpawners.Array.size
       value: 2
       objectReference: {fileID: 0}
