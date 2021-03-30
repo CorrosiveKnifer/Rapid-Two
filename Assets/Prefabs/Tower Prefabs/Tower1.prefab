@@ -212,6 +212,7 @@ MonoBehaviour:
   enemies: []
   towerRadius: 8
   target: {fileID: 0}
+  spawner: {fileID: 9057580551494651343}
   indicator: {fileID: 6023947029055908585, guid: 10d108f4a328e0a43aae58f3b193ccd7,
     type: 3}
   m_Indicator: {fileID: 0}
@@ -227,6 +228,7 @@ GameObject:
   - component: {fileID: 738703965533588802}
   - component: {fileID: 8574162856014691618}
   - component: {fileID: 7314878687091222738}
+  - component: {fileID: 7284129178566849580}
   m_Layer: 9
   m_Name: Tower2Crystal
   m_TagString: Untagged
@@ -314,3 +316,15 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7284129178566849580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8453878875704304364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a00c2e3fe6d614485b6d1000eb3efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

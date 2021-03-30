@@ -45838,12 +45838,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
-      propertyPath: Tower1
-      value: 
-      objectReference: {fileID: 7735834906880896410, guid: 25388f5205476c64aa0e8cf2ab862afd,
-        type: 3}
-    - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
-        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1154057475}
@@ -55117,6 +55111,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockDemon
       objectReference: {fileID: 0}
+    - target: {fileID: 9160668172375459963, guid: a93c100867ab27a4d80b32a93b5bfd67,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a93c100867ab27a4d80b32a93b5bfd67, type: 3}
 --- !u!4 &2103788453 stripped
@@ -56792,6 +56791,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7735834906880896410, guid: 25388f5205476c64aa0e8cf2ab862afd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7735834906880896410, guid: 25388f5205476c64aa0e8cf2ab862afd,
         type: 3}
