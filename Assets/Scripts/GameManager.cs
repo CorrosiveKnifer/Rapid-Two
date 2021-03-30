@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
     public Text BloodDisplay;
     private void Start()
     {
+        LevelLoader.hasWon = false;
+
         Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
     }
 
