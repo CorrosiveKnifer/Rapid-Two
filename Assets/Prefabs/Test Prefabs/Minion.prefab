@@ -132,16 +132,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCircle: {fileID: 4252776904035944668}
-  bloodCount: 0
-  maximumBlood: 100
   minimumSpeed: 1
   maximumSpeed: 7
   speedMod: 1
   bloodHold: 0
+  maxHealth: 100
+  maximumBlood: 100
   DetectRadius: 10
   HarvestRadius: 2
   HarvestDelay: 0.5
-  HarvestAmount: 1
+  HarvestAmount: 2
+  RespawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &4050827081141088710
 GameObject:
   m_ObjectHideFlags: 0

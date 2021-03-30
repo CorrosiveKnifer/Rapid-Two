@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 752945861255250237}
   - component: {fileID: 9196496091321721523}
   - component: {fileID: 1059580467493700038}
-  m_Layer: 0
+  - component: {fileID: 8755998459421186868}
+  m_Layer: 31
   m_Name: CornerGrass
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &752945861255250237
 Transform:
@@ -79,6 +80,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8755998459421186868
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868686400249795160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8028337042981483415, guid: 7041245b681eea949a1610a4628e574b, type: 3}
 --- !u!1 &1889163281997463610
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,12 +105,13 @@ GameObject:
   - component: {fileID: 1052184951408013565}
   - component: {fileID: 5134436811494581599}
   - component: {fileID: 6769929960257522518}
-  m_Layer: 0
+  - component: {fileID: 8923891021316122026}
+  m_Layer: 31
   m_Name: CornerPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1052184951408013565
 Transform:
@@ -158,6 +174,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8923891021316122026
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889163281997463610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3015403160910917688, guid: 7041245b681eea949a1610a4628e574b, type: 3}
 --- !u!1 &4582832052584089987
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,9 +198,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3806295761482470201}
   - component: {fileID: 4582832052584089986}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CornerPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

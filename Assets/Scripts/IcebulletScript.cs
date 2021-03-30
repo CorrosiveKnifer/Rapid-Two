@@ -15,7 +15,14 @@ public class IcebulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (target != null)
+        {
+            transform.LookAt(target.transform);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -36,8 +43,10 @@ public class IcebulletScript : MonoBehaviour
         if (other.tag == "Enemy")
         {
             BulletHealth = other.GetComponentInParent<EnemyScript>().DealDamageToEnemy(bulletdamage);
-            //if it does hit
-            if (BulletHealth == 0)
+            Debug.Log(BulletHealth);
+
+            //if it does hit or if the enemy is dead when it hits
+            if (BulletHealth == 0 || other.GetComponentInParent<EnemyScript>().IsDead)
             {
                 Effect();
                 Destroy(gameObject);
@@ -47,7 +56,7 @@ public class IcebulletScript : MonoBehaviour
 
     void Effect()
     {
-        GameObject IceEffect = (GameObject)Instantiate(IceField, target.transform.position, target.transform.rotation);
+        GameObject IceEffect = (GameObject)Instantiate(IceField, transform.position, transform.rotation);
     }
 
     //setting the bullets damage

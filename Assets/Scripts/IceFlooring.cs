@@ -21,16 +21,28 @@ public class IceFlooring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //once it collides
         if (isIced)
         {
+            //once it reaches to zero
             if (timer <= 0.0f)
             {
                 for(int i =0; i < allCollisions.Count; i++)
                 {
-                    allCollisions[i].GetComponentInParent<EnemyScript>().SetMovementMod(1.0f);
+                    //if the enemy is not dead
+                    if (allCollisions[i] != null)
+                    {
+                        //set all alive enemies back to normal speed
+                        allCollisions[i].GetComponentInParent<EnemyScript>().SetMovementMod(1.0f);
+                    }
                 }
-                Destroy(gameObject);
+                //destroy the field
+                Destroy(gameObject, 0.5f);
+                GetComponentInChildren<ParticleSystem>().enableEmission = false;
+                Destroy(this);
+
             }
+            //count down
             timer -= 0.1f;
         }
     }
