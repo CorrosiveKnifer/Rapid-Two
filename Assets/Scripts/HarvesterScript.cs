@@ -58,8 +58,9 @@ public class HarvesterScript : MinionScript
         {
             TransitionTo(AIState.SELECTED);
         }
-        else if (currentState == AIState.SELECTED)
+        else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
+            agent.isStopped = true;
             TransitionTo(AIState.DETECT);
         }
 
@@ -120,6 +121,7 @@ public class HarvesterScript : MinionScript
         {
             agent.isStopped = true;
             myHuntTarget = FindClosestofTag("Blood", DetectRadius);
+            animator.SetBool("IsConsuming", false);
 
             if (myHuntTarget != null)
             {
@@ -227,7 +229,6 @@ public class HarvesterScript : MinionScript
         {
             case AIState.DETECT:
                 myHuntTarget = null;
-                
                 break;
             case AIState.SELECTED:
                 break;
