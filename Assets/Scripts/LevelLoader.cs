@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LevelLoader : MonoBehaviour
 {
+    public static bool hasWon = false;
     public Animator transition;
 
     public float transitionTime = 1.0f;
@@ -17,15 +18,26 @@ public class LevelLoader : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "MenuScreen")
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 StartCoroutine(LoadLevel(0));
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             ResetScene();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) // Lose lmao
+        {
+            hasWon = false;
+            LoadNextLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.K)) // Win lmao
+        {
+            hasWon = true;
+            LoadNextLevel();
         }
     }
 
@@ -40,15 +52,18 @@ public class LevelLoader : MonoBehaviour
         if (SceneManager.sceneCountInBuildSettings <= SceneManager.GetActiveScene().buildIndex + 1) // Check if index exceeds scene count
         {
             StartCoroutine(LoadLevel(0)); // Load menu
+            //SceneManager.LoadScene(0); // Load menu
         }
         else
         {
             StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1)); // Loade next scene
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Loade next scene
         }
     }
     public void ResetScene()
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex));
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator LoadLevel(int levelIndex)

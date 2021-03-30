@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        LevelLoader.hasWon = false;
+
         Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
     }
 
