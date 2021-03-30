@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// William de Beer
@@ -9,6 +10,10 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public static bool hasWon = false;
+    public static bool cheatsEnabled = false;
+
+    public Toggle cheatToggle;
+
     public Animator transition;
 
     public float transitionTime = 1.0f;
@@ -16,28 +21,60 @@ public class LevelLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "MenuScreen")
+        if (SceneManager.GetActiveScene().name != "MenuScreen") // Back to menu
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
                 StartCoroutine(LoadLevel(0));
             }
+
+            if (cheatsEnabled)
+            {
+                CheatInputs();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (cheatToggle != null)
+        {
+            cheatsEnabled = cheatToggle.isOn;
+        }
+
+        if (Input.GetKeyDown(KeyCode.O)) // Reset scene
         {
             ResetScene();
         }
 
-        if (Input.GetKeyDown(KeyCode.L)) // Lose lmao
+
+
+    }
+
+    private void CheatInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) // Lose
         {
             hasWon = false;
             LoadNextLevel();
         }
-        if (Input.GetKeyDown(KeyCode.K)) // Win lmao
+
+        if (Input.GetKeyDown(KeyCode.Semicolon)) // Win
         {
             hasWon = true;
             LoadNextLevel();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K)) // Kill all enemies
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(9999);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)) // Gain 100 blood
+        {
+            GameManager.instance.blood += 100;
         }
     }
 
