@@ -9,6 +9,7 @@ public class Fireball : MonoBehaviour
 {
     float m_fSpeed = 0.3f;
     public float m_damage = 40.0f;
+    public GameObject ExplositionPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +33,7 @@ public class Fireball : MonoBehaviour
                 enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(m_damage);
             }
         }
-
+        GameObject.Instantiate(ExplositionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

@@ -85,7 +85,7 @@ public class EnemyScript : MonoBehaviour
                 }
             case AIState.MOVING:
                 {
-                    if(IsAgentAt(myPath.GetWaypointLocation(currentIndex).position, 2.0f))
+                    if(IsAgentAt(myPath.GetWaypointLocation(currentIndex).position, 1.5f))
                     {
                         agent.SetDestination(myPath.GetWaypointLocation(++currentIndex).position);
                     }

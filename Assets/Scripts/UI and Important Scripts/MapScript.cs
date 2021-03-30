@@ -9,14 +9,14 @@ using UnityEngine.UI;
 public class MapScript : MonoBehaviour
 {
     public RawImage MiniMap;
-    public RawImage BigMap;
+    public GameObject BigMap;
 
     private bool ShowMap = false;
     // Start is called before the first frame update
     void Start()
     {
         MiniMap.enabled = true;
-        BigMap.enabled = false;
+        BigMap.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,6 +28,6 @@ public class MapScript : MonoBehaviour
         }
 
         MiniMap.enabled = !ShowMap;
-        BigMap.enabled = ShowMap;
+        BigMap.SetActive(ShowMap);
     }
 }

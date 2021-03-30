@@ -101,8 +101,9 @@ public class GameManager : MonoBehaviour
     public float CalculateVolumeModifier(Vector3 soundPos)
     {
         float distance = Vector3.Distance(soundPos, middlePoint);
+        float height = player.GetScreenSizeRatio();
 
-        return Mathf.Clamp(1.0f - distance/maxVolumeDistance, 0.0f, 1.0f);
+        return height * Mathf.Clamp(1.0f - distance/maxVolumeDistance, 0.0f, 1.0f);
     }
 
     private Vector3 RayCastToMiddlePoint()

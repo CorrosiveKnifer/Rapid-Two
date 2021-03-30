@@ -49,6 +49,19 @@ public class HarvesterScript : MinionScript
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
         StateBasedUpdate();
+
+        if(currentState == AIState.SELECTED && !IsAgentFinished())
+        {
+            //Spawn Arrow
+            if(arrowDisplay == null)
+                arrowDisplay = GameObject.Instantiate(arrowPrefab, agent.destination + new Vector3(0.0f, 0.1f, 0.0f), Quaternion.identity);
+        }
+        else if(currentState != AIState.SELECTED || IsAgentFinished())
+        {
+            //Despawn Arrow
+            if (arrowDisplay != null)
+                Destroy(arrowDisplay);
+        }
         base.Update();
     }
 

@@ -29,6 +29,20 @@ public class DemonScript : MinionScript
     {
         GetComponentInChildren<Animator>()?.SetBool("IsMoving", !IsAgentFinished(0.25f));
         StateBasedUpdate();
+
+        if (currentState == AIState.SELECTED && !IsAgentFinished())
+        {
+            //Spawn Arrow
+            if (arrowDisplay == null)
+                arrowDisplay = GameObject.Instantiate(arrowPrefab, agent.destination + new Vector3(0.0f, 0.1f, 0.0f), Quaternion.identity);
+        }
+        else if (currentState != AIState.SELECTED || IsAgentFinished())
+        {
+            //Despawn Arrow
+            if (arrowDisplay != null)
+                Destroy(arrowDisplay);
+        }
+
         base.Update();
     }
 

@@ -313,7 +313,11 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    public float GetScreenSizeRatio()
+    {
+        //minimum = 1
+        return 1.0f - (m_Camera.orthographicSize - 1.0f) / (fCameraMaxZoom - 1.0f);
+    }
     private void HandleRayCastHit(RaycastHit hit)
     {
         if (m_SelectedSpell == Spell.None)

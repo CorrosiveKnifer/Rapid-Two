@@ -13,12 +13,14 @@ public abstract class MinionScript : MonoBehaviour
     public float minimumSpeed = 1.0f;
     public float maximumSpeed = 7.0f;
     public float speedMod = 1.0f;
+    public GameObject arrowPrefab;
 
     public GameObject materialLoc;
 
     protected float speed;
     protected bool IsDead = false;
     protected bool IsSelected = false;
+    protected GameObject arrowDisplay;
     // Start is called before the first frame update
     protected virtual void Start()
     {
