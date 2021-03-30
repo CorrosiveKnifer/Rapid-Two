@@ -5,6 +5,7 @@ using UnityEngine;
 public class ExplosionScript : MonoBehaviour
 {
     private ParticleSystem system;
+    float timer = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,8 @@ public class ExplosionScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (system.time >= 1.0f)
+        //timer += Time.
+        if (system.time >= 0.99f)
             Destroy(gameObject);
     }
 }

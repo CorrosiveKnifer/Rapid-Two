@@ -24,13 +24,8 @@ public class IceSpell : MonoBehaviour
 
     private void Explode()
     {
-        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        //Instantiate(IceField, transform.position, transform.rotation);
-
-
+        Instantiate(IceField, transform.position, transform.rotation);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
 
         for (int i = 0; i < enemies.Length; i++)
         {

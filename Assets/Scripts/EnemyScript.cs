@@ -280,16 +280,16 @@ public class EnemyScript : MonoBehaviour
     }
     IEnumerator Freeze()
     {
-        Color oldColor = GetComponentInChildren<MeshRenderer>().material.color;
+        //Color oldColor = GetComponentInChildren<MeshRenderer>().material.color;
         // Freeze.
-        GetComponentInChildren<MeshRenderer>().material.color = new Color(0.5f, 0.7f, 0.8f);
+        //GetComponentInChildren<MeshRenderer>().material.color = new Color(0.5f, 0.7f, 0.8f);
         SetMovementMod(0.0f);
 
         // Freeze duration.
         yield return new WaitForSeconds(5.0f);
 
         // Unfreeze.
-        GetComponentInChildren<MeshRenderer>().material.color = oldColor;
+        //GetComponentInChildren<MeshRenderer>().material.color = oldColor;
         SetMovementMod(1.0f);
     }
 }
