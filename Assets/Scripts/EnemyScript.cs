@@ -54,6 +54,7 @@ public class EnemyScript : MonoBehaviour
                 if (Physics.Raycast(new Ray(transform.position, Vector3.down), out hit, 3.0f))
                 {
                     GameObject blood = GameObject.Instantiate(BloodPrefab, hit.point + new Vector3(0.0f, 0.01f, 0.0f), Quaternion.identity);
+                    blood.transform.LookAt(hit.point + hit.normal, Vector3.up);
                     blood.GetComponent<BloodScript>().bloodCount = BloodAmount;
                 }
 

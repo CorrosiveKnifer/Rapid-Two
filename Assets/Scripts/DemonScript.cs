@@ -44,8 +44,9 @@ public class DemonScript : MinionScript
         {
             TransitionTo(AIState.SELECTED);
         }
-        else if (currentState == AIState.SELECTED)
+        else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
+            agent.isStopped = true;
             TransitionTo(AIState.DETECT);
         }
 
@@ -105,6 +106,7 @@ public class DemonScript : MinionScript
         {
             agent.isStopped = true;
             myHuntTarget = FindClosestofTag("Enemy", DetectRadius);
+            GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
 
             if (myHuntTarget != null)
             {
@@ -113,6 +115,7 @@ public class DemonScript : MinionScript
                 {
                     //Distance is too far, forget about this one!
                     myHuntTarget = null;
+                    GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
                 }
                 else if (distance > AttackRadius)
                 {
@@ -126,6 +129,10 @@ public class DemonScript : MinionScript
                     GetComponentInChildren<Animator>()?.SetBool("IsAttacking", true);
                 }
             }
+        }
+        else
+        {
+            GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
         }
     }
 
