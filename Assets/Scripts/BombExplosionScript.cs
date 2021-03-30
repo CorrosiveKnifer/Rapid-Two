@@ -22,7 +22,7 @@ public class BombExplosionScript : MonoBehaviour
         {
             if (timer <= 0.0f)
             {
-                Destroy(gameObject);
+                Destroy(gameObject, 0.2f);
             }
             timer -= 0.5f;
         }
