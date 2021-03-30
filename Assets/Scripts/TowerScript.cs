@@ -11,8 +11,9 @@ public class TowerScript : MonoBehaviour
     public GameObject ammo;
     public float bulletDamage = 1.0f; 
     public float bulletSpeed = 1.0f;
-    public float coolDown = 10.0f;
+    public float coolDown = 10.0f; //Seconds
     private float towerCoolDown;
+    public int cost = 10;
 
     //variables for the target enemy
     public GameObject[] enemies;
@@ -51,6 +52,10 @@ public class TowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("Reset");
+        }
     }
 
     public void SetSelected(bool selected)
@@ -60,15 +65,28 @@ public class TowerScript : MonoBehaviour
 
     public void TowerActivated()
     {
+        /* Michael note: Each animation is 1 second before firing. 
+         * If the cooldown is 10 seconds... then the animation 
+         * needs to be 10 times slower (1/cooldown) to adjust.
+         * 
+         * Therefore there is no need to time it within the script
+         * because it is all bound in the aninmation/animator.
+         */
+
+        GetComponent<Animator>().SetTrigger("IsShooting");
+        GetComponent<Animator>().SetFloat("Delay", 1.0f / coolDown);
+
         //a countdown on when to attack
-        if (towerCoolDown >= coolDown)
-        {
-            //attack and reset counter
-            towerCoolDown = 0;
-            Fire();
-        }
-        towerCoolDown += 0.01f;
+        //if (towerCoolDown >= coolDown)
+        //{
+        //    //attack and reset counter
+        //    towerCoolDown = 0;
+        //    //Fire();
+        //}
+        //towerCoolDown += 0.01f;
     }
+
+    //Function called by the animator
     //function to spawn bullet
     void Fire()
     {
@@ -95,10 +113,11 @@ public class TowerScript : MonoBehaviour
         //MAKING the tower turn towards the player
         if (target != null)
         {
-            Vector3 direction = target.transform.position - transform.position;
-            Vector3 forward = transform.TransformDirection(direction);
-            Debug.DrawRay(transform.position, forward, Color.green);
-            transform.LookAt(target.transform);
+            //Vector3 direction = target.transform.position - transform.position;
+
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
+            Debug.DrawRay(transform.position, forward* towerRadius, Color.green);
+            //transform.LookAt(target.transform);
         }
     }
 

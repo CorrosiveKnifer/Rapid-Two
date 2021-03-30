@@ -10,6 +10,8 @@ TagManager:
   - Tower
   - TowerPlot
   - Blood
+  - End
+  - Demon
   layers:
   - Default
   - TransparentFX
