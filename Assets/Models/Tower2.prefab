@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2726907523581106315}
-  - component: {fileID: 3358624694823813682}
   - component: {fileID: 1749220833}
   - component: {fileID: 1749220832}
   - component: {fileID: 1749220831}
+  - component: {fileID: 1106782128902815839}
   m_Layer: 9
   m_Name: Tower2
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,24 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
---- !u!114 &3358624694823813682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3358624694823813681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!95 &1749220833
 Animator:
   serializedVersion: 3
@@ -104,6 +86,30 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.5, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1106782128902815839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358624694823813681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3ab9ab53a142e4d9a4687fc7d4c18f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ammo: {fileID: 6969222540289678329, guid: a5d703d27aa77dd4ab19ad6ad56309a2, type: 3}
+  bulletDamage: 1
+  bulletSpeed: 1
+  coolDown: 3
+  cost: 15
+  enemies: []
+  towerRadius: 8
+  target: {fileID: 0}
+  indicator: {fileID: 6023947029055908585, guid: 10d108f4a328e0a43aae58f3b193ccd7,
+    type: 3}
+  spawner: {fileID: 3601711931269407470}
+  m_Indicator: {fileID: 0}
 --- !u!1 &4608798185096193003
 GameObject:
   m_ObjectHideFlags: 0

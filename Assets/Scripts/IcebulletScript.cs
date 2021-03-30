@@ -15,7 +15,14 @@ public class IcebulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (target != null)
+        {
+            transform.LookAt(target.transform);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
