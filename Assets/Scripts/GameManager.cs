@@ -90,6 +90,8 @@ public class GameManager : MonoBehaviour
 
         middlePoint = RayCastToMiddlePoint();
 
+        SetLifeBar(lives);
+
         if(lives <= 0)
         {
             levelLoader.LoadNextLevel();
@@ -132,6 +134,11 @@ public class GameManager : MonoBehaviour
     public void EnableFrame(bool _visible)
     {
         SelectFrame.GetComponent<Image>().enabled = _visible;
+    }
+
+    public void SetLifeBar(float _life)
+    {
+        LifeBar.value = _life;
     }
 
     public void SetMana(float _mana)
