@@ -30,10 +30,12 @@ public class EnemyScript : MonoBehaviour
     private Animator controller;
     private GameObject target;
     private float MovementSpeedMod = 1.0f;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = baseSpeed;
         controller = GetComponentInChildren<Animator>();
