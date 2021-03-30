@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crystal
+  m_Name: Tower2CrystalBall
   m_Shader: {fileID: -6465566751694194690, guid: 3dcb6fc3d4cee254c87e057d90b58be8,
     type: 3}
   m_ShaderKeywords: BOOLEAN_20A2BDA1_ON BOOLEAN_7188B8F1_ON BOOLEAN_797A78DA_ON
@@ -80,16 +80,16 @@ Material:
     - BOOLEAN_797A78DA: 1
     - Boolean_31CCE875: 1
     - Boolean_F7BE8539: 1
-    - Vector1_16D642D1: 0.429
+    - Vector1_16D642D1: 0
     - Vector1_1DD45D74: 1
-    - Vector1_41AC1DD: 0.698
+    - Vector1_41AC1DD: 0.517
     - Vector1_6986C975: 0.1
     - Vector1_704BC890: 0.575
     - Vector1_7E42FC8C: 0.757
     - Vector1_93F61CE2: 4
     - Vector1_AFE2FE6: 0.15
     - Vector1_C0DB77FC: 1
-    - Vector1_E0A63449: 0.744
+    - Vector1_E0A63449: 0.848
     - Vector1_F222C338: 1.5
     - _AlphaClip: 0
     - _Blend: 0
@@ -113,10 +113,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_268D2273: {r: 0.20588236, g: 0.0058823526, b: 0.022097487, a: 0}
+    - Color_268D2273: {r: 0.010329823, g: 0.25415218, b: 0.4125427, a: 0}
     - Color_505A8FDF: {r: 0, g: 0, b: 0, a: 1}
-    - Color_80F92342: {r: 0.46862745, g: 0.007843138, b: 0.029411765, a: 1}
-    - Color_87594BF8: {r: 0.8207547, g: 0.80367845, b: 0.14324492, a: 1}
+    - Color_80F92342: {r: 0.5, g: 0.4655927, b: 0.12971699, a: 1}
+    - Color_87594BF8: {r: 0.990566, g: 0.1958397, b: 0, a: 1}
     - Color_C0AD5F7B: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
