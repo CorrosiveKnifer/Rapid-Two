@@ -8,7 +8,7 @@ using UnityEngine;
 public class Fireball : MonoBehaviour
 {
     float m_fSpeed = 0.3f;
-
+    public float m_damage = 40.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +25,11 @@ public class Fireball : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-
         for (int i = 0; i < enemies.Length; i++)
         {
             if (Vector3.Distance(transform.position, enemies[i].transform.position) < 5.0f)
             {
-                enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(80);
+                enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(m_damage);
             }
         }
 

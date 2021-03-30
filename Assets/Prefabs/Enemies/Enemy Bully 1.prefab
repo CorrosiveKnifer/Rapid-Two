@@ -131,7 +131,7 @@ MonoBehaviour:
   BloodAmount: 30
   Damage: 15
   baseSpeed: 2.5
-  livesCost: 1
+  livesCost: 3
   IsDead: 0
   BloodPrefab: {fileID: 4479456426645096089, guid: 34a8eacc338b5c9498a17cff2a2c2e94,
     type: 3}

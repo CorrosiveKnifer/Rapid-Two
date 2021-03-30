@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7812183408827143915}
   - component: {fileID: 912601092777947416}
   m_Layer: 9
-  m_Name: Tower1Upgrade1
+  m_Name: LaserTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 0}
-  bulletDamage: 1
+  bulletDamage: 60
   cost: 25
   enemies: []
   towerRadius: 8

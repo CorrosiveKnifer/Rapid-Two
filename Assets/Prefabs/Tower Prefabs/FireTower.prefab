@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1749220831}
   - component: {fileID: 1106782128902815839}
   m_Layer: 9
-  m_Name: Tower2
+  m_Name: FireTower
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 6969222540289678329, guid: a5d703d27aa77dd4ab19ad6ad56309a2, type: 3}
-  bulletDamage: 1
+  bulletDamage: 20
   bulletSpeed: 1
-  coolDown: 3
-  cost: 15
+  coolDown: 2
+  cost: 25
   enemies: []
   towerRadius: 8
   target: {fileID: 0}

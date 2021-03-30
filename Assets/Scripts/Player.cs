@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     [Header("Prices")]
     public float m_fRefund = 0.4f;
     int m_iBasicTowerCost = 10;
-    int m_iFireTowerCost = 15;
+    int m_iFireTowerCost = 25;
     int m_iFrostTowerCost = 20;
     int m_iLaserTowerCost = 25;
     int m_iDemonCost = 200;
