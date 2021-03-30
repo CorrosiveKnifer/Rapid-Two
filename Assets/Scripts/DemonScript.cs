@@ -13,7 +13,6 @@ public class DemonScript : MinionScript
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
     private GameObject myHuntTarget;
-    private bool IsDead = false;
     private float health;
     private SphereCollider attackSphere;
 

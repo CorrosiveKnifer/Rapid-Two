@@ -37,7 +37,10 @@ public class IceFlooring : MonoBehaviour
                     }
                 }
                 //destroy the field
-                Destroy(gameObject);
+                Destroy(gameObject, 0.5f);
+                GetComponentInChildren<ParticleSystem>().enableEmission = false;
+                Destroy(this);
+
             }
             //count down
             timer -= 0.1f;
