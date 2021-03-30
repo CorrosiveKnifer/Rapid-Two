@@ -69,7 +69,16 @@ public class GameManager : MonoBehaviour
     public float maxVolumeDistance = 50.0f;
     public int lives = 100;
     public float blood;
+
     public Text BloodDisplay;
+    public Text WaveCount;
+    public Text EnemyCount;
+
+    public GameObject NextWave;
+    public GameObject ActivePos;
+    public GameObject DeactivePos;
+
+    float m_fLerpVal = 0;
 
     private Vector3 middlePoint;
 
@@ -91,8 +100,23 @@ public class GameManager : MonoBehaviour
         middlePoint = RayCastToMiddlePoint();
 
         SetLifeBar(lives);
+        if (WaveCount != null)
+            WaveCount.text = $"Wave: {Mathf.FloorToInt(GetComponent<WaveManager>().waveIndex)}";
 
-        if(lives <= 0)
+        if (EnemyCount != null)
+            EnemyCount.text = $"Enemies Left: {Mathf.FloorToInt(GameObject.FindGameObjectsWithTag("Enemy").Length)}";
+
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            NextWave.SetActive(true);
+        }
+        else
+        {
+            NextWave.SetActive(false);
+        }
+
+
+        if (lives <= 0)
         {
             levelLoader.LoadNextLevel();
         }
