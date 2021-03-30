@@ -1059,7 +1059,7 @@ MonoBehaviour:
   maximumSpeed: 7
   speedMod: 1
   materialLoc: {fileID: 2575433296381801567}
-  maxHealth: 1
+  maxHealth: 100
   DetectRadius: 12.5
   AttackRadius: 2.5
   Damage: 50

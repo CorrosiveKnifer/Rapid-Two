@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5684579081124376446}
   - component: {fileID: 5684579081124376447}
   - component: {fileID: 5684579081124376442}
-  - component: {fileID: 4092886286728203692}
+  - component: {fileID: 6374005462163071641}
   m_Layer: 0
-  m_Name: BombField
+  m_Name: FrostField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4092886286728203692
+--- !u!114 &6374005462163071641
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5684579081124376444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8162cae7260fc344ca031a7175332a44, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6292778375705079810
@@ -191,7 +191,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.67057115
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.6792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.1954432
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.9801595
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.8746885
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3843958300977437666, guid: 5319bbedc84a41d42b6f1d7082285a23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5319bbedc84a41d42b6f1d7082285a23, type: 3}
 --- !u!4 &9111790296762272506 stripped
 Transform:
