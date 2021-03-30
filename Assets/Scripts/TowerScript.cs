@@ -54,7 +54,7 @@ public class TowerScript : MonoBehaviour
         }
         else
         {
-            GetComponent<Animator>().SetTrigger("Reset");
+            GetComponentInChildren<Animator>().SetTrigger("Reset");
         }
     }
 
@@ -73,8 +73,8 @@ public class TowerScript : MonoBehaviour
          * because it is all bound in the aninmation/animator.
          */
 
-        GetComponent<Animator>().SetTrigger("IsShooting");
-        GetComponent<Animator>().SetFloat("Delay", 1.0f / coolDown);
+        GetComponentInChildren<Animator>().SetTrigger("IsShooting");
+        GetComponentInChildren<Animator>().SetFloat("Delay", 1.0f / coolDown);
 
         //a countdown on when to attack
         //if (towerCoolDown >= coolDown)

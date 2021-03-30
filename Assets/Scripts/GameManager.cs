@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public Slider MinionBloodBar;
 
     public GameObject SelectFrame;
+    public LevelLoader levelLoader;
 
     //Volume Settings
     public static float MasterVolume { get; set; } = 1.0f;
@@ -88,6 +89,11 @@ public class GameManager : MonoBehaviour
             BloodDisplay.text = $"{Mathf.FloorToInt(blood)}";
 
         middlePoint = RayCastToMiddlePoint();
+
+        if(lives <= 0)
+        {
+            levelLoader.LoadNextLevel();
+        }
     }
 
     public float CalculateVolumeModifier(Vector3 soundPos)

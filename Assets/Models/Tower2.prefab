@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2726907523581106315}
   - component: {fileID: 3358624694823813682}
-  m_Layer: 0
+  - component: {fileID: 1749220833}
+  - component: {fileID: 1749220832}
+  - component: {fileID: 1749220831}
+  m_Layer: 9
   m_Name: Tower2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3358624694823813681}
-  m_LocalRotation: {x: -0, y: 0.86602545, z: -0, w: -0.49999994}
+  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
   m_LocalPosition: {x: -5.23, y: -0.2, z: -8.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -52,6 +55,55 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!95 &1749220833
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358624694823813681}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 434ed5c5511b35144ab0a56e895d14db, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &1749220832
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358624694823813681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!208 &1749220831
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3358624694823813681}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1, y: 1.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.5, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4608798185096193003
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +115,7 @@ GameObject:
   - component: {fileID: 3601711931269407470}
   - component: {fileID: 2574264758175443378}
   - component: {fileID: 4650379610686809046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tower2Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +194,7 @@ GameObject:
   - component: {fileID: 9128069027494765679}
   - component: {fileID: 5273403513016586889}
   - component: {fileID: 2757529014352190524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tower2SphereClaws
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +273,7 @@ GameObject:
   - component: {fileID: 7982581315142765915}
   - component: {fileID: 5608848124049395167}
   - component: {fileID: 7245827254518266503}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tower2Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

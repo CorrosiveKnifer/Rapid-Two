@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Belt - Buttons
+  m_Name: HighGroundDirt
   m_Shader: {fileID: -6465566751694194690, guid: 3dcb6fc3d4cee254c87e057d90b58be8,
     type: 3}
-  m_ShaderKeywords: BOOLEAN_20A2BDA1_ON BOOLEAN_7188B8F1_ON BOOLEAN_797A78DA_ON
+  m_ShaderKeywords: BOOLEAN_20A2BDA1_ON BOOLEAN_27296089_ON BOOLEAN_7188B8F1_ON BOOLEAN_797A78DA_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_93AE646C:
-        m_Texture: {fileID: 2800000, guid: 442e6933888925c48b05d56bcfba9809, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_E97A8D7F:
@@ -74,22 +74,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - BOOLEAN_20A2BDA1: 1
-    - BOOLEAN_27296089: 0
+    - BOOLEAN_27296089: 1
     - BOOLEAN_562A3BA2: 1
     - BOOLEAN_7188B8F1: 1
     - BOOLEAN_797A78DA: 1
     - Boolean_31CCE875: 1
     - Boolean_F7BE8539: 1
-    - Vector1_16D642D1: 0.429
+    - Vector1_16D642D1: 0.841
     - Vector1_1DD45D74: 1
-    - Vector1_41AC1DD: 0.46
+    - Vector1_41AC1DD: 0.668
     - Vector1_6986C975: 0.1
     - Vector1_704BC890: 0.575
-    - Vector1_7E42FC8C: 0.537
+    - Vector1_7E42FC8C: 0.916
     - Vector1_93F61CE2: 4
     - Vector1_AFE2FE6: 0.15
     - Vector1_C0DB77FC: 1
-    - Vector1_E0A63449: 0.759
+    - Vector1_E0A63449: 0.985
     - Vector1_F222C338: 1.5
     - _AlphaClip: 0
     - _Blend: 0
@@ -113,10 +113,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_268D2273: {r: 0.073033094, g: 0.09433961, b: 0.06897472, a: 0}
+    - Color_268D2273: {r: 0.10946172, g: 0.10946172, b: 0.10946172, a: 0}
     - Color_505A8FDF: {r: 0, g: 0, b: 0, a: 1}
-    - Color_80F92342: {r: 0.1441285, g: 0.30946895, b: 0.111932434, a: 1}
-    - Color_87594BF8: {r: 0.11320752, g: 0.07084905, b: 0.000533999, a: 1}
+    - Color_80F92342: {r: 0.07450981, g: 0.055882353, b: 0.042156864, a: 1}
+    - Color_87594BF8: {r: 0.5754717, g: 0.39784968, b: 0.1004361, a: 1}
     - Color_C0AD5F7B: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
