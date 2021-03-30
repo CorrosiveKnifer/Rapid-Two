@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public string[] waveCode; //"0.5,0,0,0,0,0"
 
     public int waveIndex;
+    public LevelLoader loader;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,15 @@ public class WaveManager : MonoBehaviour
         {
             if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
                 StartNextWave();
+        }
+
+        if(waveIndex >= waveCode.Length)
+        {
+            if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+            {
+                LevelLoader.hasWon = true;
+                loader.LoadNextLevel();
+            }
         }
     }
 
@@ -69,8 +79,8 @@ public class WaveManager : MonoBehaviour
         {
             //Select the next spawner
             int spawned = Random.Range(0, size);
-            GameObject prefab = enemyPrefabs[spawned];
-            selection[spawned] -= 1; //decrease that index;
+            GameObject prefab = enemyPrefabs[indexes[spawned]];
+            selection[indexes[spawned]] -= 1; //decrease that index;
 
             //Spawn prefab!
             spawner.GetComponent<SpawnerScript>().SpawnGameObject(prefab);
