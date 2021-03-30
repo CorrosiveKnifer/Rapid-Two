@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class IceSpell : MonoBehaviour
 {
-    float m_fSpeed = 0.3f;
+    float m_fSpeed = 25.0f;
     public GameObject IceField;
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class IceSpell : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position += -transform.up * m_fSpeed;
+        transform.position += -transform.up * m_fSpeed * Time.fixedDeltaTime;
     }
 
     private void Explode()
@@ -34,8 +34,6 @@ public class IceSpell : MonoBehaviour
                 enemies[i].GetComponentInParent<EnemyScript>().StartFreeze();
             }
         }
-
-
 
         Destroy(gameObject);
     }

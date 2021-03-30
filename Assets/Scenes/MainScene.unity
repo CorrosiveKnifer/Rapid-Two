@@ -4687,6 +4687,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
         type: 3}
+      propertyPath: m_Fireball
+      value: 
+      objectReference: {fileID: 843047408368824288, guid: 8b450d860833bb14aaf4290cb50864d5,
+        type: 3}
+    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
+        type: 3}
+      propertyPath: m_FrostRing
+      value: 
+      objectReference: {fileID: 4866757384408189992, guid: f64e29b922cb5bc45b56e25f732ace22,
+        type: 3}
+    - target: {fileID: 6996531975935791753, guid: d9f453708ca53cf40bac499703af9241,
+        type: 3}
       propertyPath: m_Harvester
       value: 
       objectReference: {fileID: 139075456}
@@ -20619,7 +20631,7 @@ GameObject:
   - component: {fileID: 485271598}
   m_Layer: 0
   m_Name: GreenPlaneBase
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -30331,6 +30343,10 @@ PrefabInstance:
       propertyPath: loader
       value: 
       objectReference: {fileID: 1095497435}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveIndex
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
       propertyPath: spawners.Array.data[0]
       value: 
@@ -51146,7 +51162,7 @@ PrefabInstance:
     - target: {fileID: 4583483544088292434, guid: 0dc93a8aba39ee14293d178cd16602a1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4583483544088292435, guid: 0dc93a8aba39ee14293d178cd16602a1,
         type: 3}
@@ -91478,7 +91494,7 @@ GameObject:
   - component: {fileID: 2042420070}
   m_Layer: 31
   m_Name: Plane (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
