@@ -40,6 +40,7 @@ public abstract class MinionScript : MonoBehaviour
     {
         agent.isStopped = false;
         agent.destination = positon;
+        PlayMovement();
     }
 
     public void SetSelected(bool selected)
@@ -49,6 +50,7 @@ public abstract class MinionScript : MonoBehaviour
 
     public abstract void TakeDamage(float damage);
     protected abstract void HandleShowDeathFinalFrame();
+    protected abstract void PlayMovement();
 
     protected bool IsAgentFinished(float offset = 1.0f)
     {

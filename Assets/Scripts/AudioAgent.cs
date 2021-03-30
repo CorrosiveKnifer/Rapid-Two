@@ -25,7 +25,7 @@ public class AudioAgent : MonoBehaviour
     public Dictionary<string, AudioPlayer> AudioLibrary { get; private set; }
 
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         AudioLibrary = new Dictionary<string, AudioPlayer>();
         for (int i = 0; i < AudioClips.Length; i++)
@@ -34,16 +34,17 @@ public class AudioAgent : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         foreach (var item in AudioLibrary)
         {
             if (item.Value.isSoundEffect)
-                item.Value.source.volume = GetSoundEffectVolume() * item.Value.source.volume * AgentSEVolume;
+                item.Value.source.volume = GetSoundEffectVolume() * item.Value.volume * AgentSEVolume;
             else
-                item.Value.source.volume = GetBackgroundVolume() * item.Value.source.volume * AgentBGVolume;
+                item.Value.source.volume = GetBackgroundVolume() * item.Value.volume * AgentBGVolume;
         }
     }
+
     private void InitialiseAudio(string title, AudioClip clip)
     {
         AudioSource source = gameObject.AddComponent<AudioSource>();

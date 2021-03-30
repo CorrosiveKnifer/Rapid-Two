@@ -32,6 +32,14 @@ public class DemonScript : MinionScript
         base.Update();
     }
 
+    protected override void PlayMovement()
+    {
+        AudioAgent agent = GetComponent<AudioAgent>();
+        if (agent.IsAudioStopped("RockBoiMove"))
+        {
+            agent.PlaySoundEffect("RockBoiMove");
+        }
+    }
     private void StateBasedUpdate()
     {
         if (IsDead)
@@ -46,6 +54,7 @@ public class DemonScript : MinionScript
         else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
             agent.isStopped = true;
+            GetComponent<AudioAgent>().StopAudio("RockBoiMove");
             TransitionTo(AIState.DETECT);
         }
 
@@ -104,6 +113,7 @@ public class DemonScript : MinionScript
         if (IsAgentFinished())
         {
             agent.isStopped = true;
+            GetComponent<AudioAgent>().StopAudio("RockBoiMove");
             myHuntTarget = FindClosestofTag("Enemy", DetectRadius);
             GetComponentInChildren<Animator>()?.SetBool("IsAttacking", false);
 
@@ -123,6 +133,7 @@ public class DemonScript : MinionScript
                 else
                 {
                     agent.isStopped = true;
+                    GetComponent<AudioAgent>().StopAudio("RockBoiMove");
                     transform.LookAt(myHuntTarget.transform, Vector3.up);
                     transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
                     GetComponentInChildren<Animator>()?.SetBool("IsAttacking", true);
@@ -149,6 +160,7 @@ public class DemonScript : MinionScript
             if(distance <= AttackRadius)
             {
                 agent.isStopped = true;
+                GetComponent<AudioAgent>().StopAudio("RockBoiMove");
                 transform.LookAt(myHuntTarget.transform, Vector3.up);
                 transform.rotation = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y, 0.0f);
                 GetComponentInChildren<Animator>()?.SetBool("IsAttacking", true);

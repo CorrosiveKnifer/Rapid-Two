@@ -269,4 +269,9 @@ public class HarvesterScript : MinionScript
         agent.enabled = true;
         health = maxHealth;
     }
+
+    protected override void PlayMovement()
+    {
+        //Do nothing
+    }
 }
