@@ -996,6 +996,7 @@ GameObject:
   - component: {fileID: 6769325530396825268}
   - component: {fileID: 9025464078149559631}
   - component: {fileID: 39502093}
+  - component: {fileID: 39502094}
   m_Layer: 9
   m_Name: RockDemon
   m_TagString: Minion
@@ -1092,3 +1093,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &39502094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160668172375459963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52a70e5d2068114dafa9fa4cfce2872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 42981a7a4ee336444920f7e1280e40ef, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1

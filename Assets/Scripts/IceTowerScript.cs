@@ -61,14 +61,16 @@ public class IceTowerScript : MonoBehaviour
 
     public void TowerActivated()
     {
+        GetComponent<Animator>().SetTrigger("IsShooting");
+        GetComponent<Animator>().SetFloat("Delay", 1.0f / coolDown);
         //a countdown on when to attack
-        if (towerCoolDown >= coolDown)
-        {
-            //attack and reset counter
-            towerCoolDown = 0;
-            Fire();
-        }
-        towerCoolDown += 0.01f;
+        //if (towerCoolDown >= coolDown)
+        //{
+        //    //attack and reset counter
+        //    towerCoolDown = 0;
+        //    Fire();
+        //}
+        //towerCoolDown += 0.01f;
     }
     //function to spawn bullet
     void Fire()
