@@ -8,7 +8,7 @@ public class EndGoalScript : MonoBehaviour
     {
         if(other.tag == "Enemy")
         {
-            GameManager.instance.lives -= 1;
+            GameManager.instance.lives -= other.GetComponent<EnemyScript>().livesCost;
             Destroy(other.transform.parent.gameObject);
         }
         if (other.tag == "Minion")
