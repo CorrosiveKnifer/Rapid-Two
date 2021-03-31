@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
     public GameObject m_Demon;
     private GameObject m_selected;
 
+    private bool HasGainedMana = true;
 
     // Start is called before the first frame update
     void Start()
@@ -181,7 +182,22 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Mana update
-        fManaPool += Time.deltaTime * fManaRegen;
+        //fManaPool += Time.deltaTime * fManaRegen;
+
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            if (!HasGainedMana)
+            {
+                fManaPool += 15.0f;
+                HasGainedMana = true;
+            }
+                
+        }
+        else
+        {
+            HasGainedMana = false;
+        }
+
         if (fManaPool > fManaMaximum)
         {
             fManaPool = fManaMaximum;
