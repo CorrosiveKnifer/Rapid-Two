@@ -21,4 +21,13 @@ public class EndGoalScript : MonoBehaviour
             }
         }
     }
+
+    public void StartSummonOfDemon()
+    {
+        Animator[] animators = GetComponentsInChildren<Animator>();
+        foreach (var anim in animators)
+        {
+            anim.SetTrigger("Summon");
+        }
+    }
 }

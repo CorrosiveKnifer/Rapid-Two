@@ -59,12 +59,17 @@ public class BloodScript : MonoBehaviour
     }
 
     //External access to the coroutine to start harvesting a single blob of blood.
-    public void Consume(HarvesterScript harvester, float HarvestAmount)
+    //public void Consume(HarvesterScript harvester, float HarvestAmount)
+    //{
+    //    if(bloodCount > 0)
+    //        StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
+    //}
+
+    public void Consume(PlayerHarvester harvester, float HarvestAmount)
     {
-        if(bloodCount > 0)
+        if (bloodCount > 0)
             StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
     }
-
     //private IEnumerator StartFading()
     //{
     //    FadingStarted = true;
@@ -121,7 +126,7 @@ public class BloodScript : MonoBehaviour
     //    yield return null;
     //}
 
-    private IEnumerator SendBloodProjToHarvester(HarvesterScript consumer, float bloodTransferAmount)
+    private IEnumerator SendBloodProjToHarvester(PlayerHarvester consumer, float bloodTransferAmount)
     {
         //Create the blob of blood
         GameObject blood = GameObject.Instantiate(bloodSpherePrefab, transform.position, Quaternion.identity);

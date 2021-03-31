@@ -47,17 +47,7 @@ public class HarvesterScript : MinionScript
         animator.SetFloat("MovementMod", Mathf.Clamp((speed / maximumSpeed) * 2.5f, 0.5f, 2.5f));
         animator.SetBool("IsMoving", !agent.isStopped);
 
-
-
         agent.isStopped = IsAgentFinished();
-        //if ()
-        //{
-        //     = true;
-        //}
-        //else
-        //{
-
-        //}
 
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
@@ -173,7 +163,7 @@ public class HarvesterScript : MinionScript
                     if (delay <= 0)
                     {
                         delay = HarvestDelay;
-                        myHuntTarget?.GetComponent<BloodScript>().Consume(this, HarvestAmount);
+                        //myHuntTarget?.GetComponent<BloodScript>().Consume(this, HarvestAmount);
                     }
                 }
             }
@@ -237,13 +227,13 @@ public class HarvesterScript : MinionScript
 
                         if(amount < HarvestAmount)
                         {
-                            blood.GetComponent<BloodScript>().Consume(this, amount);
+                            //blood.GetComponent<BloodScript>().Consume(this, amount);
                             expected += amount;
                             break;
                         }
                         else
                         {
-                            blood.GetComponent<BloodScript>().Consume(this, HarvestAmount);
+                            //blood.GetComponent<BloodScript>().Consume(this, HarvestAmount);
                             expected += HarvestAmount;
                         }
                         

@@ -9,6 +9,6 @@ public class HarvesterAnimLink : MonoBehaviour
 {
     public void Death()
     {
-        GetComponentInParent<HarvesterScript>().Death();
+        GetComponentInParent<PlayerHarvester>().Death();
     }
 }

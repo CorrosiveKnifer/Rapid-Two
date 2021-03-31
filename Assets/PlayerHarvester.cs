@@ -14,6 +14,11 @@ public class PlayerHarvester : MonoBehaviour
 
     public Vector3 RespawnPoint;
 
+    [Header("Harvester Settings")]
+    public float HarvestRadius = 2.5f;
+    public float HarvestDelay = 0.5f;
+    public float HarvestAmount = 1.0f;
+
     bool IsSelected = false;
     private float health;
     public float maxHealth = 100.0f;
@@ -26,6 +31,7 @@ public class PlayerHarvester : MonoBehaviour
 
     public float bloodHold = 0.0f;
     public float maximumBlood = 100.0f;
+    public float delay;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +76,39 @@ public class PlayerHarvester : MonoBehaviour
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
     }
 
+    private void Update()
+    {
+        if (delay <= 0 && bloodHold < maximumBlood)
+        {
+            delay = HarvestDelay;
+            GameObject[] foundObjects = GameObject.FindGameObjectsWithTag("Blood");
+            float expected = 0.0f;
+            foreach (var foundObject in foundObjects)
+            {
+                if (Vector3.Distance(transform.position, foundObject.transform.position) < HarvestRadius)
+                {
+                    float amount = maximumBlood - bloodHold;
+
+                    if (amount <= 0)
+                        break;
+                    if (expected > amount)
+                        break;
+
+                    if (amount < HarvestAmount)
+                    {
+                        foundObject.GetComponent<BloodScript>().Consume(this, amount);
+                        expected += amount;
+                        break;
+                    }
+                    else
+                    {
+                        foundObject.GetComponent<BloodScript>().Consume(this, HarvestAmount);
+                        expected += HarvestAmount;
+                    }
+                }
+            }
+        }
+    }
 
     public void SetSelected(bool selected)
     {
@@ -104,7 +143,6 @@ public class PlayerHarvester : MonoBehaviour
         //Do nothing
     }
 
-
     protected virtual GameObject FindClosestofTag(string tag, float range = -1)
     {
         GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
@@ -130,6 +168,7 @@ public class PlayerHarvester : MonoBehaviour
         }
         return null;
     }
+
     public void Death()
     {
         IsDead = true;

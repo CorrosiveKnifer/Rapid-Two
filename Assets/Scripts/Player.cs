@@ -467,16 +467,14 @@ public class Player : MonoBehaviour
         {
             if (m_Demon == null) // Summon new demon.
             {
+                GameObject.FindGameObjectWithTag("End")?.GetComponent<EndGoalScript>()?.StartSummonOfDemon();
+
                 if (m_iDemonCost <= GameManager.instance.blood)
                 {
                     GameManager.instance.blood -= m_iDemonCost;
-                    m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
+                    StartCoroutine(SpawnDemon());
                     GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
                     GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
-                    m_selected = m_Demon;
-                    m_selected.GetComponent<DemonScript>().SetSelected(true);
-                    m_isLerping = true;
-                    m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
                 }
             }
             else // Select demon
@@ -488,6 +486,23 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private IEnumerator SpawnDemon()
+    {
+        m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
+        m_selected = m_Demon;
+        m_selected.GetComponent<DemonScript>().SetSelected(true);
+        m_isLerping = true;
+        m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+
+        m_Demon.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(1.0f + 11.0f/60.0f);
+
+        m_Demon.SetActive(true);
+
+        yield return null;
+    }
+
     private void TowerSelect(RaycastHit hit)
     {
         DeselectObject();
