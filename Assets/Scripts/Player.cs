@@ -23,7 +23,6 @@ public class Player : MonoBehaviour
     public Color m_ColourDim;
     public LayerMask m_SelectableMask;
     bool m_bDestroyMode = false;
-    bool m_bhasStarted = false;
 
     // Lerping
     public Vector3 m_LerpStart;
@@ -98,7 +97,8 @@ public class Player : MonoBehaviour
     public GameObject m_Demon;
     private GameObject m_selected;
 
-
+    private bool HasGainedMana = true;
+    private bool m_bhasStarted = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -183,6 +183,21 @@ public class Player : MonoBehaviour
     {
         // Mana update
         //fManaPool += Time.deltaTime * fManaRegen;
+
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
+        {
+            if (!HasGainedMana)
+            {
+                fManaPool += 15.0f;
+                HasGainedMana = true;
+            }
+
+        }
+        else
+        {
+            HasGainedMana = false;
+        }
+
         if (fManaPool > fManaMaximum)
         {
             fManaPool = fManaMaximum;
@@ -332,8 +347,8 @@ public class Player : MonoBehaviour
             m_bhasStarted = true;
             MinionSelect();
         }
-
     }
+
     public Vector3 CameraPosCalculator(Vector3 _pos)
     {
         return new Vector3(_pos.x, transform.position.y, _pos.z) - transform.forward * 15.0f;

@@ -61,9 +61,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e54211bf89545419e2f8e54156e7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materialLoc: {fileID: 1750298645139531735}
+  deathMaterial: {fileID: 2100000, guid: 9b16e41ffd05ade4490d0e356af772df, type: 2}
+  RespawnPoint: {x: 0, y: 0, z: 0}
+  HarvestRadius: 2.5
+  HarvestDelay: 0.5
+  HarvestAmount: 1
+  maxHealth: 100
   m_fSpeed: 6
   bloodHold: 0
   maximumBlood: 100
+  delay: 0
 --- !u!143 &2195746067465212569
 CharacterController:
   m_ObjectHideFlags: 0
@@ -169,6 +177,12 @@ PrefabInstance:
 --- !u!4 &7562601261811027264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8189141611370302977, guid: 1b0d0e0d1acdd7a4bb46d6f7688d7f06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1825766748200239937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1750298645139531735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 79976788005069974, guid: 1b0d0e0d1acdd7a4bb46d6f7688d7f06,
     type: 3}
   m_PrefabInstance: {fileID: 1825766748200239937}
   m_PrefabAsset: {fileID: 0}

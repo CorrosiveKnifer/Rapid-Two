@@ -78,6 +78,9 @@ public class PlayerHarvester : MonoBehaviour
 
     private void Update()
     {
+        if (delay > 0)
+            delay = Mathf.Clamp(delay - Time.deltaTime, 0, HarvestDelay);
+
         if (delay <= 0 && bloodHold < maximumBlood)
         {
             delay = HarvestDelay;
