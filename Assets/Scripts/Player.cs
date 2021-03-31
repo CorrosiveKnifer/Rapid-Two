@@ -190,8 +190,8 @@ public class Player : MonoBehaviour
         CoolDowns();
 
         // Player movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("HorizontalArrow");
+        float z = Input.GetAxis("VerticalArrow");
 
         // Move player with keyboard
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
