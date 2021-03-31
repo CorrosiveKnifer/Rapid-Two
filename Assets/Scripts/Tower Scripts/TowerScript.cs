@@ -94,6 +94,7 @@ public class TowerScript : MonoBehaviour
         GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<BulletScript>().SetDamage(bulletDamage);
+        bulletClone.GetComponent<BulletScript>().SetSpeed(bulletSpeed);
         bulletClone.GetComponent<BulletScript>().target = target;
         
     }

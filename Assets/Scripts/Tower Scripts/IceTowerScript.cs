@@ -82,6 +82,7 @@ public class IceTowerScript : MonoBehaviour
         GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<IcebulletScript>().SetDamage(bulletDamage);
+        bulletClone.GetComponent<IcebulletScript>().SetSpeed(bulletSpeed);
         bulletClone.GetComponent<IcebulletScript>().target = target;
 
     }
