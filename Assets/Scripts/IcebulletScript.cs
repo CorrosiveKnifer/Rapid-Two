@@ -9,6 +9,8 @@ public class IcebulletScript : MonoBehaviour
 {
     private float bulletdamage = 0;
     private float BulletHealth = 10;
+    private float bulletSpeed = 1.0f;
+
     public GameObject target;
     public GameObject IceField;
 
@@ -32,7 +34,8 @@ public class IcebulletScript : MonoBehaviour
         {
             Vector3 direction = target.transform.position - transform.position;
 
-            GetComponent<Rigidbody>().velocity = direction.normalized * 8.0f;
+            GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
+            //8 was the sppeed normall
         }
     }
 
@@ -63,5 +66,9 @@ public class IcebulletScript : MonoBehaviour
     public void SetDamage(float damageNum)
     {
         bulletdamage = damageNum;
+    }
+    public void SetSpeed(float speed)
+    {
+        bulletSpeed = speed;
     }
 }
