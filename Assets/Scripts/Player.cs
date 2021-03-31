@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public Color m_ColourDim;
     public LayerMask m_SelectableMask;
     bool m_bDestroyMode = false;
+    bool m_bhasStarted = false;
 
     // Lerping
     public Vector3 m_LerpStart;
@@ -324,6 +325,12 @@ public class Player : MonoBehaviour
         else
         {
             GameManager.instance.EnableFrame(true);
+        }
+
+        if (!m_bhasStarted)
+        {
+            m_bhasStarted = true;
+            MinionSelect();
         }
 
     }

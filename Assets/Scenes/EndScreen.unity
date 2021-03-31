@@ -884,7 +884,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You Lost...
+  m_text: 'Failure
 
 '
   m_isRightToLeft: 0
@@ -920,9 +920,9 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1122,6 +1122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76251e4abfbb92542a218737f9740429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HappyBoi: {fileID: 1865418177}
+  SadBoi: {fileID: 1744923757}
   WinText: {fileID: 1912012305}
   LostText: {fileID: 1487539196}
 --- !u!4 &1738801700
@@ -1342,9 +1344,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You Won!!!
-
-'
+  m_text: Victory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e01d396b6d9e94344a296046004aeb33, type: 2}
   m_sharedMaterial: {fileID: -2181522287519035410, guid: e01d396b6d9e94344a296046004aeb33,
@@ -1378,9 +1378,9 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
