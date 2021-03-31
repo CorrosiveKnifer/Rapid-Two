@@ -9,6 +9,15 @@ public class PlayerHarvester : MonoBehaviour
     Camera m_Camera;
     private Animator animator;
 
+    public GameObject materialLoc;
+    public Material deathMaterial;
+
+    public Vector3 RespawnPoint;
+
+    bool IsSelected = false;
+    private float health;
+    public float maxHealth = 100.0f;
+    bool IsDead = false;
     bool isMoving = false;
     public float m_fSpeed = 6;
     float fGravity = -9.81f;
@@ -60,4 +69,96 @@ public class PlayerHarvester : MonoBehaviour
 
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
     }
+
+
+    public void SetSelected(bool selected)
+    {
+        IsSelected = selected;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (IsDead)
+            return;
+
+        health -= damage;
+        if (health <= 0)
+        {
+            animator.SetTrigger("IsDead");
+            IsDead = true;
+            bloodHold = 0;
+        }
+    }
+
+    protected void HandleShowDeathFinalFrame()
+    {
+        animator.SetTrigger("Reset");
+        materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", 1.0f);
+        IsDead = false;
+        transform.position = RespawnPoint;
+        health = maxHealth;
+    }
+
+    protected void PlayMovement()
+    {
+        //Do nothing
+    }
+
+
+    protected virtual GameObject FindClosestofTag(string tag, float range = -1)
+    {
+        GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
+        float closestDistance = 100000;
+        GameObject closestObject = null;
+        foreach (var foundObject in foundObjects)
+        {
+            float distance = Vector3.Distance(transform.position, foundObject.transform.position);
+            if (distance < closestDistance)
+            {
+                closestObject = foundObject;
+                closestDistance = distance;
+            }
+        }
+
+        if (range < 0)
+        {
+            return closestObject;
+        }
+        else if (closestDistance <= range)
+        {
+            return closestObject;
+        }
+        return null;
+    }
+    public void Death()
+    {
+        IsDead = true;
+        StartCoroutine(ShowDeath());
+    }
+
+    protected IEnumerator ShowDeath()
+    {
+        float t = 0.0f;
+        float dt = 0.05f;
+        float dt2 = 0.01f;
+        float alpha = 1.0f;
+
+        materialLoc.GetComponent<Renderer>().material = deathMaterial;
+
+        while (alpha > 0.0f)
+        {
+            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
+
+            t += dt * Time.deltaTime;
+            dt += dt2;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        HandleShowDeathFinalFrame();
+        yield return null;
+    }
 }
+
+
