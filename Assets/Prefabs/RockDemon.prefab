@@ -204,7 +204,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b8968c81081fbb45b5f36c2b403f1ad, type: 2}
+  - {fileID: 2100000, guid: 7e5633323ce59094aa9e9143d44975cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1062,10 +1062,12 @@ MonoBehaviour:
   arrowPrefab: {fileID: 5685470441413844414, guid: 60ae15b186f553240985d06c0cdd47b1,
     type: 3}
   materialLoc: {fileID: 2575433296381801567}
+  deathMaterial: {fileID: 2100000, guid: 1b8968c81081fbb45b5f36c2b403f1ad, type: 2}
   maxHealth: 100
-  DetectRadius: 12.5
+  DetectRadius: 120.5
   AttackRadius: 2.5
   Damage: 45
+  lifetime: 30
 --- !u!65 &9025464078149559631
 BoxCollider:
   m_ObjectHideFlags: 0
