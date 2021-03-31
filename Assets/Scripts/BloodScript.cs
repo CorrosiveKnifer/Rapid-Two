@@ -11,6 +11,7 @@ public class BloodScript : MonoBehaviour
     public GameObject bloodSpherePrefab;
     public bool IsConsumed = false;
     public float lifeTime = 5.0f;
+    public Animator tearAnim;
     private float maxBlood;
 
     private bool IsDestroyed;
@@ -29,8 +30,12 @@ public class BloodScript : MonoBehaviour
     {
         if (life < lifeTime)
             life += Time.deltaTime;
-        else if(!FadingStarted)
-            StartCoroutine(StartFading());
+        else
+        {
+            tearAnim.SetBool("IsDead", true);
+            Destroy(gameObject, 1.0f);
+        }
+            
 
         //Set the scale of the blood to be relective of how much blood there is.
         float targetSize = 1.0f * (bloodCount / maxBlood);
@@ -60,61 +65,61 @@ public class BloodScript : MonoBehaviour
             StartCoroutine(SendBloodProjToHarvester(harvester, HarvestAmount));
     }
 
-    private IEnumerator StartFading()
-    {
-        FadingStarted = true;
-        Material material = GetComponentInChildren<Renderer>().material;
-
-        float t = 0.0f;
-        float dt = 0.05f;
-        float dt2 = 0.01f;
-        float alpha = 1.0f;
-
-        for (int i = 0; i < 5; i++)
-        {
-            t = 0.0f;
-            dt = 0.05f;
-            dt2 = 0.01f;
-            alpha = 1.0f;
-
-            do
-            {
-                alpha = Mathf.Lerp(1.0f, 0.0f, t);
-                material.SetFloat("Alpha", alpha);
-
-                t += dt * Time.deltaTime;
-                dt += dt2;
-
-                yield return new WaitForEndOfFrame();
-            } while (alpha > 0.0f);
-
-            do
-            {
-                alpha = Mathf.Lerp(1.0f, 0.0f, t);
-                material.SetFloat("Alpha", alpha);
-
-                t -= dt * Time.deltaTime;
-                dt += dt2;
-
-                yield return new WaitForEndOfFrame();
-            } while (alpha < 1.0f);
-        }
-
-        do
-        {
-            alpha = Mathf.Lerp(1.0f, 0.0f, t);
-            material.SetFloat("Alpha", alpha);
-
-            t += dt * Time.deltaTime;
-            dt += dt2;
-
-            yield return new WaitForEndOfFrame();
-        } while (alpha > 0.0f);
-
-        Destroy(gameObject);
-
-        yield return null;
-    }
+    //private IEnumerator StartFading()
+    //{
+    //    FadingStarted = true;
+    //    Material material = GetComponentInChildren<Renderer>().material;
+    //
+    //    float t = 0.0f;
+    //    float dt = 0.05f;
+    //    float dt2 = 0.01f;
+    //    float alpha = 1.0f;
+    //
+    //    for (int i = 0; i < 5; i++)
+    //    {
+    //        t = 0.0f;
+    //        dt = 0.05f;
+    //        dt2 = 0.01f;
+    //        alpha = 1.0f;
+    //
+    //        do
+    //        {
+    //            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+    //            material.SetFloat("Alpha", alpha);
+    //
+    //            t += dt * Time.deltaTime;
+    //            dt += dt2;
+    //
+    //            yield return new WaitForEndOfFrame();
+    //        } while (alpha > 0.0f);
+    //
+    //        do
+    //        {
+    //            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+    //            material.SetFloat("Alpha", alpha);
+    //
+    //            t -= dt * Time.deltaTime;
+    //            dt += dt2;
+    //
+    //            yield return new WaitForEndOfFrame();
+    //        } while (alpha < 1.0f);
+    //    }
+    //
+    //    do
+    //    {
+    //        alpha = Mathf.Lerp(1.0f, 0.0f, t);
+    //        material.SetFloat("Alpha", alpha);
+    //
+    //        t += dt * Time.deltaTime;
+    //        dt += dt2;
+    //
+    //        yield return new WaitForEndOfFrame();
+    //    } while (alpha > 0.0f);
+    //
+    //    Destroy(gameObject);
+    //
+    //    yield return null;
+    //}
 
     private IEnumerator SendBloodProjToHarvester(HarvesterScript consumer, float bloodTransferAmount)
     {

@@ -6,9 +6,10 @@ public class DemonScript : MinionScript
 {
     [Header("Demon Settings")]
     public float maxHealth = 100.0f;
-    public float DetectRadius = 12.5f;
+    public float DetectRadius = 120.5f;
     public float AttackRadius = 2.5f;
     public float Damage = 50.0f;
+    public float lifetime = 50.0f;
 
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
@@ -30,6 +31,13 @@ public class DemonScript : MinionScript
         GetComponentInChildren<Animator>()?.SetBool("IsMoving", !IsAgentFinished(0.25f));
         StateBasedUpdate();
 
+        lifetime -= Time.deltaTime;
+        if(lifetime <= 0 && !IsDead)
+        {
+            IsDead = true;
+            GetComponentInChildren<Animator>()?.SetTrigger("IsDead");
+        }
+
         base.Update();
     }
 
@@ -50,7 +58,7 @@ public class DemonScript : MinionScript
 
         if (IsSelected)
         {
-            TransitionTo(AIState.SELECTED);
+            //TransitionTo(AIState.SELECTED);
         }
         else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
@@ -68,7 +76,7 @@ public class DemonScript : MinionScript
                 }
             case AIState.SELECTED:
                 {
-                    SelectedUpdate();
+                    //SelectedUpdate();
                     break;
                 }
             case AIState.ATTACK:

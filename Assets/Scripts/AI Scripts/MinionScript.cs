@@ -16,6 +16,7 @@ public abstract class MinionScript : MonoBehaviour
     public GameObject arrowPrefab;
 
     public GameObject materialLoc;
+    public Material deathMaterial;
 
     protected float speed;
     protected bool IsDead = false;
@@ -115,6 +116,8 @@ public abstract class MinionScript : MonoBehaviour
         float dt = 0.05f;
         float dt2 = 0.01f;
         float alpha = 1.0f;
+
+        materialLoc.GetComponent<Renderer>().material = deathMaterial;
 
         while (alpha > 0.0f)
         {
