@@ -8,6 +8,7 @@ public class BombScript : MonoBehaviour
 {
     private float bulletdamage = 0;
     private float BulletHealth = 10;
+    private float bulletSpeed = 1.0f;
     public GameObject target;
     public GameObject BombField;
 
@@ -31,7 +32,7 @@ public class BombScript : MonoBehaviour
         {
             Vector3 direction = target.transform.position - transform.position;
 
-            GetComponent<Rigidbody>().velocity = direction.normalized * 8.0f;
+            GetComponent<Rigidbody>().velocity = direction.normalized * bulletSpeed;
         }
     }
 
@@ -61,5 +62,9 @@ public class BombScript : MonoBehaviour
     public void SetDamage(float damageNum)
     {
         bulletdamage = damageNum;
+    }
+    public void SetSpeed(float speed)
+    {
+        bulletSpeed = speed;
     }
 }

@@ -98,10 +98,17 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_SelectedSpell = Spell.None;
+
+        m_iBasicTowerCost = m_BasicTower.GetComponent<TowerScript>().cost;
+        m_iFireTowerCost = m_FireTower.GetComponent<BombTowerScript>().cost;
+        m_iFrostTowerCost = m_FrostTower.GetComponent<IceTowerScript>().cost;
+        m_iLaserTowerCost = m_LaserTower.GetComponent<LaserTowerScript>().cost;
+
         GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
         GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
+
         GameManager.instance.Spell3.GetComponentInChildren<Text>().text = m_iDemonCost.ToString();
     }
     private void CoolDowns()
@@ -182,13 +189,20 @@ public class Player : MonoBehaviour
 
         CoolDowns();
 
-        // Player movement
+        // Harvester movement
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        // Move player with keyboard
+        // Move harvester with WASD
+        //m_Harvester.GetComponent<HarvesterScript>().SetTargetLocation(m_Harvester.transform.position + (transform.right * x + transform.forward * z) * 3.0f);
+
+        // Player movement
+        x = Input.GetAxis("HorizontalArrow");
+        z = Input.GetAxis("VerticalArrow");
+
+        // Move player with arrowkeys
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
-        if (x != 0 || z != 0)
+        if (x != 0.0f || z != 0.0f)
         {
             m_isLerping = false;
             m_fLerpT = 0;
@@ -214,7 +228,7 @@ public class Player : MonoBehaviour
             z = 1;
         }
 
-        if (x != 0 || z != 0)
+        if (x != 0.0f || z != 0.0f)
         {
             m_isLerping = false; 
             m_fLerpT = 0;
