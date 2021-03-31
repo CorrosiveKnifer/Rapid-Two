@@ -437,12 +437,8 @@ public class Player : MonoBehaviour
     private void DemonSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null && m_selected.gameObject.GetComponent<DemonScript>() != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<DemonScript>() != null) // Lerp to position if in world and selected
         {
-            //DeselectObject();
-            //m_selected = null;
-            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-            //transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
             m_isLerping = true;
             m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
         }
@@ -462,7 +458,7 @@ public class Player : MonoBehaviour
                     m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
                 }
             }
-            else
+            else // Select demon
             {
                 GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
                 GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
@@ -471,6 +467,9 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+
+
     private void TowerSelect(RaycastHit hit)
     {
         DeselectObject();
