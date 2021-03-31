@@ -126,7 +126,7 @@ MonoBehaviour:
   myPath: {fileID: 0}
   currentState: 0
   currentIndex: -1
-  health: 50
+  health: 80
   HuntRange: 10
   AttackRange: 3
   BloodAmount: 30

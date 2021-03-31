@@ -52,7 +52,7 @@ public class IceFlooring : MonoBehaviour
         if (other.tag == "Enemy")
         {
             isIced = true;
-            other.GetComponentInParent<EnemyScript>().SetMovementMod(0.5f);
+            other.GetComponentInParent<EnemyScript>().SetMovementMod(0.35f);
             //Slowing down the enemies
             //Debug.Log(other.GetComponentInParent<EnemyScript>().MovementSpeedMod);
             Debug.Log("Slow down");
