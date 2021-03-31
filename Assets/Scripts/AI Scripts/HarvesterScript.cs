@@ -34,7 +34,7 @@ public class HarvesterScript : MinionScript
         transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
-        agent.updateRotation = false;
+        //agent.updateRotation = false;
     }
 
     protected override void Update()
@@ -219,11 +219,38 @@ public class HarvesterScript : MinionScript
         {
             agent.isStopped = true;
             animator.SetBool("IsConsuming", true);
-            if (delay <= 0)
+            if (delay <= 0 && bloodHold < maximumBlood)
             {
                 delay = HarvestDelay;
-                float amount = Mathf.Min(HarvestAmount, maximumBlood - bloodHold);
-                myHuntTarget?.GetComponent<BloodScript>().Consume(this, amount);
+                GameObject[] bloods = GameObject.FindGameObjectsWithTag("Blood");
+                float expected = 0.0f;
+                foreach (var blood in bloods)
+                {
+                    if(Vector3.Distance(transform.position, blood.transform.position) < HarvestRadius)
+                    {
+                        float amount = maximumBlood - bloodHold;
+                        
+                        if (amount <= 0)
+                            break;
+                        if (expected > amount)
+                            break;
+
+                        if(amount < HarvestAmount)
+                        {
+                            blood.GetComponent<BloodScript>().Consume(this, amount);
+                            expected += amount;
+                            break;
+                        }
+                        else
+                        {
+                            blood.GetComponent<BloodScript>().Consume(this, HarvestAmount);
+                            expected += HarvestAmount;
+                        }
+                        
+                    }
+                }
+                //float amount = Mathf.Min(HarvestAmount, maximumBlood - bloodHold);
+               // myHuntTarget?.GetComponent<BloodScript>().Consume(this, amount);
             }
         }
     }

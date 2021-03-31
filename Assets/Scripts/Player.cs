@@ -189,13 +189,20 @@ public class Player : MonoBehaviour
 
         CoolDowns();
 
-        // Player movement
-        float x = Input.GetAxis("HorizontalArrow");
-        float z = Input.GetAxis("VerticalArrow");
+        // Harvester movement
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
 
-        // Move player with keyboard
+        // Move harvester with WASD
+        //m_Harvester.GetComponent<HarvesterScript>().SetTargetLocation(m_Harvester.transform.position + (transform.right * x + transform.forward * z) * 3.0f);
+
+        // Player movement
+        x = Input.GetAxis("HorizontalArrow");
+        z = Input.GetAxis("VerticalArrow");
+
+        // Move player with arrowkeys
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
-        if (x != 0 || z != 0)
+        if (x != 0.0f || z != 0.0f)
         {
             m_isLerping = false;
             m_fLerpT = 0;
@@ -221,7 +228,7 @@ public class Player : MonoBehaviour
             z = 1;
         }
 
-        if (x != 0 || z != 0)
+        if (x != 0.0f || z != 0.0f)
         {
             m_isLerping = false; 
             m_fLerpT = 0;
