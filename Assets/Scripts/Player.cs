@@ -189,16 +189,36 @@ public class Player : MonoBehaviour
 
         CoolDowns();
 
-        // Harvester movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
-
-        // Move harvester with WASD
-        m_Harvester.GetComponent<HarvesterScript>().SetTargetLocation(m_Harvester.transform.position + (transform.right * x + transform.forward * z) * 3.0f);
 
         // Player movement
-        x = Input.GetAxis("HorizontalArrow");
-        z = Input.GetAxis("VerticalArrow");
+        float x = Input.GetAxis("HorizontalArrow");
+        float z = Input.GetAxis("VerticalArrow");
+
+
+        if (Input.mousePosition.x < fMouseMoveSens)
+        {
+            x += -1;
+        }
+        if (Input.mousePosition.x > (Screen.width - fMouseMoveSens))
+        {
+            x += 1;
+        }
+        if (Input.mousePosition.y < fMouseMoveSens)
+        {
+            z += -1;
+        }
+        if (Input.mousePosition.y > (Screen.height - fMouseMoveSens))
+        {
+            z += 1;
+        }
+
+        if (m_selected != null)
+        {
+            if (m_selected.GetComponent<PlayerHarvester>() != null)
+            {
+                m_LerpTarget = CameraPosCalculator(m_selected.transform.position);
+            }
+        }
 
         // Move player with arrowkeys
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
@@ -206,32 +226,10 @@ public class Player : MonoBehaviour
         {
             m_isLerping = false;
             m_fLerpT = 0;
-        }
-
-        x = 0;
-        z = 0;
-
-        if (Input.mousePosition.x < fMouseMoveSens)
-        {
-            x = -1;
-        }
-        if (Input.mousePosition.x > (Screen.width - fMouseMoveSens))
-        {
-            x = 1;
-        }
-        if (Input.mousePosition.y < fMouseMoveSens)
-        {
-            z = -1;
-        }
-        if (Input.mousePosition.y > (Screen.height - fMouseMoveSens))
-        {
-            z = 1;
-        }
-
-        if (x != 0.0f || z != 0.0f)
-        {
-            m_isLerping = false; 
-            m_fLerpT = 0;
+            if (m_selected != null && m_selected.gameObject.GetComponent<PlayerHarvester>() != null)
+            {
+                DeselectObject();
+            }
         }
 
         if (m_isLerping)
@@ -327,6 +325,11 @@ public class Player : MonoBehaviour
 
     }
 
+    public Vector3 CameraPosCalculator(Vector3 _pos)
+    {
+        return new Vector3(_pos.x, transform.position.y, _pos.z) - transform.forward * 15.0f;
+    }
+
     public float GetScreenSizeRatio()
     {
         //minimum = 1
@@ -355,21 +358,21 @@ public class Player : MonoBehaviour
         if (m_SelectedSpell == Spell.None) // Check if spell is selected
         {
             // Select minion
-            HarvesterScript harvester = hit.collider.gameObject.GetComponentInChildren<HarvesterScript>();
-            if ((harvester != null && Input.GetMouseButtonDown(0))) // Select minion with click
-            {
-                MinionSelect();
-                return;
-            }
-            if (m_selected != null)
-            {
-                if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<HarvesterScript>() != null) // Create target location for minion
-                {
-                    m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
-                    Debug.Log(hit.point);
-                    return;
-                }
-            }
+            //HarvesterScript harvester = hit.collider.gameObject.GetComponentInChildren<HarvesterScript>();
+            //if ((harvester != null && Input.GetMouseButtonDown(0))) // Select minion with click
+            //{
+            //    MinionSelect();
+            //    return;
+            //}
+            //if (m_selected != null)
+            //{
+            //    if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<HarvesterScript>() != null) // Create target location for minion
+            //    {
+            //        m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
+            //        Debug.Log(hit.point);
+            //        return;
+            //    }
+            //}
 
             // Select Demon
             DemonScript demon = hit.collider.gameObject.GetComponentInChildren<DemonScript>();
@@ -414,23 +417,42 @@ public class Player : MonoBehaviour
             return;
         }
     }
+    //private void MinionSelect()
+    //{
+    //    m_SelectedSpell = Spell.None;
+    //    if (m_selected != null && m_selected.gameObject.GetComponent<HarvesterScript>() != null)
+    //    {
+    //        //DeselectObject();
+    //        //m_selected = null;
+    //        //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+    //        m_isLerping = true;
+    //        m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+    //    }
+    //    else
+    //    {
+    //        GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+    //        GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
+    //        m_selected = m_Harvester;
+    //        m_selected.GetComponent<HarvesterScript>().SetSelected(true);
+    //    }
+    //}
+
     private void MinionSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null && m_selected.gameObject.GetComponent<HarvesterScript>() != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<PlayerHarvester>() != null)
         {
-            //DeselectObject();
-            //m_selected = null;
-            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-            m_isLerping = true;
-            m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+            DeselectObject();
         }
         else
         {
+            m_fLerpT = 0;
             GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
             GameManager.instance.MoveFrame(GameManager.instance.Minion.GetComponent<RectTransform>());
             m_selected = m_Harvester;
-            m_selected.GetComponent<HarvesterScript>().SetSelected(true);
+            m_isLerping = true;
+            m_LerpTarget = CameraPosCalculator(m_selected.transform.position);
+            //m_selected.GetComponent<PlayerHarvester>().SetSelected(true);
         }
     }
 
