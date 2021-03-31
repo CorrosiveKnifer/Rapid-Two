@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     [Header("Spells")]
     public GameObject m_Fireball;
-    float m_fFireballCoolDown = 2.0f;
+    float m_fFireballCoolDown = 4.0f;
     float m_fFireballTimeLeft = 0.0f;
     public Sprite m_FireCircle;
 

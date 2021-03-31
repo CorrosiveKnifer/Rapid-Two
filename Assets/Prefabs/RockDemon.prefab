@@ -1065,7 +1065,7 @@ MonoBehaviour:
   maxHealth: 100
   DetectRadius: 12.5
   AttackRadius: 2.5
-  Damage: 50
+  Damage: 45
 --- !u!65 &9025464078149559631
 BoxCollider:
   m_ObjectHideFlags: 0

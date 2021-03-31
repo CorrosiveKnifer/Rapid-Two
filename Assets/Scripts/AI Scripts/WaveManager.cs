@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public string[] waveCode; //"0.5,0,0,0,0,0"
 
     public int waveIndex;
+    public int enemyCount;
     public LevelLoader loader;
 
     // Start is called before the first frame update
