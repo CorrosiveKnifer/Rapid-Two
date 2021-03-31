@@ -14,7 +14,14 @@ public class BombScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (target != null)
+        {
+            transform.LookAt(target.transform);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +43,7 @@ public class BombScript : MonoBehaviour
         {
             BulletHealth = other.GetComponentInParent<EnemyScript>().DealDamageToEnemy(0);
             //if it does hit
-            if (BulletHealth == 0)
+            if (BulletHealth == 0 || other.GetComponentInParent<EnemyScript>().IsDead)
             {
                 Effect();
                 Destroy(gameObject);

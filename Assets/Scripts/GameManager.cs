@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Michael Jordan
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            Cursor.lockState = CursorLockMode.Confined; 
         }
         else
         {
@@ -41,14 +43,17 @@ public class GameManager : MonoBehaviour
     public GameObject Tower2;
     public GameObject Tower3;
     public GameObject Tower4;
+    public GameObject TowerDestroy;
 
     public GameObject Minion;
     public GameObject Demon;
 
+    public Slider LifeBar;
     public Slider ManaBar;
     public Slider MinionBloodBar;
 
     public GameObject SelectFrame;
+    public LevelLoader levelLoader;
 
     //Volume Settings
     public static float MasterVolume { get; set; } = 1.0f;
@@ -59,14 +64,19 @@ public class GameManager : MonoBehaviour
 
     public GameObject BasicEnemy;
 
-    public SpawnerScript[] WorldSpawners;
+    public Player player;
 
-    public int waveSize;
+    public float maxVolumeDistance = 50.0f;
     public int lives = 100;
     public float blood;
     public Text BloodDisplay;
+
+    private Vector3 middlePoint;
+
     private void Start()
     {
+        LevelLoader.hasWon = false;
+
         Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
     }
 
@@ -78,17 +88,42 @@ public class GameManager : MonoBehaviour
         if(BloodDisplay != null)
             BloodDisplay.text = $"{Mathf.FloorToInt(blood)}";
 
-        if (WorldSpawners.Length > 0)
+        middlePoint = RayCastToMiddlePoint();
+
+        SetLifeBar(lives);
+
+        if(lives <= 0)
         {
-            if (GameObject.FindGameObjectsWithTag("Enemy").Length < waveSize)
+            levelLoader.LoadNextLevel();
+        }
+    }
+
+    public float CalculateVolumeModifier(Vector3 soundPos)
+    {
+        float distance = Vector3.Distance(soundPos, middlePoint);
+
+        return Mathf.Clamp(1.0f - distance/maxVolumeDistance, 0.0f, 1.0f);
+    }
+
+    private Vector3 RayCastToMiddlePoint()
+    {
+        Ray ray = player.GetComponentInChildren<Camera>().ScreenPointToRay(new Vector3(Screen.width/2.0f,Screen.height/2.0f, 0.0f));
+        Debug.DrawRay(ray.origin, ray.direction * 1500.0f, Color.red, 0.5f);
+
+        RaycastHit[] hits = Physics.RaycastAll(ray.origin, ray.direction, 1500.0f);
+        if (hits.Length != 0) // Check if raycast detects any objects
+        {
+            RaycastHit closestHit = hits[0];
+
+            for (int i = 0; i < hits.Length; i++)
             {
-                foreach (var spawner in WorldSpawners)
-                {
-                    spawner.SpawnGameObject(BasicEnemy);
-                }
+                if (closestHit.distance > hits[i].distance)
+                    closestHit = hits[i];
             }
+            return closestHit.point;
         }
 
+        return new Vector3();
     }
 
     public void MoveFrame(RectTransform _transform)
@@ -99,6 +134,11 @@ public class GameManager : MonoBehaviour
     public void EnableFrame(bool _visible)
     {
         SelectFrame.GetComponent<Image>().enabled = _visible;
+    }
+
+    public void SetLifeBar(float _life)
+    {
+        LifeBar.value = _life;
     }
 
     public void SetMana(float _mana)

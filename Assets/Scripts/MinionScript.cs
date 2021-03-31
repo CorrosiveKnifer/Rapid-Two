@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MinionScript : MonoBehaviour
+public abstract class MinionScript : MonoBehaviour
 {
     public Renderer selectedCircle;
 
@@ -14,12 +14,17 @@ public class MinionScript : MonoBehaviour
     public float maximumSpeed = 7.0f;
     public float speedMod = 1.0f;
 
+    public GameObject materialLoc;
+
     protected float speed;
+    protected bool IsDead = false;
     protected bool IsSelected = false;
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        speed = (maximumSpeed + minimumSpeed) / 2.0f;
         agent = GetComponent<NavMeshAgent>();
+        agent.isStopped = true;
     }
 
     // Update is called once per frame
@@ -35,12 +40,17 @@ public class MinionScript : MonoBehaviour
     {
         agent.isStopped = false;
         agent.destination = positon;
+        PlayMovement();
     }
 
     public void SetSelected(bool selected)
     {
         IsSelected = selected;
     }
+
+    public abstract void TakeDamage(float damage);
+    protected abstract void HandleShowDeathFinalFrame();
+    protected abstract void PlayMovement();
 
     protected bool IsAgentFinished(float offset = 1.0f)
     {
@@ -50,7 +60,7 @@ public class MinionScript : MonoBehaviour
         return Vector2.Distance(currentPos, destinationPos) < offset;
     }
 
-    protected GameObject FindClosestofTag(string tag, float range = -1)
+    protected virtual GameObject FindClosestofTag(string tag, float range = -1)
     {
         GameObject[] foundObjects = GameObject.FindGameObjectsWithTag(tag);
         float closestDistance = 100000;
@@ -74,5 +84,33 @@ public class MinionScript : MonoBehaviour
             return closestObject;
         }
         return null;
+    }
+    public void Death()
+    {
+        agent.isStopped = true;
+        IsDead = true;
+        StartCoroutine(ShowDeath());
+    }
+
+    protected IEnumerator ShowDeath()
+    {
+        float t = 0.0f;
+        float dt = 0.05f;
+        float dt2 = 0.01f;
+        float alpha = 1.0f;
+
+        while (alpha > 0.0f)
+        {
+            alpha = Mathf.Lerp(1.0f, 0.0f, t);
+            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
+
+            t += dt * Time.deltaTime;
+            dt += dt2;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        HandleShowDeathFinalFrame();
+        yield return null;
     }
 }

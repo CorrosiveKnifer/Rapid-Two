@@ -22,7 +22,7 @@ public class BombTowerScript : MonoBehaviour
     public GameObject target;
     public GameObject indicator;
     bool isFirst = false;
-
+    public Transform spawner;
     public GameObject m_Indicator;
 
     // Called before start
@@ -53,6 +53,10 @@ public class BombTowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("Reset");
+        }
     }
 
     public void SetSelected(bool selected)
@@ -62,19 +66,22 @@ public class BombTowerScript : MonoBehaviour
 
     public void TowerActivated()
     {
-        //a countdown on when to attack
-        if (towerCoolDown >= coolDown)
-        {
-            //attack and reset counter
-            towerCoolDown = 0;
-            Fire();
-        }
-        towerCoolDown += 0.01f;
+        GetComponent<Animator>().SetTrigger("IsShooting");
+        GetComponent<Animator>().SetFloat("Delay", 1.0f / coolDown);
+
+        ////a countdown on when to attack
+        //if (towerCoolDown >= coolDown)
+        //{
+        //    //attack and reset counter
+        //    towerCoolDown = 0;
+        //    Fire();
+        //}
+        //towerCoolDown += 0.01f;
     }
     //function to spawn bullet
     void Fire()
     {
-        GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
+        GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<BombScript>().SetDamage(bulletDamage);
         bulletClone.GetComponent<BombScript>().target = target;
@@ -101,7 +108,7 @@ public class BombTowerScript : MonoBehaviour
 
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Debug.DrawRay(transform.position, forward * towerRadius, Color.green);
-            transform.LookAt(target.transform);
+            //transform.LookAt(target.transform);
         }
     }
 
@@ -228,5 +235,10 @@ public class BombTowerScript : MonoBehaviour
 
             }
         }
+    }
+    void OnDestroy()
+    {
+        // Will be called just prior to destruction of the gameobject to which this script is attached
+        Destroy(m_Indicator);
     }
 }

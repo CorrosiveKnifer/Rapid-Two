@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// Michael Jordan
+/// </summary>
 public class HarvesterScript : MinionScript
 {
     public float bloodHold;
@@ -16,15 +19,19 @@ public class HarvesterScript : MinionScript
     public float HarvestRadius = 2.5f;
     public float HarvestDelay = 0.5f;
     public float HarvestAmount = 1.0f;
+    public Vector3 RespawnPoint;
 
     private enum AIState { DETECT, SELECTED, HARVEST, DEPOSIT};
     private AIState currentState;
     private GameObject myHuntTarget;
     private float delay;
     private float health;
+    private Animator animator;
 
     protected override void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+        transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
     }
@@ -36,6 +43,8 @@ public class HarvesterScript : MinionScript
 
         float speedRange = maximumSpeed - minimumSpeed;
         speed = Mathf.Clamp((1.0f - bloodHold / maximumBlood) * speedRange + minimumSpeed, minimumSpeed, maximumSpeed);
+        animator.SetFloat("MovementMod", Mathf.Clamp((speed / maximumSpeed) * 2.5f, 0.5f, 2.5f));
+        animator.SetBool("IsMoving", !agent.isStopped);
 
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
@@ -49,8 +58,9 @@ public class HarvesterScript : MinionScript
         {
             TransitionTo(AIState.SELECTED);
         }
-        else if (currentState == AIState.SELECTED)
+        else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
+            agent.isStopped = true;
             TransitionTo(AIState.DETECT);
         }
 
@@ -110,26 +120,27 @@ public class HarvesterScript : MinionScript
         if (IsAgentFinished())
         {
             agent.isStopped = true;
+            myHuntTarget = FindClosestofTag("Blood", DetectRadius);
+            animator.SetBool("IsConsuming", false);
 
-            if (myHuntTarget == null)
-            {
-                //Find closest target.
-                myHuntTarget = FindClosestofTag("Blood", DetectRadius);
-            }
-            else
+            if (myHuntTarget != null)
             {
                 float distance = Vector3.Distance(transform.position, myHuntTarget.transform.position);
                 if (distance > DetectRadius)
                 {
                     //Distance is too far, forget about this one!
                     myHuntTarget = null;
+                    animator.SetBool("IsConsuming", false);
                 }
                 else if (distance > HarvestRadius)
                 {
                     //Do nothing, it isn't close enough
+                    animator.SetBool("IsConsuming", false);
                 }
                 else
                 {
+                    agent.isStopped = true;
+                    animator.SetBool("IsConsuming", true);
                     //Start harvesting
                     if (delay <= 0)
                     {
@@ -153,28 +164,33 @@ public class HarvesterScript : MinionScript
         if (bloodHold >= maximumBlood)
         {
             TransitionTo(AIState.DEPOSIT);
+            animator.SetBool("IsConsuming", false);
             return;
         }
 
         if (myHuntTarget == null)
         {
             TransitionTo(AIState.DETECT);
+            animator.SetBool("IsConsuming", false);
             return;
         }
-
+        
         float distance = Vector3.Distance(transform.position, myHuntTarget.transform.position);
 
         if (distance > DetectRadius) //Transition back to detect
         {
             TransitionTo(AIState.DETECT);
+            animator.SetBool("IsConsuming", false);
         }
         else if (distance > HarvestRadius)
         {
             SetTargetLocation(myHuntTarget.transform.position);
+            animator.SetBool("IsConsuming", false);
         }
         else
         {
             agent.isStopped = true;
+            animator.SetBool("IsConsuming", true);
             if (delay <= 0)
             {
                 delay = HarvestDelay;
@@ -195,9 +211,11 @@ public class HarvesterScript : MinionScript
         myHuntTarget = FindClosestofTag("End");
 
         SetTargetLocation(myHuntTarget.transform.position);
+        //animator.SetBool("IsMoving", true);
 
         if (IsAgentFinished())
         {
+            //animator.SetBool("IsMoving", false);
             TransitionTo(AIState.DETECT);
         }
     }
@@ -224,5 +242,36 @@ public class HarvesterScript : MinionScript
         }
 
         currentState = newState;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (IsDead)
+            return;
+
+        health -= damage;
+        if (health <= 0)
+        {
+            animator.SetTrigger("IsDead");
+            IsDead = true;
+            bloodHold = 0;
+        }
+    }
+
+    protected override void HandleShowDeathFinalFrame()
+    {
+        animator.SetTrigger("Reset");
+        materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", 1.0f);
+        IsDead = false;
+        agent.isStopped = true;
+        agent.enabled = false;
+        transform.position = RespawnPoint;
+        agent.enabled = true;
+        health = maxHealth;
+    }
+
+    protected override void PlayMovement()
+    {
+        //Do nothing
     }
 }

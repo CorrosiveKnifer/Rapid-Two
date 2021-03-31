@@ -22,6 +22,13 @@ public class Player : MonoBehaviour
     GameObject m_SelectedTower;
     public Color m_ColourDim;
     public LayerMask m_SelectableMask;
+    bool m_bDestroyMode = false;
+
+    // Lerping
+    public Vector3 m_LerpStart;
+    public Vector3 m_LerpTarget;
+    public bool m_isLerping = false;
+    public float m_fLerpT = 0;
 
     [Header("Cursors")]
     public Texture2D m_CursorOn;
@@ -47,10 +54,11 @@ public class Player : MonoBehaviour
     public GameObject m_FireTower;
     public GameObject m_FrostTower;
     public GameObject m_LaserTower;
-    
+
     [Header("Prices")]
+    public float m_fRefund = 0.4f;
     int m_iBasicTowerCost = 10;
-    int m_iFireTowerCost = 15;
+    int m_iFireTowerCost = 25;
     int m_iFrostTowerCost = 20;
     int m_iLaserTowerCost = 25;
     int m_iDemonCost = 200;
@@ -68,6 +76,7 @@ public class Player : MonoBehaviour
     public float fCameraMoveSpeed = 0.3f;
     public float fCameraZoomSpeed = 0.3f;
     public float fCameraMaxZoom = 15.0f;
+    float fMouseMoveSens = 5.0f;
 
     [Header("Camera Positon Clamp Values")]
     public float fCameraClampX1 = 30;
@@ -80,14 +89,15 @@ public class Player : MonoBehaviour
     public GameObject m_Marker;
 
     public GameObject m_Harvester;
+    public GameObject m_DemonPref;
     public GameObject m_Demon;
     private GameObject m_selected;
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_SelectedSpell = Spell.None;
-
         GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
@@ -176,8 +186,56 @@ public class Player : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        // Move player
+        // Move player with keyboard
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
+        if (x != 0 || z != 0)
+        {
+            m_isLerping = false;
+            m_fLerpT = 0;
+        }
+
+        x = 0;
+        z = 0;
+
+        if (Input.mousePosition.x < fMouseMoveSens)
+        {
+            x = -1;
+        }
+        if (Input.mousePosition.x > (Screen.width - fMouseMoveSens))
+        {
+            x = 1;
+        }
+        if (Input.mousePosition.y < fMouseMoveSens)
+        {
+            z = -1;
+        }
+        if (Input.mousePosition.y > (Screen.height - fMouseMoveSens))
+        {
+            z = 1;
+        }
+
+        if (x != 0 || z != 0)
+        {
+            m_isLerping = false; 
+            m_fLerpT = 0;
+        }
+
+        if (m_isLerping)
+        {
+            transform.position = Vector3.Lerp(transform.position, m_LerpTarget, m_fLerpT);
+            m_fLerpT += Time.deltaTime;
+            if (m_fLerpT > 1.0f)
+            {
+                m_fLerpT = 1.0f;
+            }
+        }
+        else
+        {
+            m_fLerpT = 0.0f;
+        }
+
+        transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * 1.5f * m_Camera.orthographicSize / fCameraMaxZoom;
+
         if (transform.position.x > fCameraClampX1)
         {
             transform.position = new Vector3(30, transform.position.y, transform.position.z);
@@ -235,7 +293,7 @@ public class Player : MonoBehaviour
 
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion" || m_selected.tag == "Demon") // Check if minion is currently selected and move frame to minion on hotbar
+            if (m_selected.tag == "Minion") // Check if minion is currently selected and move frame to minion on hotbar
             {
                 GameManager.instance.EnableFrame(true);
             }
@@ -244,7 +302,7 @@ public class Player : MonoBehaviour
                 GameManager.instance.EnableFrame(false);
             }
         }
-        else if (m_SelectedSpell == Spell.None && m_SelectedTower == null)
+        else if (m_SelectedSpell == Spell.None && m_SelectedTower == null && !m_bDestroyMode)
         {
             GameManager.instance.EnableFrame(false);
         }
@@ -287,14 +345,13 @@ public class Player : MonoBehaviour
             }
             if (m_selected != null)
             {
-                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Minion") // Create target location for minion
+                if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<HarvesterScript>() != null) // Create target location for minion
                 {
                     m_selected.GetComponent<HarvesterScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
                     return;
                 }
             }
-
 
             // Select Demon
             DemonScript demon = hit.collider.gameObject.GetComponentInChildren<DemonScript>();
@@ -305,7 +362,7 @@ public class Player : MonoBehaviour
             }
             if (m_selected != null)
             {
-                if (Input.GetMouseButtonDown(1) && m_selected.tag == "Demon") // Create target location for minion
+                if (Input.GetMouseButtonDown(1) && m_selected.GetComponent<DemonScript>() != null) // Create target location for minion
                 {
                     m_selected.GetComponent<DemonScript>().SetTargetLocation(hit.point);
                     Debug.Log(hit.point);
@@ -314,8 +371,11 @@ public class Player : MonoBehaviour
             }
 
             // Select tower
-            TowerScript tower = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
-            if (tower != null && Input.GetMouseButtonDown(0))
+            TowerScript tower1 = hit.collider.gameObject.GetComponentInChildren<TowerScript>();
+            BombTowerScript tower2 = hit.collider.gameObject.GetComponentInChildren<BombTowerScript>();
+            IceTowerScript tower3 = hit.collider.gameObject.GetComponentInChildren<IceTowerScript>();
+            LaserTowerScript tower4 = hit.collider.gameObject.GetComponentInChildren<LaserTowerScript>();
+            if ((tower1 != null || tower2 != null || tower3 != null || tower4 != null)  && Input.GetMouseButtonDown(0))
             {
                 TowerSelect(hit);
                 return;
@@ -339,15 +399,13 @@ public class Player : MonoBehaviour
     private void MinionSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<HarvesterScript>() != null)
         {
-            if (m_selected.tag == "Minion")
-            {
-                //DeselectObject();
-                //m_selected = null;
-                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
-            }
+            //DeselectObject();
+            //m_selected = null;
+            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            m_isLerping = true;
+            m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
         }
         else
         {
@@ -361,27 +419,69 @@ public class Player : MonoBehaviour
     private void DemonSelect()
     {
         m_SelectedSpell = Spell.None;
-        if (m_selected != null)
+        if (m_selected != null && m_selected.gameObject.GetComponent<DemonScript>() != null)
         {
-            if (m_selected.tag == "Demon")
-            {
-                //DeselectObject();
-                //m_selected = null;
-                //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
-                transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
-            }
+            //DeselectObject();
+            //m_selected = null;
+            //GameManager.instance.SelectFrame.GetComponent<Image>().enabled = false;
+            //transform.position = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+            m_isLerping = true;
+            m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
         }
         else
         {
-            GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
-            GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
-            m_selected = m_Demon;
-            m_selected.GetComponent<DemonScript>().SetSelected(true);
+            if (m_Demon == null) // Summon new demon.
+            {
+                if (m_iDemonCost <= GameManager.instance.blood)
+                {
+                    GameManager.instance.blood -= m_iDemonCost;
+                    m_Demon = Instantiate(m_DemonPref, new Vector3(-12.78f, 6.0f, -26.78f), Quaternion.identity);
+                    GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                    GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+                    m_selected = m_Demon;
+                    m_selected.GetComponent<DemonScript>().SetSelected(true);
+                    m_isLerping = true;
+                    m_LerpTarget = new Vector3(m_selected.gameObject.transform.position.x, transform.position.y, m_selected.gameObject.transform.position.z) - transform.forward * 10.0f;
+                }
+            }
+            else
+            {
+                GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;
+                GameManager.instance.MoveFrame(GameManager.instance.Demon.GetComponent<RectTransform>());
+                m_selected = m_Demon;
+                m_selected.GetComponent<DemonScript>().SetSelected(true);
+            }
         }
     }
     private void TowerSelect(RaycastHit hit)
     {
         DeselectObject();
+        if (m_bDestroyMode)
+        {
+            if (hit.collider.gameObject.GetComponentInChildren<TowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iBasicTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<BombTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iFireTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<IceTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iFrostTowerCost * m_fRefund;
+            }
+            else if (hit.collider.gameObject.GetComponentInChildren<LaserTowerScript>() != null)
+            {
+                GameManager.instance.blood += m_iLaserTowerCost * m_fRefund;
+            }
+            else
+            {
+                Debug.Log("No Turret");
+            }
+            Destroy(hit.collider.gameObject);
+            return;
+        }
+
         m_selected = hit.collider.gameObject;
         m_selected.GetComponent<TowerScript>()?.SetSelected(true);
         m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
@@ -391,6 +491,34 @@ public class Player : MonoBehaviour
     private void PlotSelect(TurretPlot plot)
     {
         DeselectObject();
+        if (m_bDestroyMode)
+        {
+            if (plot.m_AttachedTurret != null)
+            {
+                if (plot.m_AttachedTurret.GetComponentInChildren<TowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iBasicTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<BombTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iFireTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<IceTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iFrostTowerCost * m_fRefund;
+                }
+                else if (plot.m_AttachedTurret.GetComponentInChildren<LaserTowerScript>() != null)
+                {
+                    GameManager.instance.blood += m_iLaserTowerCost * m_fRefund;
+                }
+                else
+                {
+                    Debug.Log("No Turret");
+                }
+                plot.DestroyTurret();
+            }
+            return;
+        }
         if (m_SelectedTower != null)
         {
             if (m_SelectedTower == m_BasicTower && m_iBasicTowerCost > GameManager.instance.blood)
@@ -428,6 +556,8 @@ public class Player : MonoBehaviour
 
             plot.SpawnTurret(m_SelectedTower);
         }
+
+
         if (plot.m_AttachedTurret != null)
         {
             m_SelectedSpell = Spell.None;
@@ -444,6 +574,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q)) // Fireball
         {
+            m_bDestroyMode = false;
             if (m_SelectedSpell != Spell.Fireball)
             {
                 m_SelectedTower = null;
@@ -457,6 +588,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E)) // Frost Ring
         {
+            m_bDestroyMode = false;
             if (m_SelectedSpell != Spell.FrostRing)
             {
                 m_SelectedTower = null;
@@ -471,6 +603,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) // Basic Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_BasicTower)
             {
@@ -484,6 +617,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) // Fire Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FireTower)
             {
@@ -497,6 +631,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) // Frost Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_FrostTower)
             {
@@ -510,6 +645,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) // Laser Tower
         {
+            m_bDestroyMode = false;
             m_SelectedSpell = Spell.None;
             if (m_SelectedTower != m_LaserTower)
             {
@@ -520,6 +656,21 @@ public class Player : MonoBehaviour
                 m_SelectedTower = null;
             }
             DeselectObject();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5)) // Laser Tower
+        {
+            m_SelectedSpell = Spell.None;
+            m_SelectedTower = null;
+            DeselectObject();
+
+            if (m_bDestroyMode)
+            {
+                m_bDestroyMode = false;
+            }
+            else
+            {
+                m_bDestroyMode = true;
+            }
         }
 
 
@@ -556,6 +707,11 @@ public class Player : MonoBehaviour
             GameManager.instance.EnableFrame(true);
             GameManager.instance.MoveFrame(GameManager.instance.Tower4.GetComponent<RectTransform>());
         }
+        else if (m_bDestroyMode)
+        {
+            GameManager.instance.EnableFrame(true);
+            GameManager.instance.MoveFrame(GameManager.instance.TowerDestroy.GetComponent<RectTransform>());
+        }
         switch (m_SelectedSpell)
         {
             case Spell.Fireball:
@@ -577,19 +733,12 @@ public class Player : MonoBehaviour
     {
         if (m_selected != null)
         {
-            if (m_selected.tag == "Minion")
-                m_selected.GetComponent<HarvesterScript>().SetSelected(false);
-
-            if (m_selected.tag == "Demon")
-                m_selected.GetComponent<DemonScript>().SetSelected(false);
-
-            if (m_selected.tag == "Tower")
-            {
+                m_selected.GetComponent<HarvesterScript>()?.SetSelected(false);
+                m_selected.GetComponent<DemonScript>()?.SetSelected(false);
                 m_selected.GetComponent<TowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<BombTowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<IceTowerScript>()?.SetSelected(false);
                 m_selected.GetComponent<LaserTowerScript>()?.SetSelected(false);
-            }
         }
         m_selected = null;
     }

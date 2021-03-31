@@ -21,7 +21,7 @@ public class IceTowerScript : MonoBehaviour
     public GameObject target;
     public GameObject indicator;
     bool isFirst = false;
-
+    public Transform spawner;
     public GameObject m_Indicator;
 
     // Called before start
@@ -52,6 +52,10 @@ public class IceTowerScript : MonoBehaviour
         {
             TowerActivated();
         }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("Reset");
+        }
     }
 
     public void SetSelected(bool selected)
@@ -61,19 +65,21 @@ public class IceTowerScript : MonoBehaviour
 
     public void TowerActivated()
     {
+        GetComponent<Animator>().SetTrigger("IsShooting");
+        GetComponent<Animator>().SetFloat("Delay", 1.0f / coolDown);
         //a countdown on when to attack
-        if (towerCoolDown >= coolDown)
-        {
-            //attack and reset counter
-            towerCoolDown = 0;
-            Fire();
-        }
-        towerCoolDown += 0.01f;
+        //if (towerCoolDown >= coolDown)
+        //{
+        //    //attack and reset counter
+        //    towerCoolDown = 0;
+        //    Fire();
+        //}
+        //towerCoolDown += 0.01f;
     }
     //function to spawn bullet
     void Fire()
     {
-        GameObject bulletClone = (GameObject)Instantiate(ammo, transform.position, transform.rotation);
+        GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<IcebulletScript>().SetDamage(bulletDamage);
         bulletClone.GetComponent<IcebulletScript>().target = target;
@@ -100,7 +106,7 @@ public class IceTowerScript : MonoBehaviour
 
             Vector3 forward = transform.TransformDirection(Vector3.forward);
             Debug.DrawRay(transform.position, forward * towerRadius, Color.green);
-            transform.LookAt(target.transform);
+            //transform.LookAt(target.transform);
         }
     }
 
@@ -227,5 +233,10 @@ public class IceTowerScript : MonoBehaviour
 
             }
         }
+    }
+    void OnDestroy()
+    {
+        // Will be called just prior to destruction of the gameobject to which this script is attached
+        Destroy(m_Indicator);
     }
 }
