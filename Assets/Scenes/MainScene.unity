@@ -30365,6 +30365,46 @@ PrefabInstance:
       propertyPath: spawners.Array.data[1]
       value: 
       objectReference: {fileID: 2054902949}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[0]
+      value: 1.5,4,0,0,0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[1]
+      value: 1.0,8,0,0,0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[2]
+      value: 1.0,10,2,0,0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[3]
+      value: 0.01,45,0,0,0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[4]
+      value: 1.0,4,8,1,0,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[5]
+      value: 1.0,0,4,4,2,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[6]
+      value: 0.8,0,8,4,10,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[7]
+      value: 0.8,0,16,6,15,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[8]
+      value: 0.8,4,8,16,20,0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701658617, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+      propertyPath: waveCode.Array.data[9]
+      value: 0.05,0,0,0,0,16
+      objectReference: {fileID: 0}
     - target: {fileID: 473769785950718549, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -30503,7 +30543,7 @@ PrefabInstance:
     - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
       propertyPath: blood
-      value: 300
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6054692705830799736, guid: 62af15f8b2f4b084193a37eef76c2a9b,
         type: 3}
