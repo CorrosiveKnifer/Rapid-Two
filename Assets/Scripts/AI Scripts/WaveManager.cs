@@ -97,14 +97,9 @@ public class WaveManager : MonoBehaviour
             }
 
             //Start delay
-            float time = delay;
-            while(time > 0.0f)
-            {
-                time -= Time.deltaTime;
-                yield return new WaitForEndOfFrame();
-            }
+            yield return new WaitForSecondsRealtime(delay);
         }
-        
+      
         yield return null;
     }
 }
