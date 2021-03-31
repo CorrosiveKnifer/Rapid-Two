@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class VictoryHandle : MonoBehaviour
 {
-    public GameObject HappyBoi;
-    public GameObject SadBoi;
-
     public GameObject WinText;
     public GameObject LostText;
 
@@ -14,8 +11,6 @@ public class VictoryHandle : MonoBehaviour
     {
         WinText.SetActive(false);
         LostText.SetActive(false);
-        HappyBoi.SetActive(false);
-        SadBoi.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -24,12 +19,10 @@ public class VictoryHandle : MonoBehaviour
         if (LevelLoader.hasWon)
         {
             WinText.SetActive(true);
-            HappyBoi.SetActive(true);
         }
         else
         {
             LostText.SetActive(true);
-            SadBoi.SetActive(true);
         }
     }
 
