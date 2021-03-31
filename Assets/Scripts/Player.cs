@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     [Header("Spells")]
     public GameObject m_Fireball;
-    float m_fFireballCoolDown = 2.0f;
+    float m_fFireballCoolDown = 4.0f;
     float m_fFireballTimeLeft = 0.0f;
     public Sprite m_FireCircle;
 
@@ -98,10 +98,17 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_SelectedSpell = Spell.None;
+
+        m_iBasicTowerCost = m_BasicTower.GetComponent<TowerScript>().cost;
+        m_iFireTowerCost = m_FireTower.GetComponent<BombTowerScript>().cost;
+        m_iFrostTowerCost = m_FrostTower.GetComponent<IceTowerScript>().cost;
+        m_iLaserTowerCost = m_LaserTower.GetComponent<LaserTowerScript>().cost;
+
         GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
         GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
+
         GameManager.instance.Spell3.GetComponentInChildren<Text>().text = m_iDemonCost.ToString();
     }
     private void CoolDowns()
@@ -183,8 +190,8 @@ public class Player : MonoBehaviour
         CoolDowns();
 
         // Player movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("HorizontalArrow");
+        float z = Input.GetAxis("VerticalArrow");
 
         // Move player with keyboard
         transform.position += (transform.right * x + transform.forward * z) * fCameraMoveSpeed * m_Camera.orthographicSize / fCameraMaxZoom;
@@ -313,7 +320,11 @@ public class Player : MonoBehaviour
 
     }
 
-    
+    public float GetScreenSizeRatio()
+    {
+        //minimum = 1
+        return 1.0f - (m_Camera.orthographicSize - 1.0f) / (fCameraMaxZoom - 1.0f);
+    }
     private void HandleRayCastHit(RaycastHit hit)
     {
         if (m_SelectedSpell == Spell.None)

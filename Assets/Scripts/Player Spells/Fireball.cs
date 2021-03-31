@@ -7,8 +7,10 @@ using UnityEngine;
 /// </summary>
 public class Fireball : MonoBehaviour
 {
-    float m_fSpeed = 0.3f;
-    public float m_damage = 40.0f;
+    float m_fSpeed = 20.0f;
+    public float m_damage = 30.0f;
+    public GameObject ExplositionPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class Fireball : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position += -transform.up * m_fSpeed;
+        transform.position += -transform.up * m_fSpeed * Time.fixedDeltaTime;
     }
 
     private void Explode()
@@ -32,7 +34,7 @@ public class Fireball : MonoBehaviour
                 enemies[i].GetComponentInParent<EnemyScript>().DealDamageToEnemy(m_damage);
             }
         }
-
+        GameObject.Instantiate(ExplositionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

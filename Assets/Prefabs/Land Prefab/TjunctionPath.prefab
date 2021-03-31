@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5617149433131556277}
   - component: {fileID: 5575988044089478133}
   - component: {fileID: 7276059035052219723}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: TjunctionGrass
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -106,9 +106,9 @@ GameObject:
   - component: {fileID: 1511990738948680609}
   - component: {fileID: 7194798144218118006}
   - component: {fileID: 4893282491783722221}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: TjunctionPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -198,9 +198,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7044192705914935442}
   - component: {fileID: 7371062785516011387}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: TjunctionPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

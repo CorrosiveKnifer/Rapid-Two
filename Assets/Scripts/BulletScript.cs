@@ -27,6 +27,7 @@ public class BulletScript : MonoBehaviour
     {
         if (target != null)
         {
+            transform.LookAt(target.transform);
             Vector3 direction = target.transform.position - transform.position;
 
             GetComponent<Rigidbody>().velocity = direction.normalized * 8.0f;

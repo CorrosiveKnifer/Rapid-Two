@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 9196496091321721523}
   - component: {fileID: 1059580467493700038}
   - component: {fileID: 8755998459421186868}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CornerGrass
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -106,9 +106,9 @@ GameObject:
   - component: {fileID: 5134436811494581599}
   - component: {fileID: 6769929960257522518}
   - component: {fileID: 8923891021316122026}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CornerPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -198,9 +198,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3806295761482470201}
   - component: {fileID: 4582832052584089986}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: CornerPath
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
