@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 8520730166627382250, guid: 5f6bda04f3501104083a61a2034a0171, type: 3}
-  bulletDamage: 20
+  bulletDamage: 28
   bulletSpeed: 8
   coolDown: 2
   cost: 10

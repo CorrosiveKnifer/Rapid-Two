@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 0}
-  bulletDamage: 15
-  cost: 15
+  bulletDamage: 50
+  cost: 150
   enemies: []
   towerRadius: 8
   target: {fileID: 0}

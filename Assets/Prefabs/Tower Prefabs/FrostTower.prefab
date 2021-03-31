@@ -420,7 +420,7 @@ MonoBehaviour:
   bulletDamage: 40
   bulletSpeed: 6
   coolDown: 1
-  cost: 10
+  cost: 50
   enemies: []
   towerRadius: 8
   target: {fileID: 0}

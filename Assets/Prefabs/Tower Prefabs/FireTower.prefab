@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo: {fileID: 6969222540289678329, guid: a5d703d27aa77dd4ab19ad6ad56309a2, type: 3}
-  bulletDamage: 40
+  bulletDamage: 45
   bulletSpeed: 10
   coolDown: 3
-  cost: 40
+  cost: 100
   enemies: []
   towerRadius: 8
   target: {fileID: 0}
