@@ -102,7 +102,7 @@ MonoBehaviour:
   bulletDamage: 40
   bulletSpeed: 10
   coolDown: 3
-  cost: 20
+  cost: 40
   enemies: []
   towerRadius: 8
   target: {fileID: 0}
