@@ -34,7 +34,7 @@ public class HarvesterScript : MinionScript
         transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
-        agent.updateRotation = false;
+        //agent.updateRotation = false;
     }
 
     protected override void Update()

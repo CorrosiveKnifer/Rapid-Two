@@ -41,7 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8782014160363106742}
   - component: {fileID: 4344899346979373521}
-  - component: {fileID: 419083524610702519}
+  - component: {fileID: 7590831655860647912}
+  - component: {fileID: 2195746067465212569}
   m_Layer: 9
   m_Name: ControlHarvester
   m_TagString: Minion
@@ -79,28 +80,36 @@ CapsuleCollider:
   m_Height: 1.38
   m_Direction: 1
   m_Center: {x: 0, y: 0.15, z: 0}
---- !u!195 &419083524610702519
-NavMeshAgent:
+--- !u!114 &7590831655860647912
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8515224833156250353}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e54211bf89545419e2f8e54156e7d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!143 &2195746067465212569
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8515224833156250353}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
   m_Radius: 0.5
-  m_Speed: 4.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 220
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &454934699291397124
 PrefabInstance:
   m_ObjectHideFlags: 0
