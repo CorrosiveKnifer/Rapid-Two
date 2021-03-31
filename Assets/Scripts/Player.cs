@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         // Move harvester with WASD
-        m_Harvester.GetComponent<HarvesterScript>().SetTargetLocation(m_Harvester.transform.position + (transform.right * x + transform.forward * z) * 3.0f);
+        //m_Harvester.GetComponent<HarvesterScript>().SetTargetLocation(m_Harvester.transform.position + (transform.right * x + transform.forward * z) * 3.0f);
 
         // Player movement
         x = Input.GetAxis("HorizontalArrow");
