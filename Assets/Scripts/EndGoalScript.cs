@@ -13,7 +13,7 @@ public class EndGoalScript : MonoBehaviour
         }
         if (other.tag == "Minion")
         {
-            HarvesterScript minion = other.GetComponent<HarvesterScript>();
+            PlayerHarvester minion = other.GetComponent<PlayerHarvester>();
             if (minion != null)
             {
                 GameManager.instance.blood += minion.bloodHold;
