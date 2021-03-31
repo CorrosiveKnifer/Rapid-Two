@@ -81,6 +81,7 @@ public class BombTowerScript : MonoBehaviour
     //function to spawn bullet
     void Fire()
     {
+        GetComponent<VolumeAudioAgent>().PlaySoundEffect("FireTowerShoot");
         GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<BombScript>().SetDamage(bulletDamage);

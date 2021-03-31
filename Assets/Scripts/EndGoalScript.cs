@@ -18,6 +18,7 @@ public class EndGoalScript : MonoBehaviour
             {
                 GameManager.instance.blood += minion.bloodHold;
                 minion.bloodHold = 0;
+                minion.Heal();
             }
         }
     }

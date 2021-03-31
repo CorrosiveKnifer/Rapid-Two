@@ -168,6 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6922283797140715296}
   - component: {fileID: 2082458571}
+  - component: {fileID: 7910476351283773678}
   m_Layer: 9
   m_Name: BasicTower
   m_TagString: Tower
@@ -216,6 +217,22 @@ MonoBehaviour:
   indicator: {fileID: 6023947029055908585, guid: 10d108f4a328e0a43aae58f3b193ccd7,
     type: 3}
   m_Indicator: {fileID: 0}
+--- !u!114 &7910476351283773678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735834906880896410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52a70e5d2068114dafa9fa4cfce2872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: 1fb0eb2fffe470841ab0eb212073e569, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &8453878875704304364
 GameObject:
   m_ObjectHideFlags: 0

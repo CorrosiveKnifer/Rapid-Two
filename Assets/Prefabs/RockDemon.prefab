@@ -1067,7 +1067,7 @@ MonoBehaviour:
   DetectRadius: 120.5
   AttackRadius: 2.5
   Damage: 45
-  lifetime: 30
+  maxLifetime: 3
 --- !u!65 &9025464078149559631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1111,5 +1111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioClips:
   - {fileID: 8300000, guid: 42981a7a4ee336444920f7e1280e40ef, type: 3}
+  - {fileID: 8300000, guid: 0f4dbf604fe00d14b858fbaa3be3800b, type: 3}
+  - {fileID: 8300000, guid: 51281da064ad0324db47cb5fcc2d7e5f, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1

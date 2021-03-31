@@ -113,6 +113,11 @@ public class PlayerHarvester : MonoBehaviour
         }
     }
 
+    public void Heal()
+    {
+        health = maxHealth;
+    }
+
     public void SetSelected(bool selected)
     {
         IsSelected = selected;

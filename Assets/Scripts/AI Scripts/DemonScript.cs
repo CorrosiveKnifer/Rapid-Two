@@ -46,12 +46,18 @@ public class DemonScript : MinionScript
 
     protected override void PlayMovement()
     {
-        AudioAgent agent = GetComponent<AudioAgent>();
+        AudioAgent agent = GetComponent<VolumeAudioAgent>();
         if (agent.IsAudioStopped("RockBoiMove"))
         {
             agent.PlaySoundEffect("RockBoiMove");
         }
     }
+
+    public void PlaySpawnAudio()
+    {
+        GetComponent<VolumeAudioAgent>().PlaySoundEffect("RockBoiSlam");
+    }
+
     private void StateBasedUpdate()
     {
         if (IsDead)
@@ -61,12 +67,13 @@ public class DemonScript : MinionScript
 
         if (IsSelected)
         {
-            //TransitionTo(AIState.SELECTED);
+            //TransitionTo(AIState.SELECTED
+            IsSelected = false;
         }
         else if (currentState == AIState.SELECTED && IsAgentFinished())
         {
             agent.isStopped = true;
-            GetComponent<AudioAgent>().StopAudio("RockBoiMove");
+            //GetComponent<AudioAgent>().StopAudio("RockBoiMove");
             TransitionTo(AIState.DETECT);
         }
 

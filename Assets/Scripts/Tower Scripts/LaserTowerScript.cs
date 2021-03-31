@@ -48,10 +48,12 @@ public class LaserTowerScript : MonoBehaviour
         if (IsInRange())
         {
             TowerActivated();
+            GetComponent<VolumeAudioAgent>().PlaySoundEffect("LaserTowerShoot", true);
             GetComponent<Animator>().SetBool("IsShooting",  true);
         }
         else
         {
+            GetComponent<VolumeAudioAgent>().StopAudio("LaserTowerShoot");
             GetComponent<Animator>().SetBool("IsShooting", false);
         }
     }

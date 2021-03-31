@@ -79,6 +79,7 @@ public class IceTowerScript : MonoBehaviour
     //function to spawn bullet
     void Fire()
     {
+        GetComponent<VolumeAudioAgent>().PlaySoundEffect("IceTowerShoot");
         GameObject bulletClone = (GameObject)Instantiate(ammo, spawner.position, spawner.rotation);
         //bulletClone.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
         bulletClone.GetComponent<IcebulletScript>().SetDamage(bulletDamage);

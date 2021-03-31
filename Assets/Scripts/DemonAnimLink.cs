@@ -8,9 +8,16 @@ public class DemonAnimLink : MonoBehaviour
     {
         GetComponentInParent<DemonScript>().DealDamage();
     }
-
+    public void PlayDeathSound()
+    {
+        GetComponentInParent<DemonScript>().DeathSound();
+    }
     public void Death()
     {
         GetComponentInParent<DemonScript>().Death();
+    }
+    public void Spawn()
+    {
+        GetComponentInParent<DemonScript>().PlaySpawnAudio();
     }
 }
