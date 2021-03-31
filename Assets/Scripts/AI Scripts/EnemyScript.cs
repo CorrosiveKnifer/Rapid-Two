@@ -205,7 +205,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (target != null)
         {
-            target.GetComponent<MinionScript>().TakeDamage(Damage);
+            target.GetComponent<MinionScript>()?.TakeDamage(Damage);
+            //target.GetComponent<PlayerHarvester>()?.TakeDamage(Damage);
         }
     }
 
