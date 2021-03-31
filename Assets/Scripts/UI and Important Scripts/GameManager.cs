@@ -88,8 +88,19 @@ public class GameManager : MonoBehaviour
         LevelLoader.hasWon = false;
 
         Physics.IgnoreLayerCollision(8, 8); //Enemy Ignore Enemy
+
     }
 
+    void UpdateTooltips()
+    {
+        //Spell1.GetComponentInChildren<TooltipTrigger>().cost = Spell1.GetComponentInChildren<Text>().text;
+        //Spell2.GetComponentInChildren<TooltipTrigger>().cost = Spell2.GetComponentInChildren<Text>().text;
+        Spell3.GetComponentInChildren<TooltipTrigger>().cost = Spell3.GetComponentInChildren<Text>().text;
+        Tower1.GetComponentInChildren<TooltipTrigger>().cost = Tower1.GetComponentInChildren<Text>().text;
+        Tower2.GetComponentInChildren<TooltipTrigger>().cost = Tower2.GetComponentInChildren<Text>().text;
+        Tower3.GetComponentInChildren<TooltipTrigger>().cost = Tower3.GetComponentInChildren<Text>().text;
+        Tower4.GetComponentInChildren<TooltipTrigger>().cost = Tower4.GetComponentInChildren<Text>().text;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -121,6 +132,8 @@ public class GameManager : MonoBehaviour
         {
             levelLoader.LoadNextLevel();
         }
+
+        UpdateTooltips();
     }
     public float CalculateVolumeModifier(Vector3 soundPos)
     {
