@@ -98,10 +98,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_SelectedSpell = Spell.None;
-        GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_iBasicTowerCost.ToString();
-        GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
-        GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
-        GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
+
+        GameManager.instance.Tower1.GetComponentInChildren<Text>().text = m_BasicTower.GetComponent<TowerScript>().cost.ToString();
+        GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_FireTower.GetComponent<BombTowerScript>().cost.ToString();
+        GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_FrostTower.GetComponent<IceTowerScript>().cost.ToString();
+        GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_LaserTower.GetComponent<LaserTowerScript>().cost.ToString();
+
         GameManager.instance.Spell3.GetComponentInChildren<Text>().text = m_iDemonCost.ToString();
     }
     private void CoolDowns()
