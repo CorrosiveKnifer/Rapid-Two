@@ -181,7 +181,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         // Mana update
-        fManaPool += Time.deltaTime * fManaRegen;
+        //fManaPool += Time.deltaTime * fManaRegen;
         if (fManaPool > fManaMaximum)
         {
             fManaPool = fManaMaximum;

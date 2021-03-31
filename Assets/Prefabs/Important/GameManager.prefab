@@ -91,8 +91,9 @@ GameObject:
   - component: {fileID: 8717606405090608843}
   - component: {fileID: 6596487372136961850}
   - component: {fileID: 8892413618367775846}
+  - component: {fileID: 669967811}
   m_Layer: 5
-  m_Name: Spell2
+  m_Name: Freeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +159,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &669967811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210464345236534825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Freeze Field
+  cost: 50 Mana
+  content: Cast a freeze field to slow down the enemy
 --- !u!1 &232588555195585250
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +554,7 @@ GameObject:
   - component: {fileID: 9177582723764564060}
   - component: {fileID: 4659164591724184141}
   - component: {fileID: 4428432677535159968}
+  - component: {fileID: 205486463}
   m_Layer: 5
   m_Name: BasicTower
   m_TagString: Untagged
@@ -605,6 +622,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &205486463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805253814724142905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Basic Tower
+  cost: 10 Blood
+  content: Use this tower to deal damage to enemies
 --- !u!1 &837973120129196941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,7 +2722,7 @@ MonoBehaviour:
   player: {fileID: 0}
   maxVolumeDistance: 25
   lives: 100
-  blood: 30
+  blood: 300
   BloodDisplay: {fileID: 3268094013018193522}
   WaveCount: {fileID: 5451557328085134504}
   EnemyCount: {fileID: 3845477167150406024}
@@ -2990,6 +3022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  header: Ice Tower
+  cost: 20 Blood
+  content: Use this tower to constantly slow down enemies
 --- !u!1 &4296109104815098512
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,6 +3366,7 @@ GameObject:
   - component: {fileID: 1355536318074461579}
   - component: {fileID: 2792195723911601470}
   - component: {fileID: 1796975342033561937}
+  - component: {fileID: 2117982751}
   m_Layer: 5
   m_Name: Minion
   m_TagString: Untagged
@@ -3398,6 +3434,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2117982751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445992542923633248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Harvester
+  cost: 
+  content: Take control of a harvester minion to collect blood from your enemies
 --- !u!1 &4538532889732851218
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,6 +3771,7 @@ GameObject:
   - component: {fileID: 6769367621262442912}
   - component: {fileID: 3804379666196743534}
   - component: {fileID: 6690642009467584835}
+  - component: {fileID: 673110151}
   m_Layer: 5
   m_Name: Fireball
   m_TagString: Untagged
@@ -3787,6 +3839,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &673110151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205608454816277191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Fireball
+  cost: 30 Mana
+  content: Cast a fireball to deal damage in an area
 --- !u!1 &5258181015589041636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4066,6 +4133,7 @@ GameObject:
   - component: {fileID: 4299301328885396932}
   - component: {fileID: 4382056779506817653}
   - component: {fileID: 7648881996077689651}
+  - component: {fileID: 1194584029}
   m_Layer: 5
   m_Name: TowerDestroy
   m_TagString: Untagged
@@ -4133,6 +4201,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1194584029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5659629696371261531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Sell Tower
+  cost: 
+  content: Sell a selected tower in exchange for blood
 --- !u!1 &5795942516817417872
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,6 +5503,7 @@ GameObject:
   - component: {fileID: 7361910666153391408}
   - component: {fileID: 7361910666153391407}
   - component: {fileID: 1672572179}
+  - component: {fileID: 6236940189776386224}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5529,6 +5613,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MiniMap: {fileID: 3817259588384483418}
   BigMap: {fileID: 1486340817319477851}
+--- !u!114 &6236940189776386224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7361910666153391406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf815e9abb3e7e4e9cc4c043ed03e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MiniMap: {fileID: 3817259588384483418}
+  BigMap: {fileID: 1486340817319477851}
 --- !u!1 &7464507021170665383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5540,6 +5638,7 @@ GameObject:
   - component: {fileID: 383165929008857494}
   - component: {fileID: 5961534687280699797}
   - component: {fileID: 543501371067095364}
+  - component: {fileID: 2102867291}
   m_Layer: 5
   m_Name: FireTower
   m_TagString: Untagged
@@ -5607,6 +5706,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2102867291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464507021170665383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Fire Tower
+  cost: 25 Blood
+  content: Use this tower to deal splash damage to enemies
 --- !u!1 &7467083703143267355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5692,8 +5806,9 @@ GameObject:
   - component: {fileID: 5277979818296252983}
   - component: {fileID: 5872447831236624776}
   - component: {fileID: 109143570123100246}
+  - component: {fileID: 72080529}
   m_Layer: 5
-  m_Name: Spell3
+  m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5760,6 +5875,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &72080529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7481060365848121268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Rock Construct
+  cost: 200 blood
+  content: Cast an uncontrollable rock construct to wreak havoc upon your enemies
 --- !u!1 &7559711696107006070
 GameObject:
   m_ObjectHideFlags: 0
@@ -6910,6 +7040,7 @@ GameObject:
   - component: {fileID: 5316023859454342255}
   - component: {fileID: 6882816816891930776}
   - component: {fileID: 3804097849490745760}
+  - component: {fileID: 2007162841}
   m_Layer: 5
   m_Name: LaserTower
   m_TagString: Untagged
@@ -6977,6 +7108,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2007162841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8738432674898551674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd72dc2c412e683478f9337db4fb71ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Laser Tower
+  cost: 25 Blood
+  content: Use this tower to constantly deal damage to enemies
 --- !u!1 &8756129281694293024
 GameObject:
   m_ObjectHideFlags: 0
