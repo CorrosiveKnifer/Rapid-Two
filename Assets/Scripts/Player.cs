@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
     public Texture2D m_CursorOn;
     public Texture2D m_CursorOff;
 
+    [Header("Select Frames")]
+    public Sprite m_Manaframe;
+    public Sprite m_Bloodframe;
+
     [Header("Spells")]
     public GameObject m_Fireball;
     float m_fFireballCoolDown = 4.0f;
@@ -108,7 +112,6 @@ public class Player : MonoBehaviour
         GameManager.instance.Tower2.GetComponentInChildren<Text>().text = m_iFireTowerCost.ToString();
         GameManager.instance.Tower3.GetComponentInChildren<Text>().text = m_iFrostTowerCost.ToString();
         GameManager.instance.Tower4.GetComponentInChildren<Text>().text = m_iLaserTowerCost.ToString();
-
         GameManager.instance.Spell3.GetComponentInChildren<Text>().text = m_iDemonCost.ToString();
     }
     private void CoolDowns()
@@ -174,7 +177,6 @@ public class Player : MonoBehaviour
 
         }
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -302,6 +304,7 @@ public class Player : MonoBehaviour
         }
 
         CursorSelect();
+        HotbarUpdateAvailability();
 
         if (m_selected != null)
         {
@@ -324,12 +327,10 @@ public class Player : MonoBehaviour
         }
 
     }
-
     public Vector3 CameraPosCalculator(Vector3 _pos)
     {
         return new Vector3(_pos.x, transform.position.y, _pos.z) - transform.forward * 15.0f;
     }
-
     public float GetScreenSizeRatio()
     {
         //minimum = 1
@@ -436,7 +437,6 @@ public class Player : MonoBehaviour
     //        m_selected.GetComponent<HarvesterScript>().SetSelected(true);
     //    }
     //}
-
     private void MinionSelect()
     {
         m_SelectedSpell = Spell.None;
@@ -455,7 +455,6 @@ public class Player : MonoBehaviour
             //m_selected.GetComponent<PlayerHarvester>().SetSelected(true);
         }
     }
-
     private void DemonSelect()
     {
         m_SelectedSpell = Spell.None;
@@ -489,9 +488,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-
-
     private void TowerSelect(RaycastHit hit)
     {
         DeselectObject();
@@ -607,6 +603,32 @@ public class Player : MonoBehaviour
             m_selected.GetComponent<BombTowerScript>()?.SetSelected(true);
             m_selected.GetComponent<IceTowerScript>()?.SetSelected(true);
             m_selected.GetComponent<LaserTowerScript>()?.SetSelected(true);
+        }
+    }
+    private void HotbarUpdateAvailability()
+    {
+        UpdateAvailability(GameManager.instance.Tower1, m_iBasicTowerCost);
+        UpdateAvailability(GameManager.instance.Tower2, m_iFireTowerCost);
+        UpdateAvailability(GameManager.instance.Tower3, m_iFrostTowerCost);
+        UpdateAvailability(GameManager.instance.Tower4, m_iLaserTowerCost);
+        UpdateAvailability(GameManager.instance.Spell3, m_iDemonCost);
+    }
+    private void UpdateAvailability(GameObject _object, int _cost)
+    {
+        Image[] image = _object.GetComponentsInChildren<Image>();
+        if (GameManager.instance.blood >= _cost)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                image[i].color = new Color(1.0f, 1.0f, 1.0f);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                image[i].color = new Color(0.5f, 0.5f, 0.5f);
+            }
         }
     }
     private void AbilitySelect()
@@ -725,6 +747,15 @@ public class Player : MonoBehaviour
     }
     private void CursorSelect()
     {
+        if (m_SelectedSpell == Spell.Fireball || m_SelectedSpell == Spell.FrostRing)
+        {
+            GameManager.instance.SelectFrame.GetComponent<Image>().sprite = m_Manaframe;
+        }
+        else
+        {
+            GameManager.instance.SelectFrame.GetComponent<Image>().sprite = m_Bloodframe;
+        }
+
         if (m_SelectedTower == m_BasicTower)
         {
             GameManager.instance.EnableFrame(true);

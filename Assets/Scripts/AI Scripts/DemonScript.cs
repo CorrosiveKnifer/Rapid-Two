@@ -9,12 +9,13 @@ public class DemonScript : MinionScript
     public float DetectRadius = 120.5f;
     public float AttackRadius = 2.5f;
     public float Damage = 50.0f;
-    public float lifetime = 50.0f;
+    public float maxLifetime = 30.0f;
 
     private enum AIState { DETECT, SELECTED, ATTACK };
     private AIState currentState;
     private GameObject myHuntTarget;
     private float health;
+    private float lifetime;
     private SphereCollider attackSphere;
 
     // Start is called before the first frame update
@@ -23,6 +24,7 @@ public class DemonScript : MinionScript
         attackSphere = GetComponentInChildren<SphereCollider>();
         GetComponentInChildren<Animator>().SetTrigger("IsSpawned");
         health = maxHealth;
+        lifetime = maxLifetime;
         base.Start();
     }
 
@@ -32,6 +34,7 @@ public class DemonScript : MinionScript
         StateBasedUpdate();
 
         lifetime -= Time.deltaTime;
+        GameManager.instance.SetRockHealth(lifetime / maxLifetime);
         if(lifetime <= 0 && !IsDead)
         {
             IsDead = true;

@@ -302,6 +302,8 @@ MonoBehaviour:
   m_fLerpT: 0
   m_CursorOn: {fileID: 2800000, guid: 40607c6f8591aaa419eb0689952c81ae, type: 3}
   m_CursorOff: {fileID: 2800000, guid: 8812d0d4eaa705f47bc45d019d520bea, type: 3}
+  m_Manaframe: {fileID: 21300000, guid: c02f98643fb71ba4887ab80e5547e591, type: 3}
+  m_Bloodframe: {fileID: 21300000, guid: 5f45db526f7b8c9498c79079e4ae63dd, type: 3}
   m_Fireball: {fileID: 6602204647791965198, guid: 465290f0ab0e09749b41e93dd5e5d6b2,
     type: 3}
   m_FireCircle: {fileID: 21300000, guid: c0c19ed4f0887964ab8a4fa2271898b2, type: 3}

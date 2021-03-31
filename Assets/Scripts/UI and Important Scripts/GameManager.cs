@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
     public Slider LifeBar;
     public Slider ManaBar;
     public Slider MinionBloodBar;
+    public Slider RockHealth;
 
     public GameObject SelectFrame;
     public LevelLoader levelLoader;
@@ -121,7 +122,6 @@ public class GameManager : MonoBehaviour
             levelLoader.LoadNextLevel();
         }
     }
-
     public float CalculateVolumeModifier(Vector3 soundPos)
     {
         float distance = Vector3.Distance(soundPos, middlePoint);
@@ -174,5 +174,10 @@ public class GameManager : MonoBehaviour
     public void SetMinionBlood(float _blood)
     {
         MinionBloodBar.value = _blood;
+    }
+
+    public void SetRockHealth(float _health)
+    {
+        RockHealth.value = _health;
     }
 }
