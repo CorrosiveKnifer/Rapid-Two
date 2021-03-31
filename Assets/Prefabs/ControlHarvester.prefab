@@ -40,11 +40,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8782014160363106742}
-  - component: {fileID: 2297229038823870428}
   - component: {fileID: 4344899346979373521}
   - component: {fileID: 419083524610702519}
   m_Layer: 9
-  m_Name: Harvester
+  m_Name: ControlHarvester
   m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,33 +65,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2297229038823870428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8515224833156250353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab087cfe0458c544a9cef9a232fc3045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedCircle: {fileID: 4142789583789863443}
-  minimumSpeed: 3
-  maximumSpeed: 8
-  speedMod: 1
-  arrowPrefab: {fileID: 5685470441413844414, guid: 60ae15b186f553240985d06c0cdd47b1,
-    type: 3}
-  materialLoc: {fileID: 1143177712522912261}
-  bloodHold: 0
-  maxHealth: 100
-  maximumBlood: 100
-  DetectRadius: 10
-  HarvestRadius: 2
-  HarvestDelay: 0.35
-  HarvestAmount: 1
-  RespawnPoint: {x: -12.84, y: 5.183, z: -26.85}
 --- !u!136 &4344899346979373521
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -470,12 +442,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 454934699291397124}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1143177712522912261 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 688244389810613761, guid: 2e148a69adebcce4b9422691ae198fd9,
-    type: 3}
-  m_PrefabInstance: {fileID: 454934699291397124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6609827360134787884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -548,12 +514,6 @@ PrefabInstance:
 --- !u!4 &5463798339014169709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1182649355395589953, guid: 932de8d57351cef4b9e11f9d71f3e085,
-    type: 3}
-  m_PrefabInstance: {fileID: 6609827360134787884}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &4142789583789863443 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7117085834939351359, guid: 932de8d57351cef4b9e11f9d71f3e085,
     type: 3}
   m_PrefabInstance: {fileID: 6609827360134787884}
   m_PrefabAsset: {fileID: 0}

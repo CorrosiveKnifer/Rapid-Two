@@ -34,6 +34,7 @@ public class HarvesterScript : MinionScript
         transform.position = RespawnPoint;
         health = maxHealth;
         base.Start();
+        agent.updateRotation = false;
     }
 
     protected override void Update()
@@ -46,10 +47,36 @@ public class HarvesterScript : MinionScript
         animator.SetFloat("MovementMod", Mathf.Clamp((speed / maximumSpeed) * 2.5f, 0.5f, 2.5f));
         animator.SetBool("IsMoving", !agent.isStopped);
 
+
+
+        agent.isStopped = IsAgentFinished();
+        //if ()
+        //{
+        //     = true;
+        //}
+        //else
+        //{
+
+        //}
+
         GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
 
         StateBasedUpdate();
 
+        if(currentState == AIState.SELECTED && !IsAgentFinished())
+        {
+            //Spawn Arrow
+            if (arrowDisplay == null)
+                arrowDisplay = GameObject.Instantiate(arrowPrefab, agent.destination + new Vector3(0.0f, 0.1f, 0.0f), Quaternion.identity);
+            else
+                arrowDisplay.transform.position = agent.destination;
+        }
+        else if(currentState != AIState.SELECTED || IsAgentFinished())
+        {
+            //Despawn Arrow
+            //if (arrowDisplay != null)
+                //Destroy(arrowDisplay);
+        }
         base.Update();
     }
 
