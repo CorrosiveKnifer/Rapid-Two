@@ -202,12 +202,13 @@ GameObject:
   - component: {fileID: 1255553119897410662}
   - component: {fileID: 2728617277413604282}
   - component: {fileID: 3001984475982989044}
+  - component: {fileID: 4137915984267772023}
   m_Layer: 0
   m_Name: FenceWood1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1255553119897410662
 Transform:
@@ -270,3 +271,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &4137915984267772023
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7708834484967208730}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.0200001, y: 0.46, z: 0.11800001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.013, y: 0.46, z: -0.040000003}
+  m_TimeToStationary: 0.5

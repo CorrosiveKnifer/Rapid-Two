@@ -64,7 +64,6 @@ public class PlayerHarvester : MonoBehaviour
             isMoving = (x != 0 || z != 0); // Is minion moving
 
             Vector3 move = (m_Player.transform.right * x + m_Player.transform.forward * z);
-            Debug.Log(move);
             m_CharacterController.Move((move * m_fSpeed + velocity) * Time.fixedDeltaTime);
 
             Vector3 lookAtTarget = transform.position + new Vector3(m_CharacterController.velocity.x, 0, m_CharacterController.velocity.z);

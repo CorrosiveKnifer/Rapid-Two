@@ -205,6 +205,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
         type: 3}
+      propertyPath: lengthInSec
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639298974270180291, guid: 5319bbedc84a41d42b6f1d7082285a23,
+        type: 3}
       propertyPath: EmissionModule.m_BurstCount
       value: 0
       objectReference: {fileID: 0}
