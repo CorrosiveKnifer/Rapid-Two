@@ -5,7 +5,7 @@ using UnityEngine;
 public class DemonScript : MinionScript
 {
     [Header("Demon Settings")]
-    public float maxHealth = 100.0f;
+    //public float maxHealth = 100.0f;
     public float DetectRadius = 120.5f;
     public float AttackRadius = 2.5f;
     public float Damage = 50.0f;
@@ -23,7 +23,7 @@ public class DemonScript : MinionScript
     {
         attackSphere = GetComponentInChildren<SphereCollider>();
         GetComponentInChildren<Animator>().SetTrigger("IsSpawned");
-        health = maxHealth;
+        //health = maxHealth;
         lifetime = maxLifetime;
         base.Start();
     }
@@ -44,6 +44,11 @@ public class DemonScript : MinionScript
         base.Update();
     }
 
+    public void DeathSound()
+    {
+        GetComponent<VolumeAudioAgent>().PlaySoundEffect("RockBoiDeath");
+    }
+
     protected override void PlayMovement()
     {
         AudioAgent agent = GetComponent<VolumeAudioAgent>();
@@ -56,6 +61,7 @@ public class DemonScript : MinionScript
     public void PlaySpawnAudio()
     {
         GetComponent<VolumeAudioAgent>().PlaySoundEffect("RockBoiSlam");
+        GetComponentInChildren<ParticleSystem>().Play();
     }
 
     private void StateBasedUpdate()
@@ -290,8 +296,8 @@ public class DemonScript : MinionScript
         if (IsDead)
             return;
 
-        health -= damage;
-        if(health <= 0)
+        lifetime -= damage;
+        if(lifetime <= 0)
         {
             IsDead = true;
             GetComponentInChildren<Animator>()?.SetTrigger("IsDead");

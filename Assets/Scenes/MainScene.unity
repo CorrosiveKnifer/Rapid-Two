@@ -33638,6 +33638,28 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4749242559858156764, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 62af15f8b2f4b084193a37eef76c2a9b, type: 3}
+--- !u!1 &701658615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3760574948659766562, guid: 62af15f8b2f4b084193a37eef76c2a9b,
+    type: 3}
+  m_PrefabInstance: {fileID: 701658614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &701658616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701658615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71f87ea46156544c95c176f073b694e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: c49fef8a4e209b44da75f61ca2cf17c1, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &702297135
 GameObject:
   m_ObjectHideFlags: 0

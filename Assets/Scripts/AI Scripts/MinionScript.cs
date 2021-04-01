@@ -104,11 +104,6 @@ public abstract class MinionScript : MonoBehaviour
         return null;
     }
 
-    public void DeathSound()
-    {
-        GetComponent<VolumeAudioAgent>().PlaySoundEffect("RockBoiDeath");
-    }
-
     public void Death()
     {
         agent.isStopped = true;

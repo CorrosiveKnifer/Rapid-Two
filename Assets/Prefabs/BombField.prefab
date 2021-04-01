@@ -136,11 +136,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion
       objectReference: {fileID: 0}
-    - target: {fileID: 856670182789923195, guid: 5319bbedc84a41d42b6f1d7082285a23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2965590015854574328, guid: 5319bbedc84a41d42b6f1d7082285a23,
         type: 3}
       propertyPath: m_RootOrder
@@ -195,11 +190,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794124659868076600, guid: 5319bbedc84a41d42b6f1d7082285a23,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5319bbedc84a41d42b6f1d7082285a23, type: 3}
