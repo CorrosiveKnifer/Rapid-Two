@@ -22,7 +22,7 @@ public class PlayerHarvester : MonoBehaviour
     bool IsSelected = false;
     private float health;
     public float maxHealth = 100.0f;
-    bool IsDead = false;
+    private bool IsDead = false;
     bool isMoving = false;
     public float m_fSpeed = 6;
     float fGravity = -9.81f;
@@ -55,25 +55,27 @@ public class PlayerHarvester : MonoBehaviour
             velocity.y += fGravity * Time.fixedDeltaTime;
         }
         
+        if(!IsDead)
+        {
+            // Harvester movement
+            float x = Input.GetAxis("Horizontal");
+            float z = Input.GetAxis("Vertical");
 
-        // Harvester movement
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+            isMoving = (x != 0 || z != 0); // Is minion moving
 
-        isMoving = (x != 0 || z != 0); // Is minion moving
+            Vector3 move = (m_Player.transform.right * x + m_Player.transform.forward * z);
+            Debug.Log(move);
+            m_CharacterController.Move((move * m_fSpeed + velocity) * Time.fixedDeltaTime);
 
-        Vector3 move = (m_Player.transform.right * x + m_Player.transform.forward * z);
-        Debug.Log(move);
-        m_CharacterController.Move((move * m_fSpeed + velocity) * Time.fixedDeltaTime);
-
-        Vector3 lookAtTarget = transform.position + new Vector3(m_CharacterController.velocity.x, 0, m_CharacterController.velocity.z);
-        transform.LookAt(lookAtTarget, Vector3.up);
+            Vector3 lookAtTarget = transform.position + new Vector3(m_CharacterController.velocity.x, 0, m_CharacterController.velocity.z);
+            transform.LookAt(lookAtTarget, Vector3.up);
 
 
-        animator.SetFloat("MovementMod", Mathf.Clamp(m_fSpeed * 2.5f, 0.5f, 2.5f));
-        animator.SetBool("IsMoving", isMoving);
+            animator.SetFloat("MovementMod", Mathf.Clamp(m_fSpeed * 2.5f, 0.5f, 2.5f));
+            animator.SetBool("IsMoving", isMoving);
 
-        GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
+            GameManager.instance.SetMinionBlood(bloodHold / maximumBlood);
+        }
     }
 
     private void Update()
@@ -131,9 +133,14 @@ public class PlayerHarvester : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            GetComponent<VolumeAudioAgent>().PlaySoundEffect("HarvesterDeath");
             animator.SetTrigger("IsDead");
             IsDead = true;
             bloodHold = 0;
+        }
+        else
+        {
+            GetComponent<VolumeAudioAgent>().PlaySoundEffect($"HarvesterHurt{Mathf.FloorToInt(Random.Range(1, 5))}");
         }
     }
 
@@ -142,7 +149,9 @@ public class PlayerHarvester : MonoBehaviour
         animator.SetTrigger("Reset");
         materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", 1.0f);
         IsDead = false;
+        m_CharacterController.enabled = false;
         transform.position = RespawnPoint;
+        m_CharacterController.enabled = true;
         health = maxHealth;
     }
 
@@ -180,32 +189,32 @@ public class PlayerHarvester : MonoBehaviour
     public void Death()
     {
         IsDead = true;
-        StartCoroutine(ShowDeath());
-    }
-
-    protected IEnumerator ShowDeath()
-    {
-        float t = 0.0f;
-        float dt = 0.05f;
-        float dt2 = 0.01f;
-        float alpha = 1.0f;
-
-        materialLoc.GetComponent<Renderer>().material = deathMaterial;
-
-        while (alpha > 0.0f)
-        {
-            alpha = Mathf.Lerp(1.0f, 0.0f, t);
-            materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
-
-            t += dt * Time.deltaTime;
-            dt += dt2;
-
-            yield return new WaitForEndOfFrame();
-        }
-
         HandleShowDeathFinalFrame();
-        yield return null;
     }
+
+    //protected IEnumerator ShowDeath()
+    //{
+    //    float t = 0.0f;
+    //    float dt = 0.05f;
+    //    float dt2 = 0.01f;
+    //    float alpha = 1.0f;
+    //
+    //    materialLoc.GetComponent<Renderer>().material = deathMaterial;
+    //
+    //    while (alpha > 0.0f)
+    //    {
+    //        alpha = Mathf.Lerp(1.0f, 0.0f, t);
+    //        materialLoc.GetComponent<Renderer>().material.SetFloat("Alpha", alpha);
+    //
+    //        t += dt * Time.deltaTime;
+    //        dt += dt2;
+    //
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //
+    //    HandleShowDeathFinalFrame();
+    //    yield return null;
+    //}
 }
 
 
