@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2965590015854574328}
   - component: {fileID: 3843958300977437666}
-  m_Layer: 0
+  - component: {fileID: 9218612683409450721}
+  m_Layer: 2
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,6 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9218612683409450721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856670182789923195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52a70e5d2068114dafa9fa4cfce2872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioClips:
+  - {fileID: 8300000, guid: d5c489b004c187347b444003abb4b54f, type: 3}
+  AgentSEVolume: 1
+  AgentBGVolume: 1
 --- !u!1 &4794124659868076600
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,7 +72,7 @@ GameObject:
   - component: {fileID: 2786646754185476554}
   - component: {fileID: 7639298974270180291}
   - component: {fileID: 8775584909098316576}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire End
   m_TagString: Untagged
   m_Icon: {fileID: 0}

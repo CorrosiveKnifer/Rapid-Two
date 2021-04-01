@@ -489,10 +489,9 @@ public class Player : MonoBehaviour
         {
             if (m_Demon == null) // Summon new demon.
             {
-                GameObject.FindGameObjectWithTag("End")?.GetComponent<EndGoalScript>()?.StartSummonOfDemon();
-
                 if (m_iDemonCost <= GameManager.instance.blood)
                 {
+                    GameObject.FindGameObjectWithTag("End")?.GetComponent<EndGoalScript>()?.StartSummonOfDemon();
                     GameManager.instance.blood -= m_iDemonCost;
                     StartCoroutine(SpawnDemon());
                     GameManager.instance.SelectFrame.GetComponent<Image>().enabled = true;

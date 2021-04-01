@@ -30,5 +30,6 @@ public class EndGoalScript : MonoBehaviour
         {
             anim.SetTrigger("Summon");
         }
+        StartCoroutine(GetComponent<VolumeAudioAgent>().PlaySoundEffectDelayed("MageSummon", 1.0f));
     }
 }

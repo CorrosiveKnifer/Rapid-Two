@@ -41,6 +41,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave()
     {
+        GetComponent<AudioAgent>().PlaySoundEffect("MobChant");
         string[] substring = waveCode[waveIndex++].Split(',');
         int[] quantity = new int[5];
 
