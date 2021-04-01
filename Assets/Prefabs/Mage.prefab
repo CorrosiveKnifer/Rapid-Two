@@ -772,6 +772,7 @@ GameObject:
   - component: {fileID: 2722235322488729600}
   - component: {fileID: 3937839487825078122}
   - component: {fileID: 3458240668469933017}
+  - component: {fileID: 8267499993194210389}
   m_Layer: 2
   m_Name: Mage
   m_TagString: Untagged
@@ -833,6 +834,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
+--- !u!65 &8267499993194210389
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354198994502183610}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.038772, z: 1}
+  m_Center: {x: 0, y: 0.99509645, z: 0}
 --- !u!1 &3747832649048710239
 GameObject:
   m_ObjectHideFlags: 0
