@@ -109,6 +109,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3205fc454ebc445429e9187724a3e119, type: 3}
   - {fileID: 8300000, guid: 3cfc879591b101342aedf36741520309, type: 3}
   - {fileID: 8300000, guid: be6fef25ad44bdb45b8b4d9526d2c96a, type: 3}
+  - {fileID: 8300000, guid: fe796b28f356b5f4bb5a05eb6eee63d9, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
 --- !u!1001 &1825766748200239937

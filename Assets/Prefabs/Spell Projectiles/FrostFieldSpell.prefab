@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5684579081124376446}
   - component: {fileID: 5684579081124376447}
   - component: {fileID: 5684579081124376442}
-  - component: {fileID: 6374005462163071641}
   - component: {fileID: 7860678074648523547}
+  - component: {fileID: 6374005462163071641}
   m_Layer: 0
   m_Name: FrostFieldSpell
   m_TagString: Untagged
@@ -113,18 +113,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6374005462163071641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5684579081124376444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7860678074648523547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +129,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d5c489b004c187347b444003abb4b54f, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+--- !u!114 &6374005462163071641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5684579081124376444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6292778375705079810
 PrefabInstance:
   m_ObjectHideFlags: 0

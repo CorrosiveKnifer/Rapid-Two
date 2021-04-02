@@ -23,6 +23,8 @@ public class PlayerHarvester : MonoBehaviour
     private float health;
     public float maxHealth = 100.0f;
     private bool IsDead = false;
+    private bool IsFull = false;
+
     bool isMoving = false;
     public float m_fSpeed = 6;
     float fGravity = -9.81f;
@@ -81,6 +83,15 @@ public class PlayerHarvester : MonoBehaviour
     {
         if (delay > 0)
             delay = Mathf.Clamp(delay - Time.deltaTime, 0, HarvestDelay);
+
+        if(bloodHold == maximumBlood && !IsFull)
+        {
+            IsFull = true;
+            GetComponent<VolumeAudioAgent>().PlaySoundEffect("HarvesterFull");
+        }
+
+        if (bloodHold == 0)
+            IsFull = false;
 
         if (delay <= 0 && bloodHold < maximumBlood)
         {

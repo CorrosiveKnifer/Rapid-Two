@@ -9,7 +9,7 @@ public class VolumeAudioAgent : AudioAgent
 {
     protected override void Update()
     {
-        AgentSEVolume = GameManager.instance.CalculateVolumeModifier(transform.position);
+        AgentSEVolume = Mathf.Clamp(GameManager.instance.CalculateVolumeModifier(transform.position), 0.0f, 1.0f);
         AgentBGVolume = AgentSEVolume;
 
         base.Update();

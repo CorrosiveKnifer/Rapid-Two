@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2965590015854574328}
-  - component: {fileID: 3843958300977437666}
   - component: {fileID: 9218612683409450721}
+  - component: {fileID: 3843958300977437666}
   m_Layer: 2
   m_Name: Explosion
   m_TagString: Untagged
@@ -33,18 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3843958300977437666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856670182789923195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9218612683409450721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +49,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d5c489b004c187347b444003abb4b54f, type: 3}
   AgentSEVolume: 1
   AgentBGVolume: 1
+--- !u!114 &3843958300977437666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856670182789923195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f355d3f2f36eaf4ab77423242c3ed4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4794124659868076600
 GameObject:
   m_ObjectHideFlags: 0
